@@ -47,6 +47,7 @@ var tableRowsNum;
 var tableCellsNum;
 
 var currentDifficulty = 1;
+
 function setSelectedDiff(value) {
     currentDifficulty = value;
     console.log(currentDifficulty);
@@ -208,15 +209,13 @@ function loadPuzzle(puzzleName) {
             // Set puzzleLoaded to true so that the Start Game button can't load the puzzle again.
             timerInstance.start();
             puzzleLoaded = true;
-            initializePopMenu();
+            inputDisplay.initializePopMenu();
         }
     }
 }
 
 var lastClicked;
-var menuVisible = false;
 function clickCell(clickedCell) {
-    closeInputMenu();
     if (typeof lastClicked != 'undefined' && lastClicked != clickedCell) {
         if (lastClicked.parentElement != clickedCell.parentElement) {
             for (var i = 0; i < 9; i++) {
@@ -229,7 +228,7 @@ function clickCell(clickedCell) {
             }
         }
         highlight(lastClicked, "white");
-        closeInputMenu();
+        inputDisplay.close();
     }
     for (var j = 0; j < 9; j++) {
         highlight(clickedCell.parentElement.cells[j], "#d6ebf2");
@@ -239,62 +238,11 @@ function clickCell(clickedCell) {
     }
     highlight(clickedCell, "#add8e6");
     lastClicked = clickedCell;
-    if (menuVisible == false) {
-        showMenu(lastClicked);
+    if (inputDisplay.getVisibility() == false) {
+        inputDisplay.open(lastClicked);
     }
 }
 
 function highlight(object, color) {
     object.style.backgroundColor = color;
-}
-
-function initializePopMenu() {
-    var popMenu = document.createElement("DIV");
-    popMenu.setAttribute("id", "popMenu");
-    popMenu.style.zIndex = 2;
-    popMenu.style.opacity = 0;
-    popMenu.style.visibility = "hidden";
-    document.getElementById("gameGrid").appendChild(popMenu);
-    var popMenuList = document.createElement("UL");
-    popMenu.appendChild(popMenuList);
-    for (var i = 0; i < 9; i++) {
-        var selectNum = document.createElement("LI");
-        selectNum.setAttribute("class", "numSelect");
-        var optText = i + 1;
-        selectNum.innerHTML = optText.toString();
-        popMenuList.appendChild(selectNum);
-        if ((i + 1) % 3 == 0) {
-            var newLine = document.createElement("BR");
-            popMenuList.appendChild(newLine);
-        }
-    }
-    menuVisible = false;
-    for (i = 0; i < 9; i++) {
-        var numbers = document.getElementsByClassName("numSelect");
-        numbers[i].onclick = function () {
-            updateInputNum(lastClicked, this);
-        };
-
-    }
-}
-
-function showMenu(thisCell) {
-    var popMenu = document.getElementById("popMenu");
-    popMenu.style.top = thisCell.offsetTop - 320 + "px";
-    popMenu.style.left = thisCell.offsetLeft - 20 + "px";
-    popMenu.style.visibility = "visible";
-    popMenu.style.opacity = 1;
-    menuVisible = true;
-}
-
-function closeInputMenu() {
-    var popMenu = document.getElementById("popMenu");
-    popMenu.style.opacity = 0;
-    popMenu.style.visibility = "hidden";
-    menuVisible = false;
-}
-
-function updateInputNum(_cell, _choice) {
-    _cell.innerHTML = _choice.innerHTML;
-    closeInputMenu();
 }

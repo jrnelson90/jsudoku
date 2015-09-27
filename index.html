@@ -12,16 +12,18 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSudoku</title>
-    <link rel="stylesheet" href="grid.css">
-    <script src="grid.js"></script>
-    <script src="timer.js"></script>
-    <link rel="shortcut icon" href="gnome_sudoku.ico">
     <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>JSudoku</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="inputGrid.css">
+    <link rel="shortcut icon" href="gnome_sudoku.ico">
+    <script src="gameGrid.js"></script>
+    <script src="timer.js"></script>
+    <script src="inputGrid.js"></script>
 </head>
-<body onload="generateGameGrid(9,9); createTimer();">
+<body onload="generateGameGrid(9,9); createTimer(); createPopupMenu();">
 <div id="toolbarArea">
-    <div><img src="GridTitle.png"></div>
+    <div><img src="title.png"></div>
     <div>
         <input type="button" value="Start Game" class="controlBtn" onclick="clickStart();">
         <input type="button" value="Hint" class="controlBtn">

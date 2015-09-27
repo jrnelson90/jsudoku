@@ -1,12 +1,12 @@
 /* JavaScript Sudoku Table Generation Assignment
    Author:		 Justin Nelson
-   Assignment:	 Assignment 2
-   File:		 grid.css
+   Assignment:	 Assignment 3
+   File:		 index.css
    Instructor:   Lynn Thackeray
    Class:		 CS 2550 Section 001
    Date Written: 9/23/2015
    Description:  Generates a sudoku grid using js to define HTML and CSS
-               and populates the grid from a passed puzzle setup array.
+                 and populates the grid from a passed puzzle setup array.
 */
 html, body {
     background: #00bfff;
@@ -78,66 +78,10 @@ html, body {
 
 #difficultySelect {
     display: inline;
-}
-
-#gameTable {
-    z-index: 1;
-}
-
-#popMenu {
-    width: 72px;
-    height: auto;
-    position: relative;
-    top: 0;
-    left: 0;
-    border: thin solid black;
-    border-radius: 6px;
-    background-color: rgba(173, 216, 230, 0.95);
-    font-weight: bold;
-    overflow: hidden;
-    display: block;
-    align-content: center;
-    margin: 0;
-    transition: opacity 0.3s;
-    -moz-transition: opacity 0.3s;
-    -o-transition: opacity 0.3s;
-    -ms-transition: opacity 0.3s;
-    -webkit-transition: opacity 0.3s;
-}
-
-#popMenu ul {
-    list-style-type: none;
-    align-content: center;
-    margin: 2px auto;
-    padding: 0;
-}
-
-#popMenu ul li {
-    overflow: hidden;
-    height: 20px;
-}
-
-#popMenu li {
-    margin: 4px;
-    text-align: left;
-    font-size: 14pt;
-    display: inline;
-}
-
-#popMenu li:hover {
-    cursor: pointer;
-    color: mintcream;
-}
-
-#difficultySelect {
     margin-left: 6px;
     margin-right: 6px;
 }
 
-.puzzleNum {
-    transition: opacity 1s;
-    -moz-transition: opacity 1s;
-    -o-transition: opacity 1s;
-    -ms-transition: opacity 1s;
-    -webkit-transition: opacity 1s;
+#gameTable {
+    z-index: 1;
 }
