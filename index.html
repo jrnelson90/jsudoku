@@ -22,21 +22,21 @@
 <body onload="generateGameGrid(9,9); createTimer();">
 <div id="toolbarArea">
     <div><img src="GridTitle.png"></div>
-    <input type="button" value="Start Game" class="controlBtn" onclick="clickStart();">
-    <input type="button" value="Hint" class="controlBtn">
-    <b style="color: white">Difficulty:</b>
-    <select onclick="setSelectedDiff(this.selectedIndex);" id="difficultySelect">
-        <option>Easy</option>
-        <option selected>Normal</option>
-        <option>Hard</option>
-    </select>
-
+    <div>
+        <input type="button" value="Start Game" class="controlBtn" onclick="clickStart();">
+        <input type="button" value="Hint" class="controlBtn">
+        <b style="color: white">Difficulty:</b>
+        <select onclick="setSelectedDiff(this.selectedIndex);" id="difficultySelect">
+            <option>Easy</option>
+            <option selected>Normal</option>
+            <option>Hard</option>
+        </select>
+    </div>
     <div id="gameTimerContainer">
         <b>Game Time</b>
-
         <div id="gameTimerDisplay"></div>
     </div>
-    <div id="gameGrid"></div>
 </div>
+<div id="gameGrid"></div>
 </body>
 </html>

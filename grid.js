@@ -280,8 +280,8 @@ function initializePopMenu() {
 
 function showMenu(thisCell) {
     var popMenu = document.getElementById("popMenu");
-    popMenu.style.top = thisCell.offsetTop - 314 + "px";
-    popMenu.style.left = thisCell.offsetLeft - 12 + "px";
+    popMenu.style.top = thisCell.offsetTop - 320 + "px";
+    popMenu.style.left = thisCell.offsetLeft - 20 + "px";
     popMenu.style.visibility = "visible";
     popMenu.style.opacity = 1;
     menuVisible = true;
