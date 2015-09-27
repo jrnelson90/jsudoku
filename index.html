@@ -1,0 +1,42 @@
+<!-- JavaScript Sudoku Table Generation Assignment
+     Author:		Justin Nelson
+     Assignment:	Assignment 3
+     File:		    index.html
+     Instructor:    Lynn Thackeray
+     Class:		    CS 2550 Section 001
+     Date Written:  9/23/2015
+     Description:   Generates a sudoku grid using js to define HTML and CSS
+                    and populates the grid from a passed puzzle setup array.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSudoku</title>
+    <link rel="stylesheet" href="grid.css">
+    <script src="grid.js"></script>
+    <script src="timer.js"></script>
+    <link rel="shortcut icon" href="gnome_sudoku.ico">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+</head>
+<body onload="generateGameGrid(9,9); createTimer();">
+<div id="toolbarArea">
+    <div><img src="GridTitle.png"></div>
+    <input type="button" value="Start Game" class="controlBtn" onclick="clickStart();">
+    <input type="button" value="Hint" class="controlBtn">
+    <b style="color: white">Difficulty:</b>
+    <select onclick="setSelectedDiff(this.selectedIndex);" id="difficultySelect">
+        <option>Easy</option>
+        <option selected>Normal</option>
+        <option>Hard</option>
+    </select>
+
+    <div id="gameTimerContainer">
+        <b>Game Time</b>
+
+        <div id="gameTimerDisplay"></div>
+    </div>
+    <div id="gameGrid"></div>
+</div>
+</body>
+</html>
