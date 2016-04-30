@@ -23,6 +23,10 @@ document.onreadystatechange = function () {
                 document.getElementById("middleButtons").style.float = "right";
 
             }
+            //else {
+            //    gameGrid.style.marginTop = "40px;"
+            //
+            //}
         },10);
 
         setTimeout( function() {
