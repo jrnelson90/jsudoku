@@ -343,7 +343,7 @@ function SudokuControl() {
 
     this.clickRestart = function () {
         var endPop = document.getElementById("endGamePop");
-        if(gameControl.isPaused() == true){
+        if(gameView.isPauseLayerVisible() == true){
             var pauseRemove = document.getElementById("pauseLayer");
             pauseRemove.parentElement.removeChild(pauseRemove);
             paused = false;
