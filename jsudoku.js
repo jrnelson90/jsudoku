@@ -618,7 +618,7 @@ function SudokuControl() {
         closeHelpBtn.addEventListener("click", function () {
             var HelpPop = document.getElementById("HelpPop");
             gameView.togglePopupView(HelpPop);
-            if(gameControl.isPaused() == false) {
+            if(gameView.isPauseLayerVisible() == false) {
                 gameControl.resumeTimer();
                 gameView.blurGrid();
             }
