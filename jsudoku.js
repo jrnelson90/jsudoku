@@ -201,8 +201,12 @@ function SudokuControl() {
         var backButton = document.getElementById("back");
         backButton.addEventListener("click", function() {
             if (gameModel.completed() == false && gameView.loaded() == true) {
-                gameControl.pauseTimer();
-                gameView.blurGrid();
+                if(gameControl.isPaused() == false) {
+                    gameControl.pauseTimer();
+                }
+                if(gameView.isBlurred() == false) {
+                    gameView.blurGrid();
+                }
                 gameControl.initEndGamePop();
                 var endPop = document.getElementById("endGamePop");
                 gameView.togglePopupView(endPop);
@@ -302,14 +306,12 @@ function SudokuControl() {
             pauseScreen.style.height = window.innerHeight - 46 +"px";
             gameView.blurGrid();
             document.body.appendChild(pauseScreen);
-            paused = true;
         }
         else if (paused == true) {
             gameControl.resumeTimer();
             gameView.blurGrid();
             var pauseRemove = document.getElementById("pauseLayer");
             pauseRemove.parentElement.removeChild(pauseRemove);
-            paused = false;
         }
     };
 
@@ -341,6 +343,11 @@ function SudokuControl() {
 
     this.clickRestart = function () {
         var endPop = document.getElementById("endGamePop");
+        if(gameControl.isPaused() == true){
+            var pauseRemove = document.getElementById("pauseLayer");
+            pauseRemove.parentElement.removeChild(pauseRemove);
+            paused = false;
+        }
         gameView.togglePopupView(endPop);
         gameView.slideStartOpen();
         gameControl.stopTimer();
@@ -352,8 +359,10 @@ function SudokuControl() {
     };
 
     this.clickHelp = function () {
-        gameControl.pauseTimer();
-        gameView.blurGrid();
+        if(gameControl.isPaused() == false) {
+            gameControl.pauseTimer();
+            gameView.blurGrid();
+        }
         var newHelpWin = new HelpPop();
         gameView.togglePopupView(newHelpWin.view);
     };
@@ -528,8 +537,12 @@ function SudokuControl() {
         cancel.setAttribute("class", "endBtn");
         cancel.setAttribute("id", "cancel");
         cancel.addEventListener("click", function () {
-            gameControl.resumeTimer();
-            gameView.blurGrid();
+            if(gameControl.isPaused() == true && gameView.isPauseLayerVisible() == false) {
+                gameControl.resumeTimer();
+            }
+            if(gameView.isBlurred() == true && gameControl.isPaused() == false) {
+                gameView.blurGrid();
+            }
             var endPop = document.getElementById("endGamePop");
             gameView.togglePopupView(endPop);
         });
@@ -605,8 +618,10 @@ function SudokuControl() {
         closeHelpBtn.addEventListener("click", function () {
             var HelpPop = document.getElementById("HelpPop");
             gameView.togglePopupView(HelpPop);
-            gameControl.resumeTimer();
-            gameView.blurGrid();
+            if(gameControl.isPaused() == false) {
+                gameControl.resumeTimer();
+                gameView.blurGrid();
+            }
         });
         newHelpPop.appendChild(closeHelpBtn);
 
@@ -817,6 +832,7 @@ function SudokuControl() {
         currentTimeElapsed = this.getElapsedTime();
         this.stopTimer();
         pausedTimeStart = currentTime();
+        paused = true;
     };
 
     this.resumeTimer = function() {
@@ -828,6 +844,7 @@ function SudokuControl() {
         viewUpdateInterval = setInterval(function () {
             gameView.updateTimerDisplay();
         }, 1000);
+        paused = false;
     };
 
     var currentTime = function () {
@@ -877,6 +894,10 @@ function SudokuControl() {
 
         closeButton.appendChild(closeX);
         return closeButton;
+    }
+
+    this.isPaused = function() {
+        return paused;
     }
 }
 
@@ -1332,12 +1353,12 @@ function SudokuView() {
     };
 
     this.blurGrid = function() {
-        if(gridBlurred == false) {
+        if(this.isBlurred() == false) {
             document.getElementById("gameGrid").style.filter = "blur(10px)";
             document.getElementById("gameGrid").style.webkitFilter = "blur(10px)";
             gridBlurred = true;
         }
-        else if (gridBlurred == true) {
+        else if (this.isBlurred() == true) {
             document.getElementById("gameGrid").style.filter = "blur(0px)";
             document.getElementById("gameGrid").style.webkitFilter = "blur(0px)";
             gridBlurred = false;
@@ -1785,4 +1806,15 @@ function SudokuView() {
         var navSound = document.getElementById("navSound");
         navSound.play();
     };
+
+    this.isBlurred = function() {
+        return gridBlurred;
+    }
+
+    this.isPauseLayerVisible = function() {
+        if(document.getElementById("pauseLayer") === null)
+            return false;
+        else
+            return true;
+    }
 }
