@@ -1,10 +1,7 @@
-/* JavaScript Sudoku Table Generation Assignment
+/* JavaScript Sudoku Generator
  Author:		Justin Nelson
- Assignment:	Final Project
  File:		    genv5.js
- Instructor:    Lynn Thackeray
- Class:		    CS 2550 Section 001
- Date Written:  12/12/2015
+ Date Written:  06/20/2016
  Description:   Generates a sudoku grid using js to define HTML and CSS
  and populates the grid from a passed puzzle setup array.
  */
