@@ -276,7 +276,7 @@ body {
     padding-bottom: 10px;
     text-indent:  8px;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     font-family: 'Roboto', 'Noto Sans', sans-serif;
     display: block;
@@ -288,7 +288,7 @@ body {
     position: absolute;
     top: 10px;
     z-index: 2002;
-    width: 160px;
+    width: 140px;
     height: auto;
     background-color: #2196F3;
     opacity: 0;
@@ -305,7 +305,7 @@ body {
     clear: both;
     background: none;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     display: block;
     padding-top: 8px;
@@ -318,10 +318,6 @@ body {
     cursor: pointer;
     outline: thin;
 }
-
-/*#selText:focus {
-    background: url("drop_down.png") no-repeat right #2196F3;
-}*/
 
 .selOpt:hover {
     cursor: pointer;

@@ -1,77 +1,103 @@
 /**
  * Created by jrnel on 6/20/2016.
  */
+// Create instances of Model, Control, and View objects
 var gameView = new SudokuView();
 var gameControl = new SudokuControl();
 var gameModel = new SudokuModel();
+
+// For this version, the grid is a standard 9 x 9 cell puzzle
 var defaultGridLength = 9;
 
+// On Document Ready Event (Script Start)
 $(document).ready(function () {
+    // Get Width, Height, and detect whether browser is mobile or desktop
     gameView.getBrowserInfo();
+
+    // Setup events for Startup Screen
     gameView.setupStartScreen();
+
+    // Make Startup Screen fade in
     $("#startPage").css({"opacity": "1"});
 
-    // Create 9x9 Grid
+    // Create 9x9 Game Grid
     gameView.drawGameGrid(defaultGridLength, defaultGridLength);
+
+    // If on a small screen or minimized screen (less than 600px), reorganize toolbar
     if($(window).width() < 600) {
         $("#middleButtons").append($("#help"));
         $("#middleButtons").css({"float": "right"});
     }
+
+    // Make toolbar and display area visible after 0.5s delay
     setTimeout(function () {
         $("#displayArea").css({"opacity": "1"});
         $("#toolbar").css({"visibility": "visible"});
     },500);
 
+    // Click event for game view back button
     $("#back").click(function () {
         gameView.slideStartOpen();
     });
 
+    // Window Resize event
     $(window).resize(function () {
         gameView.resizeView();
     });
 });
 
+// Sudoku Model Object
 function SudokuModel() {
+    //
+    // Model Data
+    //
     var currentDifficulty = "medium";
 
- this.difficulty = function () {
+    //
+    // Model Methods
+    //
+
+    // SudokuModel.difficulty()
+    // Returns current puzzle difficulty level
+    this.difficulty = function () {
         return currentDifficulty;
     };
 
+    // SudokuModel.setDifficulty()
+    // Sets current puzzle difficulty level
     this.setDifficulty = function (_selection) {
         currentDifficulty = _selection;
     };
 
 }
 
+// Sudoku Control Object
 function SudokuControl(){
-    this.toggleSelect = function () {
-        if (gameView.selectToggle() == false) {
-            gameView.expandSelect();
-        } else {
-            gameView.collapseSelect();
-        }
-    };
+
 }
 
+// Sudoku View Object
 function SudokuView() {
+    var isMobile;
+    var viewWidth;
+    var viewHeight;
     var cellSize = 0;
+    var startOpen;
+    var $startScreen;
+
+    var fontNormal;
+    var fontBold;
+    var fontNote;
+
     var lastHighlighted;
     var highToggle = false;
     var popUpVisible = false;
     var puzzleLoaded = false;
     var clickTimer = null;
     var inputGridVisible = false;
-    var isMobile;
-    var viewWidth;
-    var viewHeight;
-    var selectToggle = false;
-    var fontNormal;
-    var fontBold;
-    var fontNote;
+
     var gridBlurred = false;
-    var startOpen;
-    var $startScreen;
+
 
     var easyPreview = [[0,2,0,9,8,0,0,0,0],
         [0,1,4,0,0,0,0,7,0],
@@ -121,6 +147,7 @@ function SudokuView() {
         $("#startBtn").click(function () {
             gameView.slideStartClose();
 
+            //TODO: Implement Start Button Puzzle Gen and Load
             /*setTimeout(function() {
                  if (gameView.loaded() == false && gameModel.completed() == false) {
                     if ($("#selText").innerHTML == "Difficulty") {
@@ -278,6 +305,9 @@ function SudokuView() {
         });
         console.log(gridSize);
         console.log(cellSize);
+
+        //TODO: Script resizing preview grid
+        //TODO: Script resizing font sizes
     };
 
     this.getBrowserInfo = function() {
