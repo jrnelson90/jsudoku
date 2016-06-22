@@ -8,7 +8,7 @@ var defaultGridLength = 9;
 
 $(document).ready(function () {
     gameView.getBrowserInfo();
-    gameView.drawStartScreen();
+    gameView.setupStartScreen();
     $("#startPage").css({"opacity": "1"});
 
     // Create 9x9 Grid
@@ -25,7 +25,7 @@ $(document).ready(function () {
     $("#back").click(function () {
         gameView.slideStartOpen();
     });
-    
+
     $(window).resize(function () {
         gameView.resizeView();
     });
@@ -113,7 +113,7 @@ function SudokuView() {
         [1,2,4,0,6,0,0,9,0],
         [0,9,0,0,4,0,0,0,0]];
 
-    this.drawStartScreen = function () {
+    this.setupStartScreen = function () {
         startOpen = true;
         // Create Start Page DIV
         $startScreen = $("#startPage");
@@ -149,7 +149,18 @@ function SudokuView() {
         $(".selOpt").click(function () {
             $subMenu.slideUp(300).css({"opacity": "0"});
             $menuText.text($(this).text());
-            gameModel.setDifficulty($(this).text().toLowerCase())
+            gameModel.setDifficulty($(this).text().toLowerCase());
+            $(".prevCell").text("").css({"opacity": "0"});
+            setTimeout(function() {
+                if ($menuText.text() == "Easy")
+                    loadPreview(easyPreview);
+                else if ($menuText.text() == "Medium")
+                    loadPreview(medPreview);
+                else if ($menuText.text() == "Hard")
+                    loadPreview(hardPreview);
+                else if ($menuText.text() == "Crazy")
+                    loadPreview(crazyPreview);
+            }, 300);
         });
 
         // Add Difficulty Preview Grid
@@ -313,30 +324,4 @@ function SudokuView() {
     this.setIsMobile = function (_bool) {
         isMobile = _bool;
     };
-
-    this.selectToggle = function() {
-        return selectToggle;
-    };
-
-    this.expandSelect = function() {
-        $("#selDropCont").css({"visibility": "visible"});
-
-        setTimeout(function(){
-            $(".selOpt").css({"visibility": "visible"});
-        }, 50);
-        selectToggle = true;
-    };
-
-    this.collapseSelect = function() {
-        $(".selOpt").css({"visibility": "hidden"});
-        setTimeout(function(){
-            $("#selDropCont").css({"visibility": "hidden"});
-        }, 50);
-        selectToggle = false;
-    };
-
-    this.navTone = function() {
-        $("#navSound").play();
-    };
-
 }
