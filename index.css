@@ -246,7 +246,6 @@ body {
     text-align: center;
     display: table-cell;
     padding: 0;
-    opacity: 0;
     font-family : 'Roboto', sans-serif;
     cursor : default;
     -moz-user-select : none;
@@ -322,4 +321,8 @@ body {
 .selOpt:hover {
     cursor: pointer;
     opacity: 0.7;
+}
+
+.previewGivenNums {
+    /*opacity: 0;*/
 }

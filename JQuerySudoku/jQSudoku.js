@@ -17,7 +17,6 @@ var easyPreview = [[0,2,0,9,8,0,0,0,0],
     [0,4,1,8,0,0,0,0,0],
     [8,0,0,0,0,0,1,0,4],
     [7,0,9,0,3,0,8,0,6]];
-
 var medPreview = [[0,0,0,1,0,0,0,4,0],
     [0,1,0,0,0,0,7,0,0],
     [0,0,9,7,0,0,0,0,0],
@@ -27,7 +26,6 @@ var medPreview = [[0,0,0,1,0,0,0,4,0],
     [0,0,4,0,2,0,0,0,0],
     [0,8,0,9,6,1,0,2,4],
     [6,0,2,0,4,0,0,0,9]];
-
 var hardPreview = [[0,0,0,3,0,0,0,0,4],
     [0,0,0,1,7,0,2,3,0],
     [0,2,0,0,0,0,7,0,0],
@@ -37,7 +35,6 @@ var hardPreview = [[0,0,0,3,0,0,0,0,4],
     [0,8,0,0,3,6,0,0,7],
     [0,0,0,0,0,8,0,0,0],
     [0,4,0,2,0,0,0,0,9]];
-
 var crazyPreview = [[0,0,0,0,0,0,0,0,4],
     [0,5,0,0,0,0,0,0,0],
     [7,0,8,0,0,4,0,2,1],
@@ -107,7 +104,7 @@ $(document).ready(function () {
         $subMenu.slideUp(300).css({"opacity": "0"});
         $menuText.text($(this).text());
         gameModel.setDifficulty($(this).text().toLowerCase());
-        $(".prevCell").text("").css({"opacity": "0"});
+        $(".prevCell").text("").css({"opacity": "1"});
         setTimeout(function() {
             if ($menuText.text() == "Easy")
                 gameView.loadPreview(easyPreview);
@@ -248,6 +245,7 @@ function SudokuView() {
                 "font-size": prevCellSize - 14 + "px",
                 "unselectable": "on",
                 "vertical-align": "middle"
+
             });
             console.log(prevGridSize);
             console.log(prevCellSize);
@@ -258,11 +256,11 @@ function SudokuView() {
         for (var x = 0; x < 9; x++) {
             for (var y = 0; y < 9; y++) {
                 if (_passedPuzzle[x][y]!= 0)
-                    $("#prev" + x + "x" + y).text(_passedPuzzle[x][y]);
+                    $("#prev" + x + "x" + y).append('<div class=\"previewGivenNums\">'+_passedPuzzle[x][y]+'</div>');
             }
         }
         setTimeout(function() {
-            $(".prevCell").css({"opacity": "1"});
+            $(".previewGivenNums").css({"opacity": "1"});
         }, 50);
     };
 
