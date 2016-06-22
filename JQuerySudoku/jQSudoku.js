@@ -200,6 +200,23 @@ function SudokuView() {
                 $("#previewGrid").append('<div id=\"prevRow' + i + '\" class=\"prevRow\">');
                 for (var j = 0; j < _columns; j++) {
                     $(".prevRow:last").append('<div id=\"prev' + i + 'x' + j + '\" class=\"gridCell prevCell\">');
+
+                    var $currentCell = $(".prevCell:last");
+
+                    if (i == 0) {
+                        $currentCell.css({"border-top": "solid black"});
+                    }
+                    else if ((i + 1) % Math.sqrt(_rows) == 0) {
+                        $currentCell.css({"border-bottom": "solid black"});
+                    }
+                    else {
+                        $currentCell.css({"border-color": "black"});
+                    }
+
+                    if (j == 0)
+                        $currentCell.css({"border-left": "solid black"});
+                    else if ((j + 1) % Math.sqrt(_columns) == 0)
+                        $currentCell.css({"border-right": "solid black"});
                 }
             }
             var prevCellSize;
@@ -263,11 +280,7 @@ function SudokuView() {
         var $gameGrid = $("#gameGrid");
         for (var i = 0; i < _rows; i++) {
             $gameGrid.append('<div id=\"row' + i + '\" class=\"gridRow\">');
-
             var $currentRow = $(".gridRow:last");
-
-
-
             for (var j = 0; j < _columns; j++) {
                 $currentRow.append('<div id=\"' + i + 'x' + j + '\" class=\"gridCell gameCell\">');
 
