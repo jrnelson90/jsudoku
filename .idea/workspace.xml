@@ -30,8 +30,8 @@
       <file leaf-file-name="jsudoku.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jsudoku.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
-              <caret line="1257" column="13" selection-start-line="1228" selection-start-column="12" selection-end-line="1257" selection-end-column="13" />
+            <state relative-caret-position="494">
+              <caret line="1088" column="59" selection-start-line="1085" selection-start-column="20" selection-end-line="1088" selection-end-column="59" />
               <folding>
                 <element signature="e#344#1134#0" expanded="false" />
                 <element signature="e#388#1132#0" expanded="false" />
@@ -183,23 +183,12 @@
                 <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
                 <element signature="e#31079#31182#0" expanded="false" />
                 <element signature="e#31328#31358#0" expanded="false" />
-                <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
                 <element signature="e#32689#33508#0" expanded="false" />
                 <element signature="e#32889#33492#0" expanded="false" />
                 <element signature="e#32973#33478#0" expanded="false" />
                 <element signature="e#33061#33165#0" expanded="false" />
                 <element signature="e#33372#33453#0" expanded="false" />
                 <element signature="e#33948#34031#0" expanded="false" />
-                <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-                <element signature="e#36969#37340#0" expanded="false" />
-                <element signature="e#37035#37170#0" expanded="false" />
-                <element signature="e#37192#37326#0" expanded="false" />
-                <element signature="e#37414#37537#0" expanded="false" />
-                <element signature="e#37989#39506#0" expanded="false" />
-                <element signature="e#38079#38192#0" expanded="false" />
-                <element signature="e#38255#38371#0" expanded="false" />
-                <element signature="e#38393#38487#0" expanded="false" />
-                <element signature="e#38653#39492#0" expanded="false" />
                 <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
                 <element signature="e#39639#39927#0" expanded="false" />
                 <element signature="e#39685#39913#0" expanded="false" />
@@ -336,19 +325,18 @@
       <file leaf-file-name="jQSudoku.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JQuerySudoku/jQSudoku.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
+            <state relative-caret-position="257">
+              <caret line="249" column="41" selection-start-line="249" selection-start-column="41" selection-end-line="249" selection-end-column="41" />
               <folding>
                 <element signature="e#1335#3824#0" expanded="false" />
                 <element signature="n#!!block;n#SudokuModel#0" expanded="false" />
                 <element signature="n#!!block;n#SudokuControl#0" expanded="false" />
-                <element signature="e#7595#7921#0" expanded="false" />
-                <element signature="e#7962#8285#0" expanded="false" />
-                <element signature="e#8325#8494#0" expanded="false" />
-                <element signature="e#8548#9626#0" expanded="false" />
-                <element signature="e#9662#12290#0" expanded="false" />
-                <element signature="e#11001#12195#0" expanded="false" />
-                <element signature="e#12330#12887#0" expanded="false" />
+                <element signature="e#7841#8167#0" expanded="false" />
+                <element signature="e#8208#8531#0" expanded="false" />
+                <element signature="e#8571#8740#0" expanded="false" />
+                <element signature="e#8794#9872#0" expanded="false" />
+                <element signature="e#11504#12698#0" expanded="false" />
+                <element signature="e#12833#13390#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -609,12 +597,12 @@
       <option name="presentableId" value="Default" />
       <updated>1444288156076</updated>
       <workItem from="1466376991431" duration="9047000" />
-      <workItem from="1466476058971" duration="68465000" />
+      <workItem from="1466476058971" duration="70905000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77512000" />
+    <option name="totallyTimeSpent" value="79952000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -801,7 +789,7 @@
           <option name="timeStamp" value="109" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="110" />
+      <option name="time" value="111" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -977,23 +965,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -1769,23 +1746,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -2561,23 +2527,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -3353,23 +3308,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -4145,23 +4089,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -5419,23 +5352,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -5729,23 +5651,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -6055,23 +5966,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -6349,23 +6249,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -6675,23 +6564,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -7685,10 +7563,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/JQuerySudoku/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/jsudoku.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="1257" column="13" selection-start-line="1228" selection-start-column="12" selection-end-line="1257" selection-end-column="13" />
+        <state relative-caret-position="494">
+          <caret line="1088" column="59" selection-start-line="1085" selection-start-column="20" selection-end-line="1088" selection-end-column="59" />
           <folding>
             <element signature="e#344#1134#0" expanded="false" />
             <element signature="e#388#1132#0" expanded="false" />
@@ -7840,23 +7726,12 @@
             <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#31079#31182#0" expanded="false" />
             <element signature="e#31328#31358#0" expanded="false" />
-            <element signature="n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#32689#33508#0" expanded="false" />
             <element signature="e#32889#33492#0" expanded="false" />
             <element signature="e#32973#33478#0" expanded="false" />
             <element signature="e#33061#33165#0" expanded="false" />
             <element signature="e#33372#33453#0" expanded="false" />
             <element signature="e#33948#34031#0" expanded="false" />
-            <element signature="n#!!block;n#drawPreviewGrid#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
-            <element signature="e#36969#37340#0" expanded="false" />
-            <element signature="e#37035#37170#0" expanded="false" />
-            <element signature="e#37192#37326#0" expanded="false" />
-            <element signature="e#37414#37537#0" expanded="false" />
-            <element signature="e#37989#39506#0" expanded="false" />
-            <element signature="e#38079#38192#0" expanded="false" />
-            <element signature="e#38255#38371#0" expanded="false" />
-            <element signature="e#38393#38487#0" expanded="false" />
-            <element signature="e#38653#39492#0" expanded="false" />
             <element signature="n#!!block;n#loadPreview#0;n#!!block;n#StartPage#0;n#!!block;n#SudokuView#0" expanded="false" />
             <element signature="e#39639#39927#0" expanded="false" />
             <element signature="e#39685#39913#0" expanded="false" />
@@ -7979,29 +7854,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JQuerySudoku/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JQuerySudoku/jQSudoku.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
+        <state relative-caret-position="257">
+          <caret line="249" column="41" selection-start-line="249" selection-start-column="41" selection-end-line="249" selection-end-column="41" />
           <folding>
             <element signature="e#1335#3824#0" expanded="false" />
             <element signature="n#!!block;n#SudokuModel#0" expanded="false" />
             <element signature="n#!!block;n#SudokuControl#0" expanded="false" />
-            <element signature="e#7595#7921#0" expanded="false" />
-            <element signature="e#7962#8285#0" expanded="false" />
-            <element signature="e#8325#8494#0" expanded="false" />
-            <element signature="e#8548#9626#0" expanded="false" />
-            <element signature="e#9662#12290#0" expanded="false" />
-            <element signature="e#11001#12195#0" expanded="false" />
-            <element signature="e#12330#12887#0" expanded="false" />
+            <element signature="e#7841#8167#0" expanded="false" />
+            <element signature="e#8208#8531#0" expanded="false" />
+            <element signature="e#8571#8740#0" expanded="false" />
+            <element signature="e#8794#9872#0" expanded="false" />
+            <element signature="e#11504#12698#0" expanded="false" />
+            <element signature="e#12833#13390#0" expanded="false" />
           </folding>
         </state>
       </provider>

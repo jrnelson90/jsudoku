@@ -238,9 +238,16 @@ function SudokuView() {
                 prevGridSize = gameView.getViewHeight() * 0.5;
                 prevCellSize = ((prevGridSize/9));
             }
+
+            if (gameView.getViewWidth() < 420)
+                $(".prevCell").css({"font-weight": "bold"});
+
             $(".prevCell").css({
                 "height": prevCellSize + "px",
                 "width": prevCellSize + "px",
+                "font-size": prevCellSize - 14 + "px",
+                "unselectable": "on",
+                "vertical-align": "middle"
             });
             console.log(prevGridSize);
             console.log(prevCellSize);
@@ -335,9 +342,16 @@ function SudokuView() {
             gameView.setCellSize(cellSize);
         }
 
+        fontNormal = cellSize - 14 + "px";
+        fontBold = cellSize - 10 + "px";
+        //cell.style.fontSize = fontNormal;
+        //cell.setAttribute("unselectable", "on");
+
         $(".gameCell").css({
             "height": gameView.getCellSize() + "px",
             "width": gameView.getCellSize() + "px",
+            "font-size": fontNormal+ "px",
+            "unselectable": "on",
             "opacity": "1"
         });
         console.log(gridSize);
