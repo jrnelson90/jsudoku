@@ -5,18 +5,9 @@
    Description:  Generates a sudoku grid using js to define HTML and CSS
                  and populates the grid from a passed puzzle setup array.
 */
-
-html {
-    margin: 0;
-    align-content: center;
-}
-
 body {
-    text-align: center;
     background-color: rgb(66, 165, 245);
     align-content: center;
-    margin: auto;
-    padding: 0;
     width: 100vw;
     min-width: 360px;
     -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -34,7 +25,6 @@ body {
     height: 36px;
     padding-bottom: 5px;
     vertical-align: middle;
-    visibility: hidden;
     box-shadow:0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
@@ -72,12 +62,12 @@ body {
 
 #startMenuCont {
     margin: 8px auto;
-    display: block;
+    display: inline;
     padding: 8px;
 }
 
 #startBtn {
-    display: inline;
+    display: block;
     margin-right: 16px;
     margin-left: auto;
     padding: 8px 16px;
@@ -298,7 +288,7 @@ body {
     position: absolute;
     top: 10px;
     z-index: 2002;
-    width: 140px;
+    width: 160px;
     height: auto;
     background-color: #2196F3;
     opacity: 0;

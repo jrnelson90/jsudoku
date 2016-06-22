@@ -10,6 +10,7 @@ $(document).ready(function () {
     gameView.getBrowserInfo();
     gameView.drawStartScreen();
     $("#startPage").css({"opacity": "1"});
+
     // Create 9x9 Grid
     gameView.drawGameGrid(defaultGridLength, defaultGridLength);
     if($(window).width() < 600) {
@@ -19,21 +20,21 @@ $(document).ready(function () {
     setTimeout(function () {
         $("#displayArea").css({"opacity": "1"});
         $("#toolbar").css({"visibility": "visible"});
-    },300);
+    },500);
 
+    $("#back").click(function () {
+        gameView.slideStartOpen();
+    });
+    
     $(window).resize(function () {
         gameView.resizeView();
-    });
-
-    $(".gridCell").click(function () {
-
     });
 });
 
 function SudokuModel() {
     var currentDifficulty = "medium";
 
-    this.difficulty = function () {
+ this.difficulty = function () {
         return currentDifficulty;
     };
 
@@ -114,84 +115,44 @@ function SudokuView() {
 
     this.drawStartScreen = function () {
         startOpen = true;
-
         // Create Start Page DIV
-        $("body").append('<div id=\"startPage\">');
         $startScreen = $("#startPage");
         $startScreen.css({"width": window.innerWidth + "px"});
-
-        // Add Logo
-        $startScreen.append('<img src=\"logo.png\" id=\"startLogo\">');
-
-        // Add Start Screen Container
-        $startScreen.append('<div id=\"startMenuCont\">');
-
-        // Add Start Button
-        $("#startMenuCont").append('<div id=\"startBtn\">START GAME');
         $("#startBtn").click(function () {
-            //gameView.navTone();
-
-            // if(gameView.selectToggle() == true)
-            //     gameView.collapseSelect();
             gameView.slideStartClose();
 
             /*setTimeout(function() {
-             if (gameView.loaded() == false && gameModel.completed() == false) {
-             if ($("#selText").innerHTML == "Difficulty") {
-             $("#selText").html("Medium");
-             }
-             document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
-             gameView.showLoading();
-             setTimeout(function() {
-             gameControl.loadSelectedPuzzle();
-             }, 300);
-             }
+                 if (gameView.loaded() == false && gameModel.completed() == false) {
+                    if ($("#selText").innerHTML == "Difficulty") {
+                        $("#selText").html("Medium");
+                    }
+                    document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
+                    gameView.showLoading();
+                    setTimeout(function() {
+                        gameControl.loadSelectedPuzzle();
+                    }, 300);
+                 }
              },350);*/
         });
 
-        // Add Difficulty Select
-        $("#startMenuCont").append('<div id=\"selMenuCont\">');
-        var $diffSelect = $("#selMenuCont");
-
-        // Add Difficulty Select Text
-        $diffSelect.append('<div id=\"selText\">Difficulty');
-
         var $subMenu = $("#selDropCont");
-        //$subMenu.hide();
+        $subMenu.hide();
         var $menuText = $("#selText");
+        $subMenu.css({"visibility": "visible"});
+        $(".selOpt").css({"visibility": "visible"});
 
-
-        // Add Difficulty Select Drop Container
-        $diffSelect.append('<div id=\"selDropCont\">');
-        $("#selDropCont").append('<div id=\"selDropMenu\">');
-        var $diffDropMenu = $("#selDropMenu");
-
-        $("#selMenuCont").click(function () {
-            $("#selDropCont").css({"visibility": "visible"});
-            $(".selOpt").css({"visibility": "visible"});
-            $("#selDropCont").slideDown(300).css({"opacity": "1"});
+        $menuText.click(function () {
+            $subMenu.slideDown(300).css({"opacity": "1"});
         });
 
-        // Add Difficulty Select Dropdown Options
-        $diffDropMenu.append('<div class=\"selOpt\" id=\"optEasy\">Easy');
-        $diffDropMenu.append('<div class=\"selOpt\" id=\"optMedium\">Medium');
-        $diffDropMenu.append('<div class=\"selOpt\" id=\"optHard\">Hard');
-        $diffDropMenu.append('<div class=\"selOpt\" id=\"optCrazy\">Crazy');
-
         // When a Difficulty Selection Option is Clicked
-        $("#selOpt").click(function () {
-            //$subMenu.slideUp(300);
-            $subMenu.css({"opacity": "0"});
-            $("#selDropCont").css({"visibility": "hidden"});
-            $(".selOpt").css({"visibility": "hidden"});
+        $(".selOpt").click(function () {
+            $subMenu.slideUp(300).css({"opacity": "0"});
             $menuText.text($(this).text());
             gameModel.setDifficulty($(this).text().toLowerCase())
         });
 
-        $startScreen.append('<br>');
-
         // Add Difficulty Preview Grid
-        $startScreen.append('<div id=\"previewGrid\" class=\"sudokuGrid\">');
         drawPreviewGrid(9,9);
         loadPreview(medPreview);
 
@@ -251,6 +212,12 @@ function SudokuView() {
         setTimeout(function() {
             $startScreen.css({"visibility": "hidden"});
         },510);
+    };
+
+    this.slideStartOpen = function() {
+        startOpen = true;
+        $startScreen.css({"visibility": "visible", "width": $(window).width()+"px"});
+        $startScreen.animate({left: "0px"}, 500);
     };
 
     this.drawGameGrid = function (_rows, _columns) {

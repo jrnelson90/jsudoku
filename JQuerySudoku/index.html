@@ -48,36 +48,27 @@
             </div>
         </nav>
     </header>
-    <div id="displayArea">
-        <div class="sudokuGrid" id="gameGrid"></div>
+    <div id="startPage">
+        <img src="logo.png" id="startLogo">
+        <div id="startMenuCont">
+            <div id="startBtn">START GAME</div>
+            <div id="selMenuCont">
+                <div id="selText">Difficulty</div>
+                <div id="selDropCont">
+                    <div id="selDropMenu">
+                        <div id="easyOpt" class="selOpt">Easy</div>
+                        <div id="medOpt" class="selOpt">Medium</div>
+                        <div id="hardOpt" class="selOpt">Hard</div>
+                        <div id="crazyOpt" class="selOpt">Crazy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="previewGrid" class="sudokuGrid">
+        </div>
     </div>
-    <audio id="clickSound" preload="auto">
-        <source src= "navTone.mp3">
-        This browser does not support audio
-    </audio>
-    <audio id="closingMenuSound" preload="auto">
-        <source src= "closing_menu.mp3" type = "audio/ogg">
-        This browser does not support audio
-    </audio>
-    <audio id="openingMenuSound" preload="auto">
-        <source src= "opening_menu.mp3" type = "audio/ogg">
-        This browser does not support audio
-    </audio>
-    <audio id="navSound" preload="auto">
-        <source src= "navTone.mp3" type = "audio/ogg">
-        This browser does not support audio
-    </audio>
-    <audio id="winSound" preload="auto">
-        <source src= "win.mp3" type = "audio/ogg">
-        This browser does not support audio
-    </audio>
-    <audio id="errorSound" preload="auto">
-        <source src= "error.mp3" type = "audio/ogg">
-        This browser does not support audio
-    </audio>
-    <audio id="correctSound" preload="auto">
-        <source src= "correct.mp3" type = "audio/ogg">
-        This browser does not support audio
-    </audio>
+    <div id="displayArea">
+        <div id="gameGrid" class="sudokuGrid"></div>
+    </div>
 </body>
 </html>
