@@ -8,6 +8,45 @@ var gameModel = new SudokuModel();
 
 // For this version, the grid is a standard 9 x 9 cell puzzle
 var defaultGridLength = 9;
+var easyPreview = [[0,2,0,9,8,0,0,0,0],
+    [0,1,4,0,0,0,0,7,0],
+    [0,0,5,4,0,0,0,3,0],
+    [4,0,0,0,0,8,0,1,5],
+    [0,9,0,5,4,2,7,0,0],
+    [0,0,2,0,0,6,0,8,0],
+    [0,4,1,8,0,0,0,0,0],
+    [8,0,0,0,0,0,1,0,4],
+    [7,0,9,0,3,0,8,0,6]];
+
+var medPreview = [[0,0,0,1,0,0,0,4,0],
+    [0,1,0,0,0,0,7,0,0],
+    [0,0,9,7,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,6],
+    [8,4,3,6,0,5,2,0,0],
+    [0,0,1,0,0,0,0,0,5],
+    [0,0,4,0,2,0,0,0,0],
+    [0,8,0,9,6,1,0,2,4],
+    [6,0,2,0,4,0,0,0,9]];
+
+var hardPreview = [[0,0,0,3,0,0,0,0,4],
+    [0,0,0,1,7,0,2,3,0],
+    [0,2,0,0,0,0,7,0,0],
+    [0,0,6,5,2,0,0,0,8],
+    [0,0,0,0,8,0,0,0,0],
+    [7,9,0,0,1,0,5,0,0],
+    [0,8,0,0,3,6,0,0,7],
+    [0,0,0,0,0,8,0,0,0],
+    [0,4,0,2,0,0,0,0,9]];
+
+var crazyPreview = [[0,0,0,0,0,0,0,0,4],
+    [0,5,0,0,0,0,0,0,0],
+    [7,0,8,0,0,4,0,2,1],
+    [0,0,0,0,0,8,0,0,0],
+    [0,0,0,0,7,6,0,0,0],
+    [0,3,2,0,0,0,7,5,0],
+    [6,0,0,0,5,9,0,0,3],
+    [1,2,4,0,6,0,0,9,0],
+    [0,9,0,0,4,0,0,0,0]];
 
 // On Document Ready Event (Script Start)
 $(document).ready(function () {
@@ -17,6 +56,9 @@ $(document).ready(function () {
     // Setup events for Startup Screen
     gameView.setupStartScreen();
 
+    var $subMenu = $("#selDropCont");
+    var $menuText = $("#selText");
+
     // Make Startup Screen fade in
     $("#startPage").css({"opacity": "1"});
 
@@ -25,8 +67,7 @@ $(document).ready(function () {
 
     // If on a small screen or minimized screen (less than 600px), reorganize toolbar
     if($(window).width() < 600) {
-        $("#middleButtons").append($("#help"));
-        $("#middleButtons").css({"float": "right"});
+        $("#middleButtons").append($("#help")).css({"float": "right"});
     }
 
     // Make toolbar and display area visible after 0.5s delay
@@ -38,6 +79,45 @@ $(document).ready(function () {
     // Click event for game view back button
     $("#back").click(function () {
         gameView.slideStartOpen();
+    });
+
+    $("#startBtn").click(function () {
+        gameView.slideStartClose();
+
+        //TODO: Implement Start Button Puzzle Gen and Load
+        /*setTimeout(function() {
+         if (gameView.loaded() == false && gameModel.completed() == false) {
+         if ($("#selText").innerHTML == "Difficulty") {
+         $("#selText").html("Medium");
+         }
+         document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
+         gameView.showLoading();
+         setTimeout(function() {
+         gameControl.loadSelectedPuzzle();
+         }, 300);
+         }
+         },350);*/
+    });
+
+    $menuText.click(function () {
+        $subMenu.slideDown(300).css({"opacity": "1"});
+    });
+
+    $(".selOpt").click(function () {
+        $subMenu.slideUp(300).css({"opacity": "0"});
+        $menuText.text($(this).text());
+        gameModel.setDifficulty($(this).text().toLowerCase());
+        $(".prevCell").text("").css({"opacity": "0"});
+        setTimeout(function() {
+            if ($menuText.text() == "Easy")
+                gameView.loadPreview(easyPreview);
+            else if ($menuText.text() == "Medium")
+                gameView.loadPreview(medPreview);
+            else if ($menuText.text() == "Hard")
+                gameView.loadPreview(hardPreview);
+            else if ($menuText.text() == "Crazy")
+                gameView.loadPreview(crazyPreview);
+        }, 300);
     });
 
     // Window Resize event
@@ -84,6 +164,7 @@ function SudokuView() {
     var cellSize = 0;
     var startOpen;
     var $startScreen;
+    var $gameCells;
 
     var fontNormal;
     var fontBold;
@@ -98,69 +179,10 @@ function SudokuView() {
 
     var gridBlurred = false;
 
-
-    var easyPreview = [[0,2,0,9,8,0,0,0,0],
-        [0,1,4,0,0,0,0,7,0],
-        [0,0,5,4,0,0,0,3,0],
-        [4,0,0,0,0,8,0,1,5],
-        [0,9,0,5,4,2,7,0,0],
-        [0,0,2,0,0,6,0,8,0],
-        [0,4,1,8,0,0,0,0,0],
-        [8,0,0,0,0,0,1,0,4],
-        [7,0,9,0,3,0,8,0,6]];
-
-    var medPreview = [[0,0,0,1,0,0,0,4,0],
-        [0,1,0,0,0,0,7,0,0],
-        [0,0,9,7,0,0,0,0,0],
-        [0,0,0,0,1,0,0,0,6],
-        [8,4,3,6,0,5,2,0,0],
-        [0,0,1,0,0,0,0,0,5],
-        [0,0,4,0,2,0,0,0,0],
-        [0,8,0,9,6,1,0,2,4],
-        [6,0,2,0,4,0,0,0,9]];
-
-    var hardPreview = [[0,0,0,3,0,0,0,0,4],
-        [0,0,0,1,7,0,2,3,0],
-        [0,2,0,0,0,0,7,0,0],
-        [0,0,6,5,2,0,0,0,8],
-        [0,0,0,0,8,0,0,0,0],
-        [7,9,0,0,1,0,5,0,0],
-        [0,8,0,0,3,6,0,0,7],
-        [0,0,0,0,0,8,0,0,0],
-        [0,4,0,2,0,0,0,0,9]];
-
-    var crazyPreview = [[0,0,0,0,0,0,0,0,4],
-        [0,5,0,0,0,0,0,0,0],
-        [7,0,8,0,0,4,0,2,1],
-        [0,0,0,0,0,8,0,0,0],
-        [0,0,0,0,7,6,0,0,0],
-        [0,3,2,0,0,0,7,5,0],
-        [6,0,0,0,5,9,0,0,3],
-        [1,2,4,0,6,0,0,9,0],
-        [0,9,0,0,4,0,0,0,0]];
-
     this.setupStartScreen = function () {
         startOpen = true;
-        // Create Start Page DIV
         $startScreen = $("#startPage");
-        $startScreen.css({"width": window.innerWidth + "px"});
-        $("#startBtn").click(function () {
-            gameView.slideStartClose();
-
-            //TODO: Implement Start Button Puzzle Gen and Load
-            /*setTimeout(function() {
-                 if (gameView.loaded() == false && gameModel.completed() == false) {
-                    if ($("#selText").innerHTML == "Difficulty") {
-                        $("#selText").html("Medium");
-                    }
-                    document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
-                    gameView.showLoading();
-                    setTimeout(function() {
-                        gameControl.loadSelectedPuzzle();
-                    }, 300);
-                 }
-             },350);*/
-        });
+        $startScreen.css({"width": $(window).width() + "px"});
 
         var $subMenu = $("#selDropCont");
         $subMenu.hide();
@@ -168,31 +190,10 @@ function SudokuView() {
         $subMenu.css({"visibility": "visible"});
         $(".selOpt").css({"visibility": "visible"});
 
-        $menuText.click(function () {
-            $subMenu.slideDown(300).css({"opacity": "1"});
-        });
-
-        // When a Difficulty Selection Option is Clicked
-        $(".selOpt").click(function () {
-            $subMenu.slideUp(300).css({"opacity": "0"});
-            $menuText.text($(this).text());
-            gameModel.setDifficulty($(this).text().toLowerCase());
-            $(".prevCell").text("").css({"opacity": "0"});
-            setTimeout(function() {
-                if ($menuText.text() == "Easy")
-                    loadPreview(easyPreview);
-                else if ($menuText.text() == "Medium")
-                    loadPreview(medPreview);
-                else if ($menuText.text() == "Hard")
-                    loadPreview(hardPreview);
-                else if ($menuText.text() == "Crazy")
-                    loadPreview(crazyPreview);
-            }, 300);
-        });
 
         // Add Difficulty Preview Grid
         drawPreviewGrid(9,9);
-        loadPreview(medPreview);
+        gameView.loadPreview(medPreview);
 
         function drawPreviewGrid(_rows, _columns) {
             for (var i = 0; i < _rows; i++) {
@@ -227,18 +228,18 @@ function SudokuView() {
             console.log(prevGridSize);
             console.log(prevCellSize);
         }
+    };
 
-        function loadPreview(_passedPuzzle) {
-            for (var x = 0; x < 9; x++) {
-                for (var y = 0; y < 9; y++) {
-                    if (_passedPuzzle[x][y]!= 0)
-                        $("#prev" + x + "x" + y).text(_passedPuzzle[x][y]);
-                }
+    this.loadPreview = function(_passedPuzzle) {
+        for (var x = 0; x < 9; x++) {
+            for (var y = 0; y < 9; y++) {
+                if (_passedPuzzle[x][y]!= 0)
+                    $("#prev" + x + "x" + y).text(_passedPuzzle[x][y]);
             }
-            setTimeout(function() {
-                $(".prevCell").css({"opacity": "1"});
-            }, 50);
         }
+        setTimeout(function() {
+            $(".prevCell").css({"opacity": "1"});
+        }, 50);
     };
 
     this.slideStartClose = function() {
@@ -262,8 +263,30 @@ function SudokuView() {
         var $gameGrid = $("#gameGrid");
         for (var i = 0; i < _rows; i++) {
             $gameGrid.append('<div id=\"row' + i + '\" class=\"gridRow\">');
+
+            var $currentRow = $(".gridRow:last");
+
+
+
             for (var j = 0; j < _columns; j++) {
-                $(".gridRow:last").append('<div id=\"' + i + 'x' + j + '\" class=\"gridCell gameCell\">');
+                $currentRow.append('<div id=\"' + i + 'x' + j + '\" class=\"gridCell gameCell\">');
+
+                var $currentCell = $(".gameCell:last");
+
+                if (i == 0) {
+                    $currentCell.css({"border-top": "solid black"});
+                }
+                else if ((i + 1) % Math.sqrt(_rows) == 0) {
+                    $currentCell.css({"border-bottom": "solid black"});
+                }
+                else {
+                    $currentCell.css({"border-color": "black"});
+                }
+
+                if (j == 0)
+                    $currentCell.css({"border-left": "solid black"});
+                else if ((j + 1) % Math.sqrt(_columns) == 0)
+                    $currentCell.css({"border-right": "solid black"});
             }
         }
         this.resizeView();
@@ -275,8 +298,8 @@ function SudokuView() {
         this.getBrowserInfo();
 
         if (startOpen == false)
-            $("#startPage").css({"left": (0 - $(window).innerWidth()) + "px", "top": "0"});
-        $("#startPage").css({"width": $(window).innerWidth() + "px", "height": $(window).innerHeight() + "px"});
+            $startScreen.css({"left": (0 - $(window).width()) + "px", "top": "0"});
+        $startScreen.css({"width": $(window).width() + "px", "height": $(window).height() + "px"});
 
 
         // Define the CSS style of gameGrid to have a black border with curved corners and a white background
@@ -298,6 +321,7 @@ function SudokuView() {
             cellSize = ((gridSize/9));
             gameView.setCellSize(cellSize);
         }
+
         $(".gameCell").css({
             "height": gameView.getCellSize() + "px",
             "width": gameView.getCellSize() + "px",
@@ -305,6 +329,35 @@ function SudokuView() {
         });
         console.log(gridSize);
         console.log(cellSize);
+
+        /*for (var i = 0; i < numOfRows; i++) {
+            if (i == 0) {
+                row.setAttribute("style", "border-top: solid; border-color: black;");
+            }
+            else if ((i + 1) % Math.sqrt(numOfRows) == 0) {
+                row.setAttribute("style", "border-bottom: solid; border-color: black;");
+            }
+            else {
+                row.setAttribute("style", "border-color: black;");
+            }
+
+            for (var j = 0; j < numOfColumns; j++) {
+                var cell = document.createElement("TD");
+                cell.setAttribute("class", "gridCell gameCell");
+                cell.style.height = cellSize + "px";
+                cell.style.width = cellSize + "px";
+                fontNormal = cellSize - 14 + "px";
+                fontBold = cellSize - 10 + "px";
+                cell.style.fontSize = fontNormal;
+                cell.setAttribute("unselectable", "on");
+
+                if (j == 0)
+                    cell.style.borderLeft = "solid black";
+                else if ((j + 1) % Math.sqrt(numOfColumns) == 0)
+                    cell.style.borderRight = "solid black";
+                row.appendChild(cell);
+            }
+        }*/
 
         //TODO: Script resizing preview grid
         //TODO: Script resizing font sizes
