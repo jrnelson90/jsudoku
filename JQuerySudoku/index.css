@@ -59,10 +59,10 @@ body {
     opacity: 0;
     background-color: rgb(66, 165, 245);
     z-index: 2000;
-    transition: left 0.5s ease-in-out, opacity 0.5s ease-in;
-    -moz-transition: left 0.5s ease-in-out, opacity 0.5s ease-in;
-    -o-transition: left 0.5s ease-in-out, opacity 0.5s ease-in;
-    -webkit-transition: left 0.5s ease-in-out, opacity 0.5s ease-in;
+    transition: opacity 0.5s ease-in;
+    -moz-transition: opacity 0.5s ease-in;
+    -o-transition: opacity 0.5s ease-in;
+    -webkit-transition: opacity 0.5s ease-in;
 }
 
 #startLogo {

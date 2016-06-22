@@ -2,6 +2,8 @@
  * Created by jrnel on 6/20/2016.
  */
 var gameView = new SudokuView();
+var gameControl = new SudokuControl();
+var gameModel = new SudokuModel();
 var defaultGridLength = 9;
 
 $(document).ready(function () {
@@ -49,15 +51,20 @@ function SudokuView() {
 
     this.drawStartScreen = function () {
         startOpen = true;
+
         // Create Start Page DIV
         $("body").append('<div id=\"startPage\">');
         $startScreen = $("#startPage");
         $startScreen.css({"width": window.innerWidth + "px"});
 
+        // Add Logo
         $startScreen.append('<img src=\"logo.png\" id=\"startLogo\">');
+
+        // Add Start Screen Container
         $startScreen.append('<div id=\"startMenuCont\">');
-        $("#startMenuCont").append('<div id=\"startBtn\">');
-        $("#startBtn").html("START GAME");
+
+        // Add Start Button
+        $("#startMenuCont").append('<div id=\"startBtn\">START GAME');
         $("#startBtn").click(function () {
             //gameView.navTone();
 
@@ -78,13 +85,41 @@ function SudokuView() {
                 }
             },350);*/
         });
+
+        // Add Difficulty Select
+        $startScreen.append('<div id=\"selMenuCont\">');
+        var $diffSelect = $("#selMenuCont");
+
+        // Add Difficulty Select Text
+        $diffSelect.append('<div id=\"selText\">Difficulty');
+        $("#selText").click(function () {
+            gameControl.toggleSelect();
+        });
+
+        // Add Difficulty Select Drop Container
+        $diffSelect.append('<div id=\"selDropCont\">')
+        var $diffDropCont = $("#selDropCont");
+
+        // Add Difficulty Select Dropdown Options
+        $diffDropCont.append('<div class=\"selOpt\" title=\"Easy\">Easy');
+        $diffDropCont.append('<div class=\"selOpt\" title=\"Medium\">Medium');
+        $diffDropCont.append('<div class=\"selOpt\" title=\"Hard\">Hard');
+        $diffDropCont.append('<div class=\"selOpt\" title=\"Crazy\">Crazy');
+
+        $(".selOpt").click(function () {
+            gameControl.toggleSelect();
+            $("#selText").text($(this).text());
+        });
+
+        $startScreen.append('<br>');
     };
 
     this.slideStartClose = function() {
         startOpen = false;
         var currentStartWidth = parseInt($startScreen.css("width"));
         console.log(currentStartWidth);
-        $startScreen.css({"left": (0 - currentStartWidth) + "px"});
+        $startScreen.animate({left: '-='+ currentStartWidth + "px"}, 500);
+
         setTimeout(function() {
             $startScreen.css({"visibility": "hidden"});
         },510);
@@ -131,7 +166,7 @@ function SudokuView() {
         });
         console.log(gridSize);
         console.log(cellSize);
-    }
+    };
 
     this.getBrowserInfo = function() {
         var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
@@ -183,26 +218,21 @@ function SudokuView() {
     };
 
     this.expandSelect = function() {
-        if (gameView.getInputVisibility() == true) {
-            this.closeInputGrid();
-        }
-        var list = document.getElementById("selDropCont");
-        list.style.visibility = "visible";
-        list.style.display = "block";
-        list.style.height = "auto";
+        $("#selDropCont").css({"display": "block", "visibility": "visible", "height": "auto"});
+
         setTimeout(function(){
-            var options = document.getElementsByClassName("selOpt");
-            for (var i = 0; i < options.length; i++) {
-                options[i].style.display = "block";
-                options[i].style.visibility = "visible";
-                //options[i].style.height = "24px";
-            }
+            $(".selOpt").css({"display": "block", "visibility": "visible"});
         }, 50);
         selectToggle = true;
     };
 
     this.collapseSelect = function() {
-        var options = document.getElementsByClassName("selOpt");
+        $(".selOpt").css({"display": "none", "visibility": "hidden"});
+        setTimeout(function(){
+            $("#selDropCont").css({"display": "none", "visibility": "hidden", "height": "0"});
+        }, 50);
+
+       /* var options = document.getElementsByClassName("selOpt");
         for (var i = 0; i < options.length; i++) {
             options[i].style.visibility = "hidden";
             options[i].style.display = "none";
@@ -213,12 +243,26 @@ function SudokuView() {
             list.style.height = "0";
             list.style.display = "none";
             list.style.visibility = "hidden";
-        }, 50);
+        }, 50);*/
         selectToggle = false;
     };
 
     this.navTone = function() {
         $("#navSound").play();
     };
+
+}
+
+function SudokuControl(){
+    this.toggleSelect = function () {
+        if (gameView.selectToggle() == false) {
+            gameView.expandSelect();
+        } else {
+            gameView.collapseSelect();
+        }
+    };
+}
+
+function SudokuModel() {
 
 }
