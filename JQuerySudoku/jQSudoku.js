@@ -109,9 +109,89 @@ function SudokuView() {
         $(".selOpt").click(function () {
             gameControl.toggleSelect();
             $("#selText").text($(this).text());
+            gameModel.setDifficulty($(this).text().toLowerCase())
         });
 
         $startScreen.append('<br>');
+
+        $startScreen.append('<div id=\"previewGrid\" class=\"sudokuGrid\">');
+
+        drawPreviewGrid(9,9);
+
+        function drawPreviewGrid(_rows, _columns) {
+            for (var i = 0; i < _rows; i++) {
+                $("#previewGrid").append('<div id=\"prevRow' + i + '\" class=\"prevRow\">');
+                for (var j = 0; j < _columns; j++) {
+                    $(".prevRow:last").append('<div id=\"prev' + i + 'x' + j + '\" class=\"gridCell prevCell\">');
+                }
+            }
+            var prevCellSize;
+            var prevGridSize;
+            gameView.getBrowserInfo();
+            // Define the CSS style of gameGrid to have a black border with curved corners and a white background
+            if(gameView.getViewWidth() < gameView.getViewHeight()) {
+                if (gameView.getIsMobile() && document.body.offsetWidth < 420){
+                    prevGridSize = gameView.getViewWidth() * 0.7;
+                    prevCellSize = ((prevGridSize/9));
+                }
+                else {
+                    prevGridSize = gameView.getViewWidth() * 0.5;
+                    prevCellSize = ((prevGridSize/9));
+                }
+            }
+            else if (gameView.getViewWidth() > gameView.getViewHeight())
+            {
+                prevGridSize = gameView.getViewHeight() * 0.5;
+                prevCellSize = ((prevGridSize/9));
+            }
+            $(".prevCell").css({
+                "height": prevCellSize + "px",
+                "width": prevCellSize + "px",
+                "opacity": "1"
+            });
+            console.log(prevGridSize);
+            console.log(prevCellSize);
+        }
+
+        var easyPreview = [[0,2,0,9,8,0,0,0,0],
+            [0,1,4,0,0,0,0,7,0],
+            [0,0,5,4,0,0,0,3,0],
+            [4,0,0,0,0,8,0,1,5],
+            [0,9,0,5,4,2,7,0,0],
+            [0,0,2,0,0,6,0,8,0],
+            [0,4,1,8,0,0,0,0,0],
+            [8,0,0,0,0,0,1,0,4],
+            [7,0,9,0,3,0,8,0,6]];
+
+        var medPreview = [[0,0,0,1,0,0,0,4,0],
+            [0,1,0,0,0,0,7,0,0],
+            [0,0,9,7,0,0,0,0,0],
+            [0,0,0,0,1,0,0,0,6],
+            [8,4,3,6,0,5,2,0,0],
+            [0,0,1,0,0,0,0,0,5],
+            [0,0,4,0,2,0,0,0,0],
+            [0,8,0,9,6,1,0,2,4],
+            [6,0,2,0,4,0,0,0,9]];
+
+        var hardPreview = [[0,0,0,3,0,0,0,0,4],
+            [0,0,0,1,7,0,2,3,0],
+            [0,2,0,0,0,0,7,0,0],
+            [0,0,6,5,2,0,0,0,8],
+            [0,0,0,0,8,0,0,0,0],
+            [7,9,0,0,1,0,5,0,0],
+            [0,8,0,0,3,6,0,0,7],
+            [0,0,0,0,0,8,0,0,0],
+            [0,4,0,2,0,0,0,0,9]];
+
+        var crazyPreview = [[0,0,0,0,0,0,0,0,4],
+            [0,5,0,0,0,0,0,0,0],
+            [7,0,8,0,0,4,0,2,1],
+            [0,0,0,0,0,8,0,0,0],
+            [0,0,0,0,7,6,0,0,0],
+            [0,3,2,0,0,0,7,5,0],
+            [6,0,0,0,5,9,0,0,3],
+            [1,2,4,0,6,0,0,9,0],
+            [0,9,0,0,4,0,0,0,0]];
     };
 
     this.slideStartClose = function() {
@@ -159,7 +239,7 @@ function SudokuView() {
             cellSize = ((gridSize/9));
             gameView.setCellSize(cellSize);
         }
-        $(".gridCell").css({
+        $(".gameCell").css({
             "height": gameView.getCellSize() + "px",
             "width": gameView.getCellSize() + "px",
             "opacity": "1"
@@ -264,5 +344,14 @@ function SudokuControl(){
 }
 
 function SudokuModel() {
+    var currentDifficulty = "medium";
+
+    this.difficulty = function () {
+        return currentDifficulty;
+    };
+
+    this.setDifficulty = function (_selection) {
+        currentDifficulty = _selection;
+    };
 
 }
