@@ -416,7 +416,6 @@ body {
 
 #selDropCont {
     position: absolute;
-    top: 10px;
     z-index: 2002;
     width: 140px;
     height: auto;

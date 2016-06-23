@@ -76,24 +76,30 @@ $(document).ready(function () {
     // Click event for game view back button
     $("#back").click(function () {
         gameView.slideStartOpen();
+        setTimeout(function () {
+            gameControl.resetGameTable();
+        },350);
     });
 
     $("#startBtn").click(function () {
         gameView.slideStartClose();
-
+        // setTimeout(function() {
+        //     gameControl.loadSelectedPuzzle();
+        // }, 500);
         //TODO: Implement Start Button Puzzle Gen and Load
-        /*setTimeout(function() {
-         if (gameView.loaded() == false && gameModel.completed() == false) {
-         if ($("#selText").innerHTML == "Difficulty") {
-         $("#selText").html("Medium");
-         }
-         document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
-         gameView.showLoading();
-         setTimeout(function() {
-         gameControl.loadSelectedPuzzle();
-         }, 300);
-         }
-         },350);*/
+
+        setTimeout(function() {
+             if (gameView.loaded() == false && gameModel.completed() == false) {
+                 if ($("#selText").text() == "Difficulty") {
+                    $("#selText").text("Medium");
+                 }
+                //document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
+                //gameView.showLoading();
+                setTimeout(function() {
+                    gameControl.loadSelectedPuzzle();
+                }, 300);
+             }
+         },350);
     });
 
     $menuText.click(function () {
@@ -129,6 +135,20 @@ function SudokuModel() {
     // Model Data
     //
     var currentDifficulty = "medium";
+    var numOfInputs;
+    var filledInputs;
+    var tableRowsNum;
+    var tableColumnsNum;
+
+    var gameGrid;
+    var gameTable;
+    var puzzleCompleted;
+    var generatedPuzzle = null;
+    var currentStart = [];
+    var currentSolution = [];
+    var startingTime;
+    var endTime;
+    var inputGrid;
 
     //
     // Model Methods
@@ -146,11 +166,165 @@ function SudokuModel() {
         currentDifficulty = _selection;
     };
 
+    this.inputNum = function () {
+        return numOfInputs;
+    };
+
+    this.setInputNum = function (_inputNum) {
+        numOfInputs = _inputNum;
+    };
+
+    this.filled = function () {
+        return filledInputs;
+    };
+
+    this.setFilledInputs = function (_numFilled) {
+        filledInputs = _numFilled;
+    };
+
+    this.setRows = function (_rowsNum) {
+        tableRowsNum = _rowsNum;
+    };
+
+    this.rowsNum = function () {
+        return tableRowsNum;
+    };
+
+    this.setColumnNum = function (_columnsNum) {
+        tableColumnsNum = _columnsNum;
+    };
+
+    this.columnsNum = function () {
+        return tableColumnsNum;
+    };
+
+    this.table = function () {
+        return gameTable;
+    };
+
+    this.setGameTable = function (_table) {
+        gameTable = _table;
+    };
+
+    this.grid = function () {
+        return gameGrid;
+    };
+
+    this.setGameGrid = function (_grid) {
+        gameGrid = _grid;
+    };
+
+    this.completed = function () {
+        return puzzleCompleted;
+    };
+
+    this.setCompleted = function (_puzzleState) {
+        puzzleCompleted = _puzzleState;
+    };
+
+    this.puzzle = function() {
+        return generatedPuzzle;
+    };
+
+    this.setPuzzle = function(_genPuz) {
+        generatedPuzzle = _genPuz;
+    };
+
+    this.solution = function () {
+        return currentSolution;
+    };
+
+    this.starter = function () {
+        return currentStart
+    };
+
+    this.setStarter = function (_array) {
+        currentStart = _array;
+    };
+
+    this.setInputGrid = function (_inputGrid) {
+        inputGrid = _inputGrid;
+    };
+
+    this.inputGrid = function () {
+        return inputGrid;
+    };
+
+    this.setStart = function (_start) {
+        startingTime = _start;
+    };
+
+    this.startTime = function () {
+        return startingTime;
+    };
+
+    this.setEndTime = function(_time){
+        endTime = _time;
+    };
+
+    this.endTime = function() {
+        return endTime;
+    };
+
 }
 
 // Sudoku Control Object
 function SudokuControl(){
+    this.loadSelectedPuzzle = function () {
+        if (gameModel.difficulty() == "easy")
+            gameModel.setPuzzle(genPuzzle("Easy"));
 
+        else if (gameModel.difficulty() == "medium")
+            gameModel.setPuzzle(genPuzzle("Medium"));
+
+        else if (gameModel.difficulty() == "hard")
+            gameModel.setPuzzle(genPuzzle("Hard"));
+
+        else if (gameModel.difficulty() == "crazy")
+            fetchPuzzle("crazypuzzles.json");
+        gameView.loadPuzzle(gameModel.puzzle().getGiven());
+    };
+
+    function fetchPuzzle(_difficulty) {
+        var xmlhttp;
+        var returnedPuzzles;
+        var randNum = Math.floor((Math.random() * 1000)) % 10;
+        console.log(randNum);
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {// code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                returnedPuzzles = JSON.parse(xmlhttp.responseText);
+                var retrivedPuzzle = new Puzzle(returnedPuzzles[randNum].start, returnedPuzzles[randNum].solution);
+                gameModel.setPuzzle(retrivedPuzzle);
+            }
+        };
+        xmlhttp.open("GET", _difficulty, true);
+        xmlhttp.send();
+    }
+
+    this.resetGameTable = function () {
+        /*if(gameView.getInputVisibility()== true) {
+            var input = document.body.querySelector("#inputBorder");
+            input.parentNode.removeChild(input);
+            gameView.setInputVisibility(false);
+        }
+        if(gameControl.noteMode() == true) {
+            gameControl.editClick();
+        }*/
+        //gameModel.table().parentNode.removeChild(gameModel.table());
+        $(".puzzleNum").remove();
+        $(".inputNum").remove();
+
+        // gameView.drawGameGrid(9, 9);
+        gameView.setLoaded(false);
+        // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
+        // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
+    };
 }
 
 // Sudoku View Object
@@ -184,9 +358,6 @@ function SudokuView() {
         var $subMenu = $("#selDropCont");
         $subMenu.hide();
         var $menuText = $("#selText");
-        $subMenu.css({"visibility": "visible"});
-        $(".selOpt").css({"visibility": "visible"});
-
 
         // Add Difficulty Preview Grid
         drawPreviewGrid(9,9);
@@ -308,6 +479,7 @@ function SudokuView() {
             }
         }
         this.resizeView();
+        gameModel.setCompleted(false);
     };
 
     this.resizeView = function() {
@@ -388,6 +560,38 @@ function SudokuView() {
         //TODO: Script resizing font sizes
     };
 
+    this.loadPuzzle = function (_passedPuzzle) {
+        //gameView.hideLoading();
+        gameModel.setInputNum(0);
+
+        // Repeat loop for each row in gameTable
+        var inputCellCount = 0;
+        for (var x = 0; x < 9; x++) {
+            for (var y = 0; y < 9; y++) {
+                var $currentCell = $("#" + x + "x" + y);
+                if (_passedPuzzle[x][y]!= 0)
+                    $currentCell.append('<div class=\"puzzleNum\">'+ _passedPuzzle[x][y]+'</div>');
+                else if (_passedPuzzle[x][y] == 0) {
+                    // Create a new div element newInputText for the user to enter in numbers later
+                    $currentCell.append('<div class=\"inputNum\"></div>');
+                    $currentCell.css({"color": "#1976D2"});
+                    inputCellCount++;
+                }
+            }
+        }
+
+        gameModel.setInputNum(inputCellCount);
+
+        // gameControl.startTimer();
+        // Set puzzleLoaded to true so that the Start Game button can't load the puzzle again.
+        puzzleLoaded = true;
+        gameModel.setFilledInputs(0);
+
+        setTimeout(function() {
+            $(".gameCell").css({"opacity": "1"});
+        }, 100);
+    };
+
     this.getBrowserInfo = function() {
         var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
         var is_android = navigator.platform.toLowerCase().indexOf("android") > -1;
@@ -431,5 +635,13 @@ function SudokuView() {
 
     this.setIsMobile = function (_bool) {
         isMobile = _bool;
+    };
+
+    this.loaded = function () {
+        return puzzleLoaded;
+    };
+
+    this.setLoaded = function (_state) {
+        puzzleLoaded = _state;
     };
 }
