@@ -93,7 +93,7 @@ $(document).ready(function () {
                  if ($("#selText").text() == "Difficulty") {
                     $("#selText").text("Medium");
                  }
-                //document.getElementById("puzzleDiffText").innerHTML = document.getElementById("selText").innerHTML;
+                $("#puzzleDiffText").text($("#selText").text());
                 //gameView.showLoading();
                 setTimeout(function() {
                     gameControl.loadSelectedPuzzle();
@@ -505,8 +505,7 @@ function SudokuView() {
                 gameView.setCellSize(cellSize);
             }
         }
-        else if (this.getViewWidth() > this.getViewHeight())
-        {
+        else if (this.getViewWidth() > this.getViewHeight()) {
             gridSize = this.getViewHeight() * 0.75;
             cellSize = ((gridSize/9));
             gameView.setCellSize(cellSize);
@@ -520,10 +519,12 @@ function SudokuView() {
         $(".gameCell").css({
             "height": gameView.getCellSize() + "px",
             "width": gameView.getCellSize() + "px",
-            "font-size": fontNormal+ "px",
             "unselectable": "on",
             "opacity": "1"
         });
+
+        $(".puzzleNum").css({"font-size": fontNormal+ "px"});
+        $(".inputNum").css({"font-size": fontNormal+ "px"});
         console.log(gridSize);
         console.log(cellSize);
 
