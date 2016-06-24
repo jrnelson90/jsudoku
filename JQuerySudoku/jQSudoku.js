@@ -519,12 +519,11 @@ function SudokuView() {
         $(".gameCell").css({
             "height": gameView.getCellSize() + "px",
             "width": gameView.getCellSize() + "px",
+            "font-size": fontNormal,
             "unselectable": "on",
             "opacity": "1"
         });
-
-        $(".puzzleNum").css({"font-size": fontNormal+ "px"});
-        $(".inputNum").css({"font-size": fontNormal+ "px"});
+        
         console.log(gridSize);
         console.log(cellSize);
 
