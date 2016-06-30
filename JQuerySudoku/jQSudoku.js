@@ -123,13 +123,6 @@ $(document).ready(function () {
         }, 300);
     });
 
-    $(".gameCell").click(function () {
-        if(gameView.getInputVisibility() == false)
-            gameControl.clickCell(this);
-        else
-            gameView.closeInputGrid();
-    });
-
     // Window Resize event
     $(window).resize(function () {
         gameView.resizeView();
@@ -782,6 +775,20 @@ function SudokuView() {
         }
 
         gameModel.setInputNum(inputCellCount);
+
+        var $inputNum = $(".gameCell:has(.inputNum)");
+        $inputNum.click(function () {
+            if(gameView.getInputVisibility() == false)
+                gameControl.clickCell(this);
+            else
+                gameView.closeInputGrid();
+        });
+
+        var $puzzleNum = $(".gameCell:has(.puzzleNum)");
+        $puzzleNum.click(function () {
+            if(gameView.getInputVisibility() == true)
+                gameView.closeInputGrid();
+        });
 
         // gameControl.startTimer();
         // Set puzzleLoaded to true so that the Start Game button can't load the puzzle again.
