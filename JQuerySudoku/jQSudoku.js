@@ -270,7 +270,7 @@ function SudokuModel() {
 
 // Sudoku Control Object
 function SudokuControl(){
-    var lastClicked;
+    var $lastClicked;
     var viewUpdateInterval;
     var checkToggle = false;
     var noteMode = false;
@@ -318,11 +318,9 @@ function SudokuControl(){
     }
 
     this.resetGameTable = function () {
-        /*
-        if(gameControl.noteMode() == true) {
-            gameControl.editClick();
-        }*/
-        //gameModel.table().parentNode.removeChild(gameModel.table());
+        /* if(gameControl.noteMode() == true) {
+              gameControl.editClick();
+           }*/
         $(".puzzleNum").remove();
         $(".inputNum").remove();
         $(".gameCell").css({"color": "#000000"});
@@ -331,16 +329,15 @@ function SudokuControl(){
             gameView.setInputVisibility(false);
         }
 
-        // gameView.drawGameGrid(9, 9);
         gameView.setLoaded(false);
         // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
         // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
     };
 
-    this.clickCell = function (clickedCell) {
+    this.clickCell = function (_clickedCell) {
         if(gameView.selectToggle() == true)
             gameView.collapseSelect();
-        if (typeof lastClicked != 'undefined' && lastClicked != clickedCell) {
+        if (typeof gameControl.lastClick() != 'undefined' && gameControl.lastClick() != _clickedCell) {
 
             //TODO: Add unhighlighting function back
             //gameView.unhighlight(lastClicked);
@@ -354,9 +351,9 @@ function SudokuControl(){
         //gameView.highlight(clickedCell);
 
         if (gameView.getInputVisibility() == false) {
-            gameView.openInputGrid(clickedCell);
+            gameView.openInputGrid(_clickedCell);
         }
-        lastClicked = clickedCell;
+        $lastClicked = _clickedCell;
     };
 
     this.noteMode = function() {
@@ -364,7 +361,7 @@ function SudokuControl(){
     };
 
     this.lastClick = function () {
-        return lastClicked;
+        return $lastClicked;
     };
 
     //**********************
@@ -399,32 +396,19 @@ function SudokuControl(){
         $newInput.css({"z-index": "2", "width": "80px"});
         gameModel.setInputGrid($newInput);
 
-
-
-        var inNumCont = document.createElement("DIV");
-        inNumCont.setAttribute("id", "numberCont");
-        gameModel.inputGrid().append(inNumCont);
+        gameModel.inputGrid().append($("<div id=\"numberCont\"></div>"));
+        var $inNumCont = $("#numberCont");
 
         for (var i = 0; i < 9; i++) {
-            var selectNum = document.createElement("DIV");
-            selectNum.setAttribute("class", "numSelect");
-            var optText = i + 1;
-            selectNum.innerHTML = optText.toString();
-            inNumCont.appendChild(selectNum);
-            if ((i + 1) % 3 == 0) {
-                var newLine = document.createElement("BR");
-                inNumCont.appendChild(newLine);
-            }
+            $inNumCont.append($("<div class=\'numSelect\'>"+(i+1)+"</div>"));
+            if ((i + 1) % 3 == 0)
+                $inNumCont.append("<br>");
         }
 
-        var clearButton = document.createElement("div");
-        clearButton.setAttribute("id", "clearButton");
-        clearButton.style.color = "rgba(255, 255, 255, 1.0)";
-        clearButton.style.cursor = "pointer";
-        clearButton.innerHTML = "<i class='material-icons'>block</i>";
-        inNumCont.appendChild(clearButton);
+        $inNumCont.append($("<div id=\'clearButton\'><i class=\'material-icons\'>block</i></div>"));
+        $("#clearButton").css({"color": "rgba(255, 255, 255, 1.0)", "cursor": "pointer"});
 
-        clearButton.onclick = function () {
+        $("#clearButton").click(function () {
             if(isNaN(parseInt(gameControl.lastClick().innerHTML)) == false) {
                 var filled = gameModel.filled();
                 filled--;
@@ -437,12 +421,17 @@ function SudokuControl(){
             }
             gameControl.lastClick().innerHTML = "";
             gameView.closeInputGrid();
-        };
+        });
 
         //
         gameView.setInputVisibility(false);
 
         //TODO: Rewrite number input events
+        $(".numSelect").click(function () {
+            var inputText = $(gameControl.lastClick()).children();
+            inputText.text($(this).text());
+            gameView.closeInputGrid();
+        });
         //Set event listeners for when numbers are clicked
         /*for (i = 0; i < 9; i++) {
             var numbers = document.getElementsByClassName("numSelect");
@@ -782,8 +771,9 @@ function SudokuView() {
 
         var $inputNum = $(".gameCell:has(.inputNum)");
         $inputNum.click(function () {
-            if(gameView.getInputVisibility() == false)
+            if(gameView.getInputVisibility() == false) {
                 gameControl.clickCell(this);
+            }
             else
                 gameView.closeInputGrid();
         });
