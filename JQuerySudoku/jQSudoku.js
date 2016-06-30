@@ -344,12 +344,18 @@ function SudokuControl(){
         if(gameView.selectToggle() == true)
             gameView.collapseSelect();
         if (typeof lastClicked != 'undefined' && lastClicked != clickedCell) {
-            gameView.unhighlight(lastClicked);
+
+            //TODO: Add unhighlighting function back
+            //gameView.unhighlight(lastClicked);
+
             if (gameView.getInputVisibility() == true) {
                 gameView.closeInputGrid();
             }
         }
+
+        //TODO: Add highlighting function back
         //gameView.highlight(clickedCell);
+
         if (gameView.getInputVisibility() == false) {
             gameView.openInputGrid(clickedCell);
         }
@@ -358,6 +364,10 @@ function SudokuControl(){
 
     this.noteMode = function() {
         return noteMode;
+    };
+
+    this.lastClick = function () {
+        return lastClicked;
     };
 
     //**********************
