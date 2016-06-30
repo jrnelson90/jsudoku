@@ -376,31 +376,35 @@ function SudokuControl(){
 
 
     this.initInputGrid = function () {
-        var inputBorder = document.createElement("DIV");
-        inputBorder.setAttribute("id", "inputBorder");
-        inputBorder.style.display = "none";
-        inputBorder.style.visibility = "hidden";
-        inputBorder.style.width = "80px";
-        document.body.insertBefore(inputBorder, document.getElementById("displayArea"));
-        inputBorder.style.top = 0;
-        inputBorder.style.left = 0;
+
+        $("<div id=\"inputBorder\"></div>").insertBefore($("#displayArea"));
+        var $inputBorder = $("#inputBorder");
+        $inputBorder.css({
+            "display": "none",
+            "visibility": "hidden",
+            "width": "80px",
+            "top": "0",
+            "left": "0"
+        });
 
         if(!(gameView.getIsMobile() && document.body.offsetWidth < 420)) {
-            var close = closeBtn();
-            close.style.zIndex = "100";
-            close.onclick = function () {
+            $inputBorder.append(closeBtn());
+            var $close = $(".closeBtn");
+            $close.css({"z-index":  "100"});
+            $close.click( function () {
                 gameView.closeInputGrid();
-            };
-            inputBorder.appendChild(close);
+            });
+
         }
 
+        
         var newInput = document.createElement("DIV");
         newInput.style.zIndex = 2;
         newInput.style.width = "80px";
         newInput.setAttribute("id", "inputGrid");
         gameModel.setInputGrid(newInput);
 
-        inputBorder.appendChild(gameModel.inputGrid());
+        $inputBorder.append(gameModel.inputGrid());
 
         var inNumCont = document.createElement("DIV");
         inNumCont.setAttribute("id", "numberCont");
@@ -443,8 +447,9 @@ function SudokuControl(){
         //
         gameView.setInputVisibility(false);
 
+        //TODO: Rewrite number input events
         //Set event listeners for when numbers are clicked
-        for (i = 0; i < 9; i++) {
+        /*for (i = 0; i < 9; i++) {
             var numbers = document.getElementsByClassName("numSelect");
             numbers[i].onclick = function () {
                 if (gameControl.noteMode() == false) {
@@ -501,7 +506,7 @@ function SudokuControl(){
                     }
                 }
             };
-        }
+        }*/
     };
 
     function closeBtn() {
