@@ -123,6 +123,10 @@ $(document).ready(function () {
         }, 300);
     });
 
+    $(".gameCell").click(function () {
+        gameControl.clickCell(this);
+    });
+
     // Window Resize event
     $(window).resize(function () {
         gameView.resizeView();
@@ -270,6 +274,16 @@ function SudokuModel() {
 
 // Sudoku Control Object
 function SudokuControl(){
+    var lastClicked;
+    var viewUpdateInterval;
+    var checkToggle = false;
+    var noteMode = false;
+    var paused = false;
+    var currentTimeElapsed;
+    var pausedTimeStart;
+    var pausedTimeStop;
+    var pausedTimeElapsed;
+
     this.loadSelectedPuzzle = function () {
         if (gameModel.difficulty() == "easy")
             gameModel.setPuzzle(genPuzzle("Easy"));
@@ -325,6 +339,176 @@ function SudokuControl(){
         // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
         // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
     };
+
+    this.clickCell = function (clickedCell) {
+        if(gameView.selectToggle() == true)
+            gameView.collapseSelect();
+        if (typeof lastClicked != 'undefined' && lastClicked != clickedCell) {
+            gameView.unhighlight(lastClicked);
+            if (gameView.getInputVisibility() == true) {
+                gameView.closeInputGrid();
+            }
+        }
+        //gameView.highlight(clickedCell);
+        if (gameView.getInputVisibility() == false) {
+            gameView.openInputGrid(clickedCell);
+        }
+        lastClicked = clickedCell;
+    };
+
+    this.noteMode = function() {
+        return noteMode;
+    };
+
+    //**********************
+    // Needs to be rewritten
+    //**********************
+
+
+    this.initInputGrid = function () {
+        var inputBorder = document.createElement("DIV");
+        inputBorder.setAttribute("id", "inputBorder");
+        inputBorder.style.display = "none";
+        inputBorder.style.visibility = "hidden";
+        inputBorder.style.width = "80px";
+        document.body.insertBefore(inputBorder, document.getElementById("displayArea"));
+        inputBorder.style.top = 0;
+        inputBorder.style.left = 0;
+
+        if(!(gameView.getIsMobile() && document.body.offsetWidth < 420)) {
+            var close = closeBtn();
+            close.style.zIndex = "100";
+            close.onclick = function () {
+                gameView.closeInputGrid();
+            };
+            inputBorder.appendChild(close);
+        }
+
+        var newInput = document.createElement("DIV");
+        newInput.style.zIndex = 2;
+        newInput.style.width = "80px";
+        newInput.setAttribute("id", "inputGrid");
+        gameModel.setInputGrid(newInput);
+
+        inputBorder.appendChild(gameModel.inputGrid());
+
+        var inNumCont = document.createElement("DIV");
+        inNumCont.setAttribute("id", "numberCont");
+        gameModel.inputGrid().appendChild(inNumCont);
+
+        for (var i = 0; i < 9; i++) {
+            var selectNum = document.createElement("DIV");
+            selectNum.setAttribute("class", "numSelect");
+            var optText = i + 1;
+            selectNum.innerHTML = optText.toString();
+            inNumCont.appendChild(selectNum);
+            if ((i + 1) % 3 == 0) {
+                var newLine = document.createElement("BR");
+                inNumCont.appendChild(newLine);
+            }
+        }
+
+        var clearButton = document.createElement("div");
+        clearButton.setAttribute("id", "clearButton");
+        clearButton.style.color = "rgba(255, 255, 255, 1.0)";
+        clearButton.style.cursor = "pointer";
+        clearButton.innerHTML = "<i class='material-icons'>block</i>";
+        inNumCont.appendChild(clearButton);
+
+        clearButton.onclick = function () {
+            if(isNaN(parseInt(gameControl.lastClick().innerHTML)) == false) {
+                var filled = gameModel.filled();
+                filled--;
+                gameModel.setFilledInputs((filled));
+                if(filled == 0) {
+                    document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
+                    var checkButton = document.getElementById("check");
+                    checkButton.removeEventListener("click", gameControl.checkClick);
+                }
+            }
+            gameControl.lastClick().innerHTML = "";
+            gameView.closeInputGrid();
+        };
+
+        //
+        gameView.setInputVisibility(false);
+
+        //Set event listeners for when numbers are clicked
+        for (i = 0; i < 9; i++) {
+            var numbers = document.getElementsByClassName("numSelect");
+            numbers[i].onclick = function () {
+                if (gameControl.noteMode() == false) {
+
+                    if (gameControl.lastClick().style.color == "red") {
+                        gameControl.lastClick().style.color = "#1c86ee";
+                    }
+                    if (isNaN(parseInt(gameControl.lastClick().innerHTML)) == true) {
+                        var filled = gameModel.filled();
+                        if (filled == 0) {
+                            document.getElementById("checkIcon").setAttribute("class", "material-icons");
+                            var checkButton = document.getElementById("check");
+                            checkButton.addEventListener("click", gameControl.checkClick);
+                        }
+                        filled++;
+                        gameModel.setFilledInputs((filled));
+                    }
+
+                    if (gameControl.lastClick().style.fontSize == gameView.textBold()) {
+                        gameControl.lastClick().style.fontSize = gameView.textNorm();
+                        gameControl.lastClick().style.fontWeight = "normal";
+                    }
+                    gameControl.lastClick().innerHTML = this.innerHTML;
+                    gameView.closeInputGrid();
+
+                    if (gameControl.lastClick().innerHTML == gameView.lastHighlight() && gameView.highToggle() == true) {
+                        gameControl.lastClick().style.fontSize = gameView.textBold();
+                        gameControl.lastClick().style.fontWeight = "bold";
+
+                    }
+                    if (gameModel.filled() == gameModel.inputNum()) {
+                        gameControl.checkGrid("endGame");
+                    }
+                }
+                else {
+                    if (gameControl.lastClick().childNodes[0]) {
+                        if (gameControl.lastClick().childNodes[0].className != "noteCont")
+                            lastClicked.innerHTML = "";
+                    }
+                    if(!gameControl.lastClick().childNodes[0])
+                        gameView.drawMiniGrid(gameControl.lastClick());
+                    console.log(gameControl.lastClick().childNodes[0].className);
+                    var num = parseInt(this.innerHTML);
+                    var list = gameControl.lastClick().querySelectorAll(".noteNum");
+                    console.log(list);
+
+                    if(list[(num-1)].style.opacity == "0") {
+                        list[(num-1)].style.opacity = "1";
+                        this.style.color = "rgba(255, 250, 240, 0.5)";
+                    }
+                    else {
+                        list[(num-1)].style.opacity = "0";
+                        this.style.color = "rgba(255, 255, 255, 1.0)";
+                    }
+                }
+            };
+        }
+    };
+
+    function closeBtn() {
+        var closeButton = document.createElement("div");
+        closeButton.setAttribute("class", "closeBtn");
+        var closeX = document.createElement("div");
+        closeX.setAttribute("class", "closeX");
+        if(gameView.isFirefox() == true && gameView.isMobile() == true) {
+            closeX.style.marginTop = "-14px";
+            closeX.style.marginLeft = "-8px";
+        }
+        closeX.innerHTML = "&times";
+
+        closeButton.appendChild(closeX);
+        return closeButton;
+    }
+
 }
 
 // Sudoku View Object
@@ -347,6 +531,7 @@ function SudokuView() {
     var puzzleLoaded = false;
     var clickTimer = null;
     var inputGridVisible = false;
+    var selectToggle = false;
 
     var gridBlurred = false;
 
@@ -644,4 +829,131 @@ function SudokuView() {
     this.setLoaded = function (_state) {
         puzzleLoaded = _state;
     };
+
+    this.getInputVisibility = function () {
+        return inputGridVisible;
+    };
+
+    this.setInputVisibility = function (_state) {
+        inputGridVisible = _state;
+    };
+
+    this.selectToggle = function() {
+        return selectToggle;
+    };
+
+    /*
+
+    ***************
+    Needs Rewriting
+    ***************
+
+    */
+
+    this.expandSelect = function() {
+        if (gameView.getInputVisibility() == true) {
+            this.closeInputGrid();
+        }
+        var list = document.getElementById("selDropCont");
+        list.style.visibility = "visible";
+        list.style.display = "block";
+        list.style.height = "auto";
+        setTimeout(function(){
+            var options = document.getElementsByClassName("selOpt");
+            for (var i = 0; i < options.length; i++) {
+                options[i].style.display = "block";
+                options[i].style.visibility = "visible";
+                //options[i].style.height = "24px";
+            }
+        }, 50);
+        selectToggle = true;
+    };
+
+    this.collapseSelect = function() {
+        var options = document.getElementsByClassName("selOpt");
+        for (var i = 0; i < options.length; i++) {
+            options[i].style.visibility = "hidden";
+            options[i].style.display = "none";
+            //options[i].style.height = "0";
+        }
+        setTimeout(function(){
+            var list = document.getElementById("selDropCont");
+            list.style.height = "0";
+            list.style.display = "none";
+            list.style.visibility = "hidden";
+        }, 50);
+        selectToggle = false;
+    };
+
+    this.openInputGrid = function (thisCell) {
+        gameControl.initInputGrid();
+        if (gameControl.noteMode() == true) {
+            var numbers = document.getElementsByClassName("numSelect");
+            if (thisCell.childNodes[0]) {
+                if (thisCell.childNodes[0].className == "noteCont") {
+                    var list = thisCell.querySelectorAll(".noteNum");
+                    for (var i = 0; i < 9; i++) {
+                        if (list[i].style.opacity == "1")
+                            numbers[i].style.color = "rgba(255, 250, 240, 0.5)";
+                    }
+                }
+            }
+        }
+        var expandHeight = 110;
+
+        var inCont = document.getElementById("inputBorder");
+        // If the cell is part of the bottom two rows of the grid
+        var gameGrid = document.getElementById("gameGrid");
+        var numCont = document.getElementById("numberCont");
+        numCont.style.height = expandHeight + "px";
+        var rect = thisCell.getBoundingClientRect();
+        console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+        inCont.style.top = rect.top - ((expandHeight- parseInt(thisCell.style.width))/2) + "px";
+
+        console.log(rect.left);
+        console.log(parseInt(gameModel.inputGrid().style.width));
+        console.log(((parseInt(gameModel.inputGrid().style.width)- parseInt(thisCell.style.width))/2));
+
+        if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 0)
+            inCont.style.left = rect.left + "px";
+        else if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 8)
+            inCont.style.left = rect.left - (parseInt(gameModel.inputGrid().style.width) - parseInt(thisCell.style.width)) + "px";
+        else
+            inCont.style.left = rect.left - ((parseInt(gameModel.inputGrid().style.width) - parseInt(thisCell.style.width)) / 2) + "px";
+
+        inCont.style.display = "inline-block";
+        setTimeout(function() {
+            inCont.style.visibility = "visible";
+            inCont.style.height = expandHeight + "px";
+            gameModel.inputGrid().style.height = expandHeight + "px";
+        }, 100);
+
+        inputGridVisible = true;
+    };
+
+    this.closeInputGrid = function () {
+        var inCont = document.getElementById("inputBorder");
+
+        gameModel.inputGrid().style.height = 0;
+        inCont.style.height = 0;
+        setTimeout(function() {
+            gameModel.inputGrid().style.visibility = "hidden";
+            gameModel.inputGrid().style.display = "none";
+            inCont.parentNode.removeChild(inCont);
+
+        },301);
+
+        inputGridVisible = false;
+    };
+
+    this.isFirefox = function() {
+        if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+            console.log("This is Firefox");
+            return true
+        }
+        else
+            return false;
+    };
+
 }
