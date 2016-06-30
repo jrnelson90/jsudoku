@@ -419,7 +419,7 @@ function SudokuControl(){
                     checkButton.removeEventListener("click", gameControl.checkClick);
                 }
             }
-            gameControl.lastClick().innerHTML = "";
+            $(gameControl.lastClick()).children().text("");
             gameView.closeInputGrid();
         });
 
@@ -428,10 +428,10 @@ function SudokuControl(){
 
         //TODO: Rewrite number input events
         $(".numSelect").click(function () {
-            var inputText = $(gameControl.lastClick()).children();
-            inputText.text($(this).text());
+            $(gameControl.lastClick()).children().text($(this).text());
             gameView.closeInputGrid();
         });
+
         //Set event listeners for when numbers are clicked
         /*for (i = 0; i < 9; i++) {
             var numbers = document.getElementsByClassName("numSelect");
