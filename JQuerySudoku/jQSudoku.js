@@ -412,10 +412,8 @@ function SudokuControl(){
 
         $("#clearButton").click(function () {
             if($lastClickedText.text() != "") {
-                var filled = gameModel.filled();
-                filled--;
-                gameModel.setFilledInputs((filled));
-                if(filled == 0) {
+                gameModel.setFilledInputs(gameModel.filled() - 1);
+                if(gameModel.filled() == 0) {
                     document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
                     var checkButton = document.getElementById("check");
                     checkButton.removeEventListener("click", gameControl.checkClick);
@@ -430,9 +428,10 @@ function SudokuControl(){
 
         //TODO: Rewrite number input events
         $(".numSelect").click(function () {
+            if($lastClickedText.text() == "")
+                gameModel.setFilledInputs(gameModel.filled() + 1);
             $lastClickedText.text($(this).text());
             gameView.closeInputGrid();
-            gameModel.setFilledInputs(gameModel.filled() + 1);
         });
 
         //Set event listeners for when numbers are clicked
