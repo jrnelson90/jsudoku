@@ -329,6 +329,7 @@ function SudokuControl(){
         //gameModel.table().parentNode.removeChild(gameModel.table());
         $(".puzzleNum").remove();
         $(".inputNum").remove();
+        $(".gameCell").css({"color": "#000000"});
 
         // gameView.drawGameGrid(9, 9);
         gameView.setLoaded(false);
@@ -765,7 +766,6 @@ function SudokuView() {
                 var $currentCell = $("#" + x + "x" + y);
                 if (_passedPuzzle[x][y] != 0) {
                     $currentCell.append('<div class=\"puzzleNum\">' + _passedPuzzle[x][y] + '</div>');
-                    $currentCell.css({"color": "#000000"});
                 }
                 else if (_passedPuzzle[x][y] == 0) {
                     // Create a new div element newInputText for the user to enter in numbers later
