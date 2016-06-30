@@ -776,6 +776,8 @@ function SudokuView() {
 
         gameModel.setInputNum(inputCellCount);
 
+        $(".gameCell").unbind();
+
         var $inputNum = $(".gameCell:has(.inputNum)");
         $inputNum.click(function () {
             if(gameView.getInputVisibility() == false)
