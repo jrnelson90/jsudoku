@@ -397,18 +397,16 @@ function SudokuControl(){
 
         }
 
-        
-        var newInput = document.createElement("DIV");
-        newInput.style.zIndex = 2;
-        newInput.style.width = "80px";
-        newInput.setAttribute("id", "inputGrid");
-        gameModel.setInputGrid(newInput);
+        $inputBorder.append($("<div id=\"inputGrid\"></div>"));
+        var $newInput = $("#inputGrid");
+        $newInput.css({"z-index": "2", "width": "80px"});
+        gameModel.setInputGrid($newInput);
 
-        $inputBorder.append(gameModel.inputGrid());
+
 
         var inNumCont = document.createElement("DIV");
         inNumCont.setAttribute("id", "numberCont");
-        gameModel.inputGrid().appendChild(inNumCont);
+        gameModel.inputGrid().append(inNumCont);
 
         for (var i = 0; i < 9; i++) {
             var selectNum = document.createElement("DIV");
@@ -857,6 +855,16 @@ function SudokuView() {
         return selectToggle;
     };
 
+    this.closeInputGrid = function () {
+        gameModel.inputGrid().css({"height": "0px"});
+        $("#inputBorder").css({"height": "0px"});
+        setTimeout(function() {
+            gameModel.inputGrid().css({"visibility": "hidden", "display": "none"});
+            $("#inputBorder").remove();
+        },301);
+        inputGridVisible = false;
+    };
+
     /*
 
     ***************
@@ -927,39 +935,24 @@ function SudokuView() {
         inCont.style.top = rect.top - ((expandHeight- parseInt(thisCell.style.width))/2) + "px";
 
         console.log(rect.left);
-        console.log(parseInt(gameModel.inputGrid().style.width));
-        console.log(((parseInt(gameModel.inputGrid().style.width)- parseInt(thisCell.style.width))/2));
+        console.log(parseInt(gameModel.inputGrid().width()));
+        console.log(((parseInt(gameModel.inputGrid().width())- parseInt(thisCell.style.width))/2));
 
         if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 0)
             inCont.style.left = rect.left + "px";
         else if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 8)
-            inCont.style.left = rect.left - (parseInt(gameModel.inputGrid().style.width) - parseInt(thisCell.style.width)) + "px";
+            inCont.style.left = rect.left - (parseInt(gameModel.inputGrid().width()) - parseInt(thisCell.style.width)) + "px";
         else
-            inCont.style.left = rect.left - ((parseInt(gameModel.inputGrid().style.width) - parseInt(thisCell.style.width)) / 2) + "px";
+            inCont.style.left = rect.left - ((parseInt(gameModel.inputGrid().width()) - parseInt(thisCell.style.width)) / 2) + "px";
 
         inCont.style.display = "inline-block";
         setTimeout(function() {
             inCont.style.visibility = "visible";
             inCont.style.height = expandHeight + "px";
-            gameModel.inputGrid().style.height = expandHeight + "px";
+            gameModel.inputGrid().css({"height": expandHeight + "px"});
         }, 100);
 
         inputGridVisible = true;
-    };
-
-    this.closeInputGrid = function () {
-        var inCont = document.getElementById("inputBorder");
-
-        gameModel.inputGrid().style.height = 0;
-        inCont.style.height = 0;
-        setTimeout(function() {
-            gameModel.inputGrid().style.visibility = "hidden";
-            gameModel.inputGrid().style.display = "none";
-            inCont.parentNode.removeChild(inCont);
-
-        },301);
-
-        inputGridVisible = false;
     };
 
     this.isFirefox = function() {
