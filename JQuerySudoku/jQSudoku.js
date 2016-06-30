@@ -271,6 +271,7 @@ function SudokuModel() {
 // Sudoku Control Object
 function SudokuControl(){
     var $lastClicked;
+    var $lastClickedText;
     var viewUpdateInterval;
     var checkToggle = false;
     var noteMode = false;
@@ -354,6 +355,7 @@ function SudokuControl(){
             gameView.openInputGrid(_clickedCell);
         }
         $lastClicked = _clickedCell;
+        $lastClickedText = $(gameControl.lastClick()).children();
     };
 
     this.noteMode = function() {
@@ -409,7 +411,7 @@ function SudokuControl(){
         $("#clearButton").css({"color": "rgba(255, 255, 255, 1.0)", "cursor": "pointer"});
 
         $("#clearButton").click(function () {
-            if(isNaN(parseInt(gameControl.lastClick().innerHTML)) == false) {
+            if($lastClickedText.text() != "") {
                 var filled = gameModel.filled();
                 filled--;
                 gameModel.setFilledInputs((filled));
@@ -428,8 +430,9 @@ function SudokuControl(){
 
         //TODO: Rewrite number input events
         $(".numSelect").click(function () {
-            $(gameControl.lastClick()).children().text($(this).text());
+            $lastClickedText.text($(this).text());
             gameView.closeInputGrid();
+            gameModel.setFilledInputs(gameModel.filled() + 1);
         });
 
         //Set event listeners for when numbers are clicked
