@@ -124,7 +124,10 @@ $(document).ready(function () {
     });
 
     $(".gameCell").click(function () {
-        gameControl.clickCell(this);
+        if(gameView.getInputVisibility() == false)
+            gameControl.clickCell(this);
+        else
+            gameView.closeInputGrid();
     });
 
     // Window Resize event
