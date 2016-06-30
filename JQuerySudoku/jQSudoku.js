@@ -318,11 +318,7 @@ function SudokuControl(){
     }
 
     this.resetGameTable = function () {
-        /*if(gameView.getInputVisibility()== true) {
-            var input = document.body.querySelector("#inputBorder");
-            input.parentNode.removeChild(input);
-            gameView.setInputVisibility(false);
-        }
+        /*
         if(gameControl.noteMode() == true) {
             gameControl.editClick();
         }*/
@@ -330,6 +326,10 @@ function SudokuControl(){
         $(".puzzleNum").remove();
         $(".inputNum").remove();
         $(".gameCell").css({"color": "#000000"});
+        if(gameView.getInputVisibility()== true) {
+            $("#inputBorder").remove();
+            gameView.setInputVisibility(false);
+        }
 
         // gameView.drawGameGrid(9, 9);
         gameView.setLoaded(false);
