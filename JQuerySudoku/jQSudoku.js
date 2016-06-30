@@ -763,8 +763,10 @@ function SudokuView() {
         for (var x = 0; x < 9; x++) {
             for (var y = 0; y < 9; y++) {
                 var $currentCell = $("#" + x + "x" + y);
-                if (_passedPuzzle[x][y]!= 0)
-                    $currentCell.append('<div class=\"puzzleNum\">'+ _passedPuzzle[x][y]+'</div>');
+                if (_passedPuzzle[x][y] != 0) {
+                    $currentCell.append('<div class=\"puzzleNum\">' + _passedPuzzle[x][y] + '</div>');
+                    $currentCell.css({"color": "#000000"});
+                }
                 else if (_passedPuzzle[x][y] == 0) {
                     // Create a new div element newInputText for the user to enter in numbers later
                     $currentCell.append('<div class=\"inputNum\"></div>');
