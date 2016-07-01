@@ -339,7 +339,8 @@ function SudokuControl(){
         }
 
         if(gameView.isPauseLayerVisible() == true) {
-            gameView.blurGrid();
+            if(gameView.isBlurred())
+                gameView.blurGrid();
             $("#pauseLayer").remove();
             paused = false;
         }
@@ -1084,9 +1085,9 @@ function SudokuView() {
     // Needs Rewriting
     //****************
     this.isPauseLayerVisible = function() {
-        if($("#pauseLayer") === null)
-            return false;
-        else
+        if($("#pauseLayer"))
             return true;
+        else
+            return false;
     }
 }
