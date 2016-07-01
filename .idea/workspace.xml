@@ -370,8 +370,8 @@
       <file leaf-file-name="jQSudoku.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JQuerySudoku/jQSudoku.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
+            <state relative-caret-position="386">
+              <caret line="906" column="6" selection-start-line="906" selection-start-column="6" selection-end-line="906" selection-end-column="6" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
                 <element signature="e#313#534#0" expanded="false" />
@@ -382,8 +382,6 @@
                 <element signature="e#2048#2158#0" expanded="false" />
                 <element signature="e#2244#2377#0" expanded="false" />
                 <element signature="e#2312#2365#0" expanded="false" />
-                <element signature="e#2418#3126#0" expanded="false" />
-                <element signature="e#2464#2490#0" expanded="false" />
                 <element signature="e#2650#3114#0" expanded="false" />
                 <element signature="e#2731#3103#0" expanded="false" />
                 <element signature="e#2792#2862#0" expanded="false" />
@@ -422,6 +420,7 @@
                 <element signature="e#6575#6611#0" expanded="false" />
                 <element signature="e#6651#6683#0" expanded="false" />
                 <element signature="e#6716#6747#0" expanded="false" />
+                <element signature="n#!!block;n#SudokuControl#0" expanded="false" />
                 <element signature="e#7106#7582#0" expanded="false" />
                 <element signature="n#!!block;n#fetchPuzzle#0;n#!!block;n#SudokuControl#0" expanded="false" />
                 <element signature="e#7803#7906#0" expanded="false" />
@@ -432,7 +431,9 @@
                 <element signature="e#8522#8615#0" expanded="false" />
                 <element signature="e#9167#9898#0" expanded="false" />
                 <element signature="e#9932#9964#0" expanded="false" />
+                <element signature="e#10000#10036#0" expanded="false" />
                 <element signature="e#10076#14638#0" expanded="false" />
+                <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
                 <element signature="e#15649#18475#0" expanded="false" />
                 <element signature="e#16050#18469#0" expanded="false" />
                 <element signature="e#16096#17108#0" expanded="false" />
@@ -484,14 +485,12 @@
                 <element signature="e#26794#26836#0" expanded="false" />
                 <element signature="e#26874#26910#0" expanded="false" />
                 <element signature="e#26951#27268#0" expanded="false" />
-                <element signature="e#27275#27346#0" expanded="false" />
-                <element signature="e#27383#28039#0" expanded="false" />
-                <element signature="e#27436#27482#0" expanded="false" />
-                <element signature="e#27688#27998#0" expanded="false" />
-                <element signature="e#27812#27988#0" expanded="false" />
-                <element signature="e#28079#28620#0" expanded="false" />
-                <element signature="e#28195#28350#0" expanded="false" />
-                <element signature="e#28380#28578#0" expanded="false" />
+                <element signature="e#27419#28075#0" expanded="false" />
+                <element signature="e#28160#28701#0" expanded="false" />
+                <element signature="e#28276#28431#0" expanded="false" />
+                <element signature="e#28461#28659#0" expanded="false" />
+                <element signature="e#28793#30940#0" expanded="false" />
+                <element signature="e#30975#31171#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -788,14 +787,14 @@
       <workItem from="1466476058971" duration="82951000" />
       <workItem from="1466725603252" duration="1576000" />
       <workItem from="1467293569409" duration="873000" />
-      <workItem from="1467294470113" duration="16918000" />
+      <workItem from="1467294470113" duration="17274000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111365000" />
+    <option name="totallyTimeSpent" value="111721000" />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -806,28 +805,28 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1296" height="1010" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1603631" sideWeight="0.48713827" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32801822" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31548974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Code Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12480127" sideWeight="0.49356914" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252818" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252818" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.50643086" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="SonarQube" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="SonarQube" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905295" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -8379,8 +8378,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/JQuerySudoku/jQSudoku.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="503" column="0" selection-start-line="503" selection-start-column="0" selection-end-line="503" selection-end-column="0" />
+        <state relative-caret-position="386">
+          <caret line="906" column="6" selection-start-line="906" selection-start-column="6" selection-end-line="906" selection-end-column="6" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
             <element signature="e#313#534#0" expanded="false" />
@@ -8391,8 +8390,6 @@
             <element signature="e#2048#2158#0" expanded="false" />
             <element signature="e#2244#2377#0" expanded="false" />
             <element signature="e#2312#2365#0" expanded="false" />
-            <element signature="e#2418#3126#0" expanded="false" />
-            <element signature="e#2464#2490#0" expanded="false" />
             <element signature="e#2650#3114#0" expanded="false" />
             <element signature="e#2731#3103#0" expanded="false" />
             <element signature="e#2792#2862#0" expanded="false" />
@@ -8431,6 +8428,7 @@
             <element signature="e#6575#6611#0" expanded="false" />
             <element signature="e#6651#6683#0" expanded="false" />
             <element signature="e#6716#6747#0" expanded="false" />
+            <element signature="n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#7106#7582#0" expanded="false" />
             <element signature="n#!!block;n#fetchPuzzle#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#7803#7906#0" expanded="false" />
@@ -8441,7 +8439,9 @@
             <element signature="e#8522#8615#0" expanded="false" />
             <element signature="e#9167#9898#0" expanded="false" />
             <element signature="e#9932#9964#0" expanded="false" />
+            <element signature="e#10000#10036#0" expanded="false" />
             <element signature="e#10076#14638#0" expanded="false" />
+            <element signature="n#!!block;n#closeBtn#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#15649#18475#0" expanded="false" />
             <element signature="e#16050#18469#0" expanded="false" />
             <element signature="e#16096#17108#0" expanded="false" />
@@ -8493,14 +8493,12 @@
             <element signature="e#26794#26836#0" expanded="false" />
             <element signature="e#26874#26910#0" expanded="false" />
             <element signature="e#26951#27268#0" expanded="false" />
-            <element signature="e#27275#27346#0" expanded="false" />
-            <element signature="e#27383#28039#0" expanded="false" />
-            <element signature="e#27436#27482#0" expanded="false" />
-            <element signature="e#27688#27998#0" expanded="false" />
-            <element signature="e#27812#27988#0" expanded="false" />
-            <element signature="e#28079#28620#0" expanded="false" />
-            <element signature="e#28195#28350#0" expanded="false" />
-            <element signature="e#28380#28578#0" expanded="false" />
+            <element signature="e#27419#28075#0" expanded="false" />
+            <element signature="e#28160#28701#0" expanded="false" />
+            <element signature="e#28276#28431#0" expanded="false" />
+            <element signature="e#28461#28659#0" expanded="false" />
+            <element signature="e#28793#30940#0" expanded="false" />
+            <element signature="e#30975#31171#0" expanded="false" />
           </folding>
         </state>
       </provider>

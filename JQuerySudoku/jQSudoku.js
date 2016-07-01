@@ -863,14 +863,11 @@ function SudokuView() {
         inputGridVisible = false;
     };
 
-    /*
+    //****************
+    // Needs Rewriting
+    //****************
 
-    ***************
-    Needs Rewriting
-    ***************
-
-    */
-
+    //TODO: Rewrite expandSelect in jQuery
     this.expandSelect = function() {
         if (gameView.getInputVisibility() == true) {
             this.closeInputGrid();
@@ -890,6 +887,7 @@ function SudokuView() {
         selectToggle = true;
     };
 
+    //TODO: Rewrite collapseSelect in jQuery
     this.collapseSelect = function() {
         var options = document.getElementsByClassName("selOpt");
         for (var i = 0; i < options.length; i++) {
@@ -906,6 +904,7 @@ function SudokuView() {
         selectToggle = false;
     };
 
+    //TODO: Rewrite openInputGrid in jQuery
     this.openInputGrid = function (thisCell) {
         gameControl.initInputGrid();
         if (gameControl.noteMode() == true) {
