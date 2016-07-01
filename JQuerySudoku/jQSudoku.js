@@ -782,6 +782,7 @@ function SudokuView() {
             //  Bold Num
             var numToHighlight = $(this).children().text();
             console.log("Highlighting all " + numToHighlight);
+            //TODO: Set toggle so that two number sets cannot be bold at the same time
             if(numToHighlight != "") {
                 if(highToggle == false){
                     $(".inputNum").each(function () {
