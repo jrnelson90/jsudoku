@@ -366,11 +366,6 @@ function SudokuControl(){
         return $lastClicked;
     };
 
-    //**********************
-    // Needs to be rewritten
-    //**********************
-
-
     this.initInputGrid = function () {
 
         $("<div id=\"inputBorder\"></div>").insertBefore($("#displayArea"));
@@ -390,7 +385,6 @@ function SudokuControl(){
             $close.click( function () {
                 gameView.closeInputGrid();
             });
-
         }
 
         $inputBorder.append($("<div id=\"inputGrid\"></div>"));
@@ -414,9 +408,8 @@ function SudokuControl(){
             if($lastClickedText.text() != "") {
                 gameModel.setFilledInputs(gameModel.filled() - 1);
                 if(gameModel.filled() == 0) {
-                    document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
-                    var checkButton = document.getElementById("check");
-                    checkButton.removeEventListener("click", gameControl.checkClick);
+                    $("#checkIcon").addClass("material-icons inactive");
+                    $("#check").unbind();
                 }
             }
             $(gameControl.lastClick()).children().text("");
@@ -424,7 +417,7 @@ function SudokuControl(){
         });
 
         //
-        gameView.setInputVisibility(false);
+        gameView.setInputVisibility(true);
 
         //TODO: Rewrite number input events
         $(".numSelect").click(function () {
@@ -436,79 +429,78 @@ function SudokuControl(){
 
         //Set event listeners for when numbers are clicked
         /*for (i = 0; i < 9; i++) {
-            var numbers = document.getElementsByClassName("numSelect");
-            numbers[i].onclick = function () {
-                if (gameControl.noteMode() == false) {
+         var numbers = document.getElementsByClassName("numSelect");
+         numbers[i].onclick = function () {
+         if (gameControl.noteMode() == false) {
 
-                    if (gameControl.lastClick().style.color == "red") {
-                        gameControl.lastClick().style.color = "#1c86ee";
-                    }
-                    if (isNaN(parseInt(gameControl.lastClick().innerHTML)) == true) {
-                        var filled = gameModel.filled();
-                        if (filled == 0) {
-                            document.getElementById("checkIcon").setAttribute("class", "material-icons");
-                            var checkButton = document.getElementById("check");
-                            checkButton.addEventListener("click", gameControl.checkClick);
-                        }
-                        filled++;
-                        gameModel.setFilledInputs((filled));
-                    }
+         if (gameControl.lastClick().style.color == "red") {
+         gameControl.lastClick().style.color = "#1c86ee";
+         }
+         if (isNaN(parseInt(gameControl.lastClick().innerHTML)) == true) {
+         var filled = gameModel.filled();
+         if (filled == 0) {
+         document.getElementById("checkIcon").setAttribute("class", "material-icons");
+         var checkButton = document.getElementById("check");
+         checkButton.addEventListener("click", gameControl.checkClick);
+         }
+         filled++;
+         gameModel.setFilledInputs((filled));
+         }
 
-                    if (gameControl.lastClick().style.fontSize == gameView.textBold()) {
-                        gameControl.lastClick().style.fontSize = gameView.textNorm();
-                        gameControl.lastClick().style.fontWeight = "normal";
-                    }
-                    gameControl.lastClick().innerHTML = this.innerHTML;
-                    gameView.closeInputGrid();
+         if (gameControl.lastClick().style.fontSize == gameView.textBold()) {
+         gameControl.lastClick().style.fontSize = gameView.textNorm();
+         gameControl.lastClick().style.fontWeight = "normal";
+         }
+         gameControl.lastClick().innerHTML = this.innerHTML;
+         gameView.closeInputGrid();
 
-                    if (gameControl.lastClick().innerHTML == gameView.lastHighlight() && gameView.highToggle() == true) {
-                        gameControl.lastClick().style.fontSize = gameView.textBold();
-                        gameControl.lastClick().style.fontWeight = "bold";
+         if (gameControl.lastClick().innerHTML == gameView.lastHighlight() && gameView.highToggle() == true) {
+         gameControl.lastClick().style.fontSize = gameView.textBold();
+         gameControl.lastClick().style.fontWeight = "bold";
 
-                    }
-                    if (gameModel.filled() == gameModel.inputNum()) {
-                        gameControl.checkGrid("endGame");
-                    }
-                }
-                else {
-                    if (gameControl.lastClick().childNodes[0]) {
-                        if (gameControl.lastClick().childNodes[0].className != "noteCont")
-                            lastClicked.innerHTML = "";
-                    }
-                    if(!gameControl.lastClick().childNodes[0])
-                        gameView.drawMiniGrid(gameControl.lastClick());
-                    console.log(gameControl.lastClick().childNodes[0].className);
-                    var num = parseInt(this.innerHTML);
-                    var list = gameControl.lastClick().querySelectorAll(".noteNum");
-                    console.log(list);
+         }
+         if (gameModel.filled() == gameModel.inputNum()) {
+         gameControl.checkGrid("endGame");
+         }
+         }
+         else {
+         if (gameControl.lastClick().childNodes[0]) {
+         if (gameControl.lastClick().childNodes[0].className != "noteCont")
+         lastClicked.innerHTML = "";
+         }
+         if(!gameControl.lastClick().childNodes[0])
+         gameView.drawMiniGrid(gameControl.lastClick());
+         console.log(gameControl.lastClick().childNodes[0].className);
+         var num = parseInt(this.innerHTML);
+         var list = gameControl.lastClick().querySelectorAll(".noteNum");
+         console.log(list);
 
-                    if(list[(num-1)].style.opacity == "0") {
-                        list[(num-1)].style.opacity = "1";
-                        this.style.color = "rgba(255, 250, 240, 0.5)";
-                    }
-                    else {
-                        list[(num-1)].style.opacity = "0";
-                        this.style.color = "rgba(255, 255, 255, 1.0)";
-                    }
-                }
-            };
-        }*/
+         if(list[(num-1)].style.opacity == "0") {
+         list[(num-1)].style.opacity = "1";
+         this.style.color = "rgba(255, 250, 240, 0.5)";
+         }
+         else {
+         list[(num-1)].style.opacity = "0";
+         this.style.color = "rgba(255, 255, 255, 1.0)";
+         }
+         }
+         };
+         }*/
     };
 
     function closeBtn() {
-        var closeButton = document.createElement("div");
-        closeButton.setAttribute("class", "closeBtn");
-        var closeX = document.createElement("div");
-        closeX.setAttribute("class", "closeX");
-        if(gameView.isFirefox() == true && gameView.isMobile() == true) {
-            closeX.style.marginTop = "-14px";
-            closeX.style.marginLeft = "-8px";
-        }
-        closeX.innerHTML = "&times";
-
-        closeButton.appendChild(closeX);
-        return closeButton;
+        var $closeButton = $("<div class=\'closeBtn\'></div>");
+        var $closeX = $("<div class=\'closeX\'></div>");
+        if(gameView.isFirefox() == true && gameView.isMobile() == true)
+            $closeX.css({"margin-top": "-14px", "margin-left": "-8px"});
+        $closeX.html("&times");
+        $closeButton.append($closeX);
+        return $closeButton;
     }
+
+    //**********************
+    // Needs to be rewritten
+    //**********************
 
 }
 
