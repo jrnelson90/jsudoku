@@ -85,9 +85,9 @@ $(document).ready(function () {
     $("#startBtn").click(function () {
         gameView.slideStartClose();
 
-        // setTimeout(function() {
-        //     gameControl.loadSelectedPuzzle();
-        // }, 500);
+        setTimeout(function() {
+            gameControl.loadSelectedPuzzle();
+        }, 500);
 
         setTimeout(function() {
             var $selText = $("#selText");
@@ -95,11 +95,11 @@ $(document).ready(function () {
                  if ($selText.text() == "Difficulty") {
                      $selText.text("Medium");
                  }
-            $("#puzzleDiffText").text($selText.text());
-            //gameView.showLoading();
-            setTimeout(function() {
-                gameControl.loadSelectedPuzzle();
-            }, 300);
+                $("#puzzleDiffText").text($selText.text());
+                gameView.showLoading();
+                /*setTimeout(function() {
+                    gameControl.loadSelectedPuzzle();
+                }, 300);*/
             }
          },350);
     });
@@ -574,6 +574,7 @@ function SudokuControl(){
         return i;
     };
 
+    //TODO: Bugtest pause functionality
     this.pauseClick = function() {
         if (paused == false) {
             gameControl.pauseTimer();
@@ -595,7 +596,34 @@ function SudokuControl(){
     // Needs to be rewritten
     //**********************
 
-    //TODO: Bugtest pause functionality
+    this.initLoading = function () {
+        var newPopCont = document.createElement("DIV");
+        newPopCont.setAttribute("id", "popContainer");
+        document.body.appendChild(newPopCont);
+
+        var newHaze = document.createElement("DIV");
+        newHaze.setAttribute("id", "haze");
+        newPopCont.appendChild(newHaze);
+
+        var newLoad = document.createElement("div");
+        newLoad.setAttribute("class", "popUp");
+        newLoad.setAttribute("id", "loadContainer");
+        newPopCont.appendChild(newLoad);
+        newLoad.style.top = (document.getElementById("displayArea").offsetHeight - newLoad.offsetHeight)/2 + "px";
+
+        var loadingText = document.createElement("p");
+        loadingText.innerHTML = "Generating Puzzle";
+        newLoad.appendChild(loadingText);
+
+        var ballCont = document.createElement("div");
+        ballCont.setAttribute("id", "ballContainer");
+        newLoad.appendChild(ballCont);
+
+        for(var i = 0; i < 5; i++) {
+            var loadBall = document.createElement("span");
+            ballCont.appendChild(loadBall);
+        }
+    };
 
 }
 
@@ -622,6 +650,13 @@ function SudokuView() {
     var selectToggle = false;
 
     var gridBlurred = false;
+
+    //TODO: Reimpliment Note Mode
+    //TODO: Rewrite popup for Help
+    //TODO: Rewrite popup for Reset
+    //TODO: Rewrite puzzle generation animation
+    //TODO: Rewrite cell selection crosshair
+    //TODO: Scale input dropdown on window resize
 
     this.setupStartScreen = function () {
         startOpen = true;
@@ -833,7 +868,7 @@ function SudokuView() {
     };
 
     this.loadPuzzle = function (_passedPuzzle) {
-        //gameView.hideLoading();
+        gameView.hideLoading();
         gameModel.setInputNum(0);
 
         // Repeat loop for each row in gameTable
@@ -1067,7 +1102,14 @@ function SudokuView() {
 
     this.isBlurred = function() {
         return gridBlurred;
-    }
+    };
+
+    this.isPauseLayerVisible = function() {
+        if($("#pauseLayer"))
+            return true;
+        else
+            return false;
+    };
 
     this.blurGrid = function() {
         if(this.isBlurred() == false) {
@@ -1080,14 +1122,42 @@ function SudokuView() {
         }
     };
 
-
     //****************
     // Needs Rewriting
     //****************
-    this.isPauseLayerVisible = function() {
-        if($("#pauseLayer"))
-            return true;
-        else
-            return false;
-    }
+
+    this.showLoading = function () {
+        gameControl.initLoading();
+        // var load = document.getElementById("loadContainer");
+        // gameView.togglePopupView(load);
+        gameView.togglePopupView($("#loadContainer"));
+    };
+
+    this.hideLoading = function() {
+        // var load = document.getElementById("loadContainer");
+        // gameView.togglePopupView(load);
+        gameView.togglePopupView($("#loadContainer"));
+    };
+
+    this.togglePopupView = function(_div) {
+        //var popCont = document.getElementById("popContainer");
+        var $popCont = $("#popContainer");
+        if (popUpVisible == false) {
+            //popCont.style.display = "inline-block";
+            $popCont.css("display", "inline-block");
+            setTimeout(function() {
+                //_div.style.transform = "scale(1)";
+                $(_div).css("transform", "scale(1)");
+            }, 10);
+            popUpVisible = true;
+        }
+        else if(popUpVisible == true) {
+            //_div.style.transform = "scale(0.01)";
+            $(_div).css("transform", "scale(0.01)");
+            setTimeout(function() {
+                $popCont.remove();
+            }, 200);
+            popUpVisible = false;
+        }
+    };
 }
