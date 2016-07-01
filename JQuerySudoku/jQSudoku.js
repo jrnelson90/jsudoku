@@ -338,6 +338,12 @@ function SudokuControl(){
             gameView.setInputVisibility(false);
         }
 
+        if(gameView.isPauseLayerVisible() == true) {
+            gameView.blurGrid();
+            $("#pauseLayer").remove();
+            paused = false;
+        }
+
         gameView.setLoaded(false);
         // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
         // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
@@ -570,6 +576,8 @@ function SudokuControl(){
     this.pauseClick = function() {
         if (paused == false) {
             gameControl.pauseTimer();
+            if(gameView.getInputVisibility() == true)
+                gameView.closeInputGrid();
             var $pauseLayer = $("<div id=\'pauseLayer\'><h1>Game Paused</h1></div>");
             $pauseLayer.css("height", $(window).innerHeight() - 46 + "px");
             gameView.blurGrid();
@@ -1071,8 +1079,14 @@ function SudokuView() {
         }
     };
 
+
     //****************
     // Needs Rewriting
     //****************
-
+    this.isPauseLayerVisible = function() {
+        if($("#pauseLayer") === null)
+            return false;
+        else
+            return true;
+    }
 }
