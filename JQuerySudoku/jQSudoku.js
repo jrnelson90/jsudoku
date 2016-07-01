@@ -595,7 +595,6 @@ function SudokuView() {
                 "font-size": prevCellSize - 14 + "px",
                 "unselectable": "on",
                 "vertical-align": "middle"
-
             });
             console.log(prevGridSize);
             console.log(prevCellSize);
@@ -777,6 +776,38 @@ function SudokuView() {
         $puzzleNum.click(function () {
             if(gameView.getInputVisibility() == true)
                 gameView.closeInputGrid();
+        });
+
+        $puzzleNum.dblclick(function () {
+            //  Bold Num
+            var numToHighlight = $(this).children().text();
+            console.log("Highlighting all " + numToHighlight);
+            if(numToHighlight != "") {
+                if(highToggle == false){
+                    $(".inputNum").each(function () {
+                        if($(this).text() == numToHighlight)
+                            $(this).css("font-weight", "bold");
+                    });
+
+                    $(".puzzleNum").each(function () {
+                        if($(this).text() == numToHighlight)
+                            $(this).css("font-weight", "bold");
+                    });
+                    highToggle = true;
+                }
+                else if(highToggle == true){
+                    $(".inputNum").each(function () {
+                        if($(this).text() == numToHighlight)
+                            $(this).css("font-weight", "normal");
+                    });
+
+                    $(".puzzleNum").each(function () {
+                        if($(this).text() == numToHighlight)
+                            $(this).css("font-weight", "normal");
+                    });
+                    highToggle = false;
+                }
+            }
         });
 
         // gameControl.startTimer();
