@@ -841,16 +841,34 @@ function SudokuView() {
         puzzleLoaded = _state;
     };
 
+    this.selectToggle = function() {
+        return selectToggle;
+    };
+
+    this.expandSelect = function() {
+        if (gameView.getInputVisibility() == true)
+            this.closeInputGrid();
+        $("#selDropCont").css({"visibility": "visible", "display": "block", "height": "auto"});
+        setTimeout(function(){
+            $(".selOpt").css({"display": "block", "visibility": "visible"});
+        }, 50);
+        selectToggle = true;
+    };
+
+    this.collapseSelect = function() {
+        $(".selOpt").css({"display": "none", "visibility": "hidden"});
+        setTimeout(function(){
+            $("#selDropCont").css({"visibility": "hidden", "display": "none", "height": "0"});
+        }, 50);
+        selectToggle = false;
+    };
+
     this.getInputVisibility = function () {
         return inputGridVisible;
     };
 
     this.setInputVisibility = function (_state) {
         inputGridVisible = _state;
-    };
-
-    this.selectToggle = function() {
-        return selectToggle;
     };
 
     this.openInputGrid = function (thisCell) {
@@ -906,45 +924,7 @@ function SudokuView() {
     //****************
     // Needs Rewriting
     //****************
-
-    //TODO: Rewrite expandSelect in jQuery
-    this.expandSelect = function() {
-        if (gameView.getInputVisibility() == true) {
-            this.closeInputGrid();
-        }
-        var list = document.getElementById("selDropCont");
-        list.style.visibility = "visible";
-        list.style.display = "block";
-        list.style.height = "auto";
-        setTimeout(function(){
-            var options = document.getElementsByClassName("selOpt");
-            for (var i = 0; i < options.length; i++) {
-                options[i].style.display = "block";
-                options[i].style.visibility = "visible";
-                //options[i].style.height = "24px";
-            }
-        }, 50);
-        selectToggle = true;
-    };
-
-    //TODO: Rewrite collapseSelect in jQuery
-    this.collapseSelect = function() {
-        var options = document.getElementsByClassName("selOpt");
-        for (var i = 0; i < options.length; i++) {
-            options[i].style.visibility = "hidden";
-            options[i].style.display = "none";
-            //options[i].style.height = "0";
-        }
-        setTimeout(function(){
-            var list = document.getElementById("selDropCont");
-            list.style.height = "0";
-            list.style.display = "none";
-            list.style.visibility = "hidden";
-        }, 50);
-        selectToggle = false;
-    };
-
-
+    
     this.isFirefox = function() {
         if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
             console.log("This is Firefox");
