@@ -592,38 +592,29 @@ function SudokuControl(){
         }
     };
 
+    this.initLoading = function () {
+        var $newPopCont = $("<div id=\'popContainer\'></div>");
+        $('body').append($newPopCont);
+
+        $newPopCont.append("<div id=\'haze\'></div>");
+
+        var $newLoad = $("<div id=\'loadContainer\' class=\'popUp\'></div>");
+        $newPopCont.append($newLoad);
+        $newLoad.css("top", ($("#displayArea").outerHeight() - $newLoad.outerHeight())/2 + "px");
+
+        $newLoad.append("<p>Generating Puzzle</p>");
+
+        var $ballCont = $("<div id=\'ballContainer\'></div>");
+        $newLoad.append($ballCont);
+
+        for(var i = 0; i < 5; i++) {
+            $ballCont.append("<span></span>");
+        }
+    };
+
     //**********************
     // Needs to be rewritten
     //**********************
-
-    this.initLoading = function () {
-        var newPopCont = document.createElement("DIV");
-        newPopCont.setAttribute("id", "popContainer");
-        document.body.appendChild(newPopCont);
-
-        var newHaze = document.createElement("DIV");
-        newHaze.setAttribute("id", "haze");
-        newPopCont.appendChild(newHaze);
-
-        var newLoad = document.createElement("div");
-        newLoad.setAttribute("class", "popUp");
-        newLoad.setAttribute("id", "loadContainer");
-        newPopCont.appendChild(newLoad);
-        newLoad.style.top = (document.getElementById("displayArea").offsetHeight - newLoad.offsetHeight)/2 + "px";
-
-        var loadingText = document.createElement("p");
-        loadingText.innerHTML = "Generating Puzzle";
-        newLoad.appendChild(loadingText);
-
-        var ballCont = document.createElement("div");
-        ballCont.setAttribute("id", "ballContainer");
-        newLoad.appendChild(ballCont);
-
-        for(var i = 0; i < 5; i++) {
-            var loadBall = document.createElement("span");
-            ballCont.appendChild(loadBall);
-        }
-    };
 
 }
 
@@ -654,7 +645,6 @@ function SudokuView() {
     //TODO: Reimpliment Note Mode
     //TODO: Rewrite popup for Help
     //TODO: Rewrite popup for Reset
-    //TODO: Rewrite puzzle generation animation
     //TODO: Rewrite cell selection crosshair
     //TODO: Scale input dropdown on window resize
 
@@ -910,10 +900,20 @@ function SudokuView() {
         $puzzleNum.dblclick(function () {
             //  Bold Num
             var numToHighlight = $(this).children().text();
-            console.log("Highlighting all " + numToHighlight);
-            //TODO: Set toggle so that two number sets cannot be bold at the same time
-            if(numToHighlight != "") {
-                if(highToggle == false){
+            if ($(this).text() == lastHighlighted || typeof lastHighlighted == 'undefined') {
+                if (highToggle == true) {
+                    $(".inputNum").each(function () {
+                        if($(this).text() == lastHighlighted)
+                            $(this).css("font-weight", "normal");
+                    });
+
+                    $(".puzzleNum").each(function () {
+                        if($(this).text() == lastHighlighted)
+                            $(this).css("font-weight", "normal");
+                    });
+                    highToggle = false;
+                }
+                else if (highToggle == false) {
                     $(".inputNum").each(function () {
                         if($(this).text() == numToHighlight)
                             $(this).css("font-weight", "bold");
@@ -925,19 +925,30 @@ function SudokuView() {
                     });
                     highToggle = true;
                 }
-                else if(highToggle == true){
-                    $(".inputNum").each(function () {
-                        if($(this).text() == numToHighlight)
-                            $(this).css("font-weight", "normal");
-                    });
-
-                    $(".puzzleNum").each(function () {
-                        if($(this).text() == numToHighlight)
-                            $(this).css("font-weight", "normal");
-                    });
-                    highToggle = false;
-                }
             }
+            if ($(this).text() != lastHighlighted && typeof lastHighlighted != 'undefined') {
+                $(".inputNum").each(function () {
+                    if($(this).text() == lastHighlighted)
+                        $(this).css("font-weight", "normal");
+                });
+
+                $(".puzzleNum").each(function () {
+                    if($(this).text() == lastHighlighted)
+                        $(this).css("font-weight", "normal");
+                });
+
+
+                $(".inputNum").each(function () {
+                    if($(this).text() == numToHighlight)
+                        $(this).css("font-weight", "bold");
+                });
+
+                $(".puzzleNum").each(function () {
+                    if($(this).text() == numToHighlight)
+                        $(this).css("font-weight", "bold");
+                });
+            }
+            lastHighlighted = numToHighlight;
         });
 
         // gameControl.startTimer();
@@ -1122,37 +1133,25 @@ function SudokuView() {
         }
     };
 
-    //****************
-    // Needs Rewriting
-    //****************
-
     this.showLoading = function () {
         gameControl.initLoading();
-        // var load = document.getElementById("loadContainer");
-        // gameView.togglePopupView(load);
         gameView.togglePopupView($("#loadContainer"));
     };
 
     this.hideLoading = function() {
-        // var load = document.getElementById("loadContainer");
-        // gameView.togglePopupView(load);
         gameView.togglePopupView($("#loadContainer"));
     };
 
     this.togglePopupView = function(_div) {
-        //var popCont = document.getElementById("popContainer");
         var $popCont = $("#popContainer");
         if (popUpVisible == false) {
-            //popCont.style.display = "inline-block";
             $popCont.css("display", "inline-block");
             setTimeout(function() {
-                //_div.style.transform = "scale(1)";
                 $(_div).css("transform", "scale(1)");
             }, 10);
             popUpVisible = true;
         }
         else if(popUpVisible == true) {
-            //_div.style.transform = "scale(0.01)";
             $(_div).css("transform", "scale(0.01)");
             setTimeout(function() {
                 $popCont.remove();
@@ -1160,4 +1159,10 @@ function SudokuView() {
             popUpVisible = false;
         }
     };
+
+    //****************
+    // Needs Rewriting
+    //****************
+
+
 }

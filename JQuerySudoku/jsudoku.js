@@ -1806,7 +1806,7 @@ function SudokuView() {
 
     this.isBlurred = function() {
         return gridBlurred;
-    }
+    };
 
     this.isPauseLayerVisible = function() {
         if(document.getElementById("pauseLayer") === null)

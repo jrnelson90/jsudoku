@@ -252,7 +252,7 @@ function solveHelper(_currentRow, _currentCol, _grid) {
 }
 
 function checkValue(_row, _col, _value, _grid) {
-    var otherCells = otherBoxCells(_row, _col)
+    var otherCells = otherBoxCells(_row, _col);
     for (var i = 0; i < 9; i++) {
         if (i != _col) {
             if (_grid[_row][i] == _value)
@@ -1621,7 +1621,7 @@ function hiddenTriple(_row, _col, _grid) {
             var rowCands = [];
             var colCands = [];
             for (i = 0; i < 9; i++) {
-                var checkRow = []
+                var checkRow = [];
                 if (_grid[_row][i][9] == null) {
                     checkRow = getCellCands(_grid[_row][i]);
                     if (checkRow.length > 1) {
