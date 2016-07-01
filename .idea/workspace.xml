@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4916c0b0-90b4-4338-82a4-46a10c934448" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JQuerySudoku/jQSudoku.js" afterPath="$PROJECT_DIR$/JQuerySudoku/jQSudoku.js" />
     </list>
     <ignored path="Assignment4.iws" />
@@ -29,8 +30,8 @@
             <file leaf-file-name="jsudoku.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/JQuerySudoku/jsudoku.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="412">
-                    <caret line="336" column="33" selection-start-line="336" selection-start-column="4" selection-end-line="338" selection-end-column="6" />
+                  <state relative-caret-position="256">
+                    <caret line="1614" column="8" selection-start-line="1614" selection-start-column="8" selection-end-line="1614" selection-end-column="8" />
                     <folding>
                       <element signature="e#344#1134#0" expanded="false" />
                       <element signature="e#388#1132#0" expanded="false" />
@@ -306,7 +307,6 @@
                       <element signature="e#59779#59884#0" expanded="false" />
                       <element signature="e#59930#59966#0" expanded="false" />
                       <element signature="e#60008#60046#0" expanded="false" />
-                      <element signature="e#60094#62350#0" expanded="false" />
                       <element signature="e#60272#60780#0" expanded="false" />
                       <element signature="e#60386#60770#0" expanded="false" />
                       <element signature="e#60456#60756#0" expanded="false" />
@@ -370,8 +370,8 @@
       <file leaf-file-name="jQSudoku.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JQuerySudoku/jQSudoku.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="906" column="6" selection-start-line="906" selection-start-column="6" selection-end-line="906" selection-end-column="6" />
+            <state relative-caret-position="408">
+              <caret line="948" column="46" selection-start-line="948" selection-start-column="46" selection-end-line="948" selection-end-column="46" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
                 <element signature="e#313#534#0" expanded="false" />
@@ -420,7 +420,6 @@
                 <element signature="e#6575#6611#0" expanded="false" />
                 <element signature="e#6651#6683#0" expanded="false" />
                 <element signature="e#6716#6747#0" expanded="false" />
-                <element signature="n#!!block;n#SudokuControl#0" expanded="false" />
                 <element signature="e#7106#7582#0" expanded="false" />
                 <element signature="n#!!block;n#fetchPuzzle#0;n#!!block;n#SudokuControl#0" expanded="false" />
                 <element signature="e#7803#7906#0" expanded="false" />
@@ -429,7 +428,6 @@
                 <element signature="e#8131#8383#0" expanded="false" />
                 <element signature="e#8512#9119#0" expanded="false" />
                 <element signature="e#8522#8615#0" expanded="false" />
-                <element signature="e#9167#9898#0" expanded="false" />
                 <element signature="e#9932#9964#0" expanded="false" />
                 <element signature="e#10000#10036#0" expanded="false" />
                 <element signature="e#10076#14638#0" expanded="false" />
@@ -489,8 +487,8 @@
                 <element signature="e#28160#28701#0" expanded="false" />
                 <element signature="e#28276#28431#0" expanded="false" />
                 <element signature="e#28461#28659#0" expanded="false" />
-                <element signature="e#28793#30940#0" expanded="false" />
-                <element signature="e#30975#31171#0" expanded="false" />
+                <element signature="e#28840#29388#0" expanded="false" />
+                <element signature="e#30983#31179#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -645,10 +643,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1358" />
-    <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1010" />
+    <option name="x" value="1545" />
+    <option name="y" value="104" />
+    <option name="width" value="1280" />
+    <option name="height" value="738" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -787,12 +785,12 @@
       <workItem from="1466476058971" duration="82951000" />
       <workItem from="1466725603252" duration="1576000" />
       <workItem from="1467293569409" duration="873000" />
-      <workItem from="1467294470113" duration="17274000" />
+      <workItem from="1467294470113" duration="21396000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111721000" />
+    <option name="totallyTimeSpent" value="115843000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -804,12 +802,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1296" height="1010" extended-state="6" />
-    <editor active="false" />
+    <frame x="1545" y="104" width="1280" height="738" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1603631" sideWeight="0.48713827" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31548974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31548974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Code Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -8060,8 +8058,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/JQuerySudoku/jsudoku.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="336" column="33" selection-start-line="336" selection-start-column="4" selection-end-line="338" selection-end-column="6" />
+        <state relative-caret-position="256">
+          <caret line="1614" column="8" selection-start-line="1614" selection-start-column="8" selection-end-line="1614" selection-end-column="8" />
           <folding>
             <element signature="e#344#1134#0" expanded="false" />
             <element signature="e#388#1132#0" expanded="false" />
@@ -8337,7 +8335,6 @@
             <element signature="e#59779#59884#0" expanded="false" />
             <element signature="e#59930#59966#0" expanded="false" />
             <element signature="e#60008#60046#0" expanded="false" />
-            <element signature="e#60094#62350#0" expanded="false" />
             <element signature="e#60272#60780#0" expanded="false" />
             <element signature="e#60386#60770#0" expanded="false" />
             <element signature="e#60456#60756#0" expanded="false" />
@@ -8378,8 +8375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/JQuerySudoku/jQSudoku.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="906" column="6" selection-start-line="906" selection-start-column="6" selection-end-line="906" selection-end-column="6" />
+        <state relative-caret-position="408">
+          <caret line="948" column="46" selection-start-line="948" selection-start-column="46" selection-end-line="948" selection-end-column="46" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
             <element signature="e#313#534#0" expanded="false" />
@@ -8428,7 +8425,6 @@
             <element signature="e#6575#6611#0" expanded="false" />
             <element signature="e#6651#6683#0" expanded="false" />
             <element signature="e#6716#6747#0" expanded="false" />
-            <element signature="n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#7106#7582#0" expanded="false" />
             <element signature="n#!!block;n#fetchPuzzle#0;n#!!block;n#SudokuControl#0" expanded="false" />
             <element signature="e#7803#7906#0" expanded="false" />
@@ -8437,7 +8433,6 @@
             <element signature="e#8131#8383#0" expanded="false" />
             <element signature="e#8512#9119#0" expanded="false" />
             <element signature="e#8522#8615#0" expanded="false" />
-            <element signature="e#9167#9898#0" expanded="false" />
             <element signature="e#9932#9964#0" expanded="false" />
             <element signature="e#10000#10036#0" expanded="false" />
             <element signature="e#10076#14638#0" expanded="false" />
@@ -8497,8 +8492,8 @@
             <element signature="e#28160#28701#0" expanded="false" />
             <element signature="e#28276#28431#0" expanded="false" />
             <element signature="e#28461#28659#0" expanded="false" />
-            <element signature="e#28793#30940#0" expanded="false" />
-            <element signature="e#30975#31171#0" expanded="false" />
+            <element signature="e#28840#29388#0" expanded="false" />
+            <element signature="e#30983#31179#0" expanded="false" />
           </folding>
         </state>
       </provider>

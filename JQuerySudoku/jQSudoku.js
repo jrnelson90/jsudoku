@@ -907,7 +907,7 @@ function SudokuView() {
     //TODO: Rewrite openInputGrid in jQuery
     this.openInputGrid = function (thisCell) {
         gameControl.initInputGrid();
-        if (gameControl.noteMode() == true) {
+        /*if (gameControl.noteMode() == true) {
             var numbers = document.getElementsByClassName("numSelect");
             if (thisCell.childNodes[0]) {
                 if (thisCell.childNodes[0].className == "noteCont") {
@@ -918,29 +918,33 @@ function SudokuView() {
                     }
                 }
             }
-        }
+        }*/
         var expandHeight = 110;
 
         var inCont = document.getElementById("inputBorder");
         // If the cell is part of the bottom two rows of the grid
         var gameGrid = document.getElementById("gameGrid");
-        var numCont = document.getElementById("numberCont");
-        numCont.style.height = expandHeight + "px";
+
+        $("#numberCont").css("height", expandHeight + "px");
+
         var rect = thisCell.getBoundingClientRect();
         console.log(rect.top, rect.right, rect.bottom, rect.left);
+        console.log($(thisCell).css("top"), $(thisCell).css("left"));
 
-        inCont.style.top = rect.top - ((expandHeight- parseInt(thisCell.style.width))/2) + "px";
+        var topCoord = rect.top;
+        var leftCoord = rect.left;
+        inCont.style.top = topCoord - ((expandHeight- $(thisCell).width())/2) + "px";
 
-        console.log(rect.left);
-        console.log(parseInt(gameModel.inputGrid().width()));
-        console.log(((parseInt(gameModel.inputGrid().width())- parseInt(thisCell.style.width))/2));
+        console.log(leftCoord);
+        console.log(gameModel.inputGrid().width());
+        console.log(((gameModel.inputGrid().width()- $(thisCell).width())/2));
 
         if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 0)
-            inCont.style.left = rect.left + "px";
+            inCont.style.left = leftCoord + "px";
         else if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 8)
-            inCont.style.left = rect.left - (parseInt(gameModel.inputGrid().width()) - parseInt(thisCell.style.width)) + "px";
+            inCont.style.left = leftCoord - (gameModel.inputGrid().width() - $(thisCell).width()) + "px";
         else
-            inCont.style.left = rect.left - ((parseInt(gameModel.inputGrid().width()) - parseInt(thisCell.style.width)) / 2) + "px";
+            inCont.style.left = leftCoord - ((gameModel.inputGrid().width() - $(thisCell).width()) / 2) + "px";
 
         inCont.style.display = "inline-block";
         setTimeout(function() {
