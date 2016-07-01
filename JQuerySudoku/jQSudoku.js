@@ -52,7 +52,8 @@ $(document).ready(function () {
 
     // Setup events for Startup Screen
     gameView.setupStartScreen();
-
+    gameView.resetTimerDisplay();
+    
     var $subMenu = $("#selDropCont");
     var $menuText = $("#selText");
 
@@ -323,6 +324,8 @@ function SudokuControl(){
         /* if(gameControl.noteMode() == true) {
               gameControl.editClick();
            }*/
+        gameControl.stopTimer();
+        gameView.resetTimerDisplay();
         $(".puzzleNum").remove();
         $(".inputNum").remove();
         $(".gameCell").css("color", "#000000");
@@ -330,7 +333,7 @@ function SudokuControl(){
             $("#inputBorder").remove();
             gameView.setInputVisibility(false);
         }
-        gameView.resetTimerDisplay();
+
         gameView.setLoaded(false);
         // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
         // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
@@ -499,21 +502,20 @@ function SudokuControl(){
         return $closeButton;
     }
 
-    var currentTime = function () {
-        return ((new Date()).getTime() / 1000);
-    };
-
-    //**********************
-    // Needs to be rewritten
-    //**********************
-
-    //TODO: Reimpliment timer function
     this.startTimer = function () {
         gameModel.setEndTime("00:00:00");
         viewUpdateInterval = setInterval(function () {
             gameView.updateTimerDisplay();
         }, 1000);
         gameModel.setStart(currentTime());
+    };
+
+    var currentTime = function () {
+        return ((new Date()).getTime() / 1000);
+    };
+
+    this.getElapsedTime = function () {
+        return formatTime((currentTime() - gameModel.startTime()));
     };
 
     var formatTime = function (time) {
@@ -536,8 +538,16 @@ function SudokuControl(){
         return i;
     };
 
-    this.getElapsedTime = function () {
-        return formatTime((currentTime() - gameModel.startTime()));
+    //**********************
+    // Needs to be rewritten
+    //**********************
+
+    //TODO: Reimpliment timer function
+
+    this.stopTimer = function () {
+        clearInterval(viewUpdateInterval);
+        gameModel.setEndTime(this.getElapsedTime());
+        return gameModel.endTime();
     };
 }
 
