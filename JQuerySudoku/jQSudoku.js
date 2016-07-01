@@ -53,7 +53,7 @@ $(document).ready(function () {
     // Setup events for Startup Screen
     gameView.setupStartScreen();
     gameView.resetTimerDisplay();
-    
+
     var $subMenu = $("#selDropCont");
     var $menuText = $("#selText");
 
@@ -102,6 +102,10 @@ $(document).ready(function () {
             }, 300);
             }
          },350);
+    });
+
+    $("#pause").click(function () {
+        gameControl.pauseClick();
     });
 
     $menuText.click(function () {
@@ -510,6 +514,31 @@ function SudokuControl(){
         gameModel.setStart(currentTime());
     };
 
+    this.stopTimer = function () {
+        clearInterval(viewUpdateInterval);
+        gameModel.setEndTime(this.getElapsedTime());
+        return gameModel.endTime();
+    };
+
+    this.pauseTimer = function() {
+        currentTimeElapsed = this.getElapsedTime();
+        this.stopTimer();
+        pausedTimeStart = currentTime();
+        paused = true;
+    };
+
+    this.resumeTimer = function() {
+        pausedTimeStop = currentTime();
+        pausedTimeElapsed = pausedTimeStop - pausedTimeStart;
+        var lastStart = gameModel.startTime();
+        gameModel.setStart(lastStart+pausedTimeElapsed);
+        gameView.updateTimerDisplay();
+        viewUpdateInterval = setInterval(function () {
+            gameView.updateTimerDisplay();
+        }, 1000);
+        paused = false;
+    };
+
     var currentTime = function () {
         return ((new Date()).getTime() / 1000);
     };
@@ -538,17 +567,27 @@ function SudokuControl(){
         return i;
     };
 
+    this.pauseClick = function() {
+        if (paused == false) {
+            gameControl.pauseTimer();
+            var $pauseLayer = $("<div id=\'pauseLayer\'><h1>Game Paused</h1></div>");
+            $pauseLayer.css("height", $(window).innerHeight() - 46 + "px");
+            gameView.blurGrid();
+            $('body').append($pauseLayer);
+        }
+        else if (paused == true) {
+            gameControl.resumeTimer();
+            gameView.blurGrid();
+            $("#pauseLayer").remove();
+        }
+    };
+
     //**********************
     // Needs to be rewritten
     //**********************
 
-    //TODO: Reimpliment timer function
+    //TODO: Bugtest pause functionality
 
-    this.stopTimer = function () {
-        clearInterval(viewUpdateInterval);
-        gameModel.setEndTime(this.getElapsedTime());
-        return gameModel.endTime();
-    };
 }
 
 // Sudoku View Object
@@ -1009,17 +1048,31 @@ function SudokuView() {
             return false;
     };
 
-    //****************
-    // Needs Rewriting
-    //****************
-
     this.resetTimerDisplay = function () {
-        //document.getElementById('gameTimerDisplay').innerHTML = "00:00:00";
         $("#gameTimerDisplay").text("00:00:00");
     };
 
     this.updateTimerDisplay = function () {
-        //document.getElementById('gameTimerDisplay').innerHTML = gameControl.getElapsedTime();
         $("#gameTimerDisplay").text(gameControl.getElapsedTime());
     };
+
+    this.isBlurred = function() {
+        return gridBlurred;
+    }
+
+    this.blurGrid = function() {
+        if(this.isBlurred() == false) {
+            $("#gameGrid").css({"filter": "blur(10px)", "-webkit-filter": "blur(10px)"});
+            gridBlurred = true;
+        }
+        else if (this.isBlurred() == true) {
+            $("#gameGrid").css({"filter": "blur(0px)", "-webkit-filter": "blur(0px)"});
+            gridBlurred = false;
+        }
+    };
+
+    //****************
+    // Needs Rewriting
+    //****************
+
 }
