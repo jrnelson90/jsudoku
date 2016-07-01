@@ -330,7 +330,7 @@ function SudokuControl(){
             $("#inputBorder").remove();
             gameView.setInputVisibility(false);
         }
-
+        gameView.resetTimerDisplay();
         gameView.setLoaded(false);
         // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
         // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
@@ -499,10 +499,46 @@ function SudokuControl(){
         return $closeButton;
     }
 
+    var currentTime = function () {
+        return ((new Date()).getTime() / 1000);
+    };
+
     //**********************
     // Needs to be rewritten
     //**********************
 
+    //TODO: Reimpliment timer function
+    this.startTimer = function () {
+        gameModel.setEndTime("00:00:00");
+        viewUpdateInterval = setInterval(function () {
+            gameView.updateTimerDisplay();
+        }, 1000);
+        gameModel.setStart(currentTime());
+    };
+
+    var formatTime = function (time) {
+
+        var h = addZero(Math.floor(time / 3600));
+        time %= 3600;
+
+        var m = addZero(Math.floor(time / 60));
+        time %= 60;
+
+        var s = addZero(Math.floor(time));
+
+        return (h + ':' + m + ':' + s);
+    };
+
+    var addZero = function (i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    };
+
+    this.getElapsedTime = function () {
+        return formatTime((currentTime() - gameModel.startTime()));
+    };
 }
 
 // Sudoku View Object
@@ -815,7 +851,7 @@ function SudokuView() {
         // Set puzzleLoaded to true so that the Start Game button can't load the puzzle again.
         puzzleLoaded = true;
         gameModel.setFilledInputs(0);
-
+        gameControl.startTimer();
         setTimeout(function() {
             $(".gameCell").css("opacity", "1");
         }, 100);
@@ -966,4 +1002,14 @@ function SudokuView() {
     //****************
     // Needs Rewriting
     //****************
+
+    this.resetTimerDisplay = function () {
+        //document.getElementById('gameTimerDisplay').innerHTML = "00:00:00";
+        $("#gameTimerDisplay").text("00:00:00");
+    };
+
+    this.updateTimerDisplay = function () {
+        //document.getElementById('gameTimerDisplay').innerHTML = gameControl.getElapsedTime();
+        $("#gameTimerDisplay").text(gameControl.getElapsedTime());
+    };
 }
