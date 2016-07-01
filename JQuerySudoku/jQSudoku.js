@@ -57,20 +57,20 @@ $(document).ready(function () {
     var $menuText = $("#selText");
 
     // Make Startup Screen fade in
-    $("#startPage").css({"opacity": "1"});
+    $("#startPage").css("opacity", "1");
 
     // Create 9x9 Game Grid
     gameView.drawGameGrid(defaultGridLength, defaultGridLength);
 
     // If on a small screen or minimized screen (less than 600px), reorganize toolbar
     if($(window).width() < 600) {
-        $("#middleButtons").append($("#help")).css({"float": "right"});
+        $("#middleButtons").append($("#help")).css("float", "right");
     }
 
     // Make toolbar and display area visible after 0.5s delay
     setTimeout(function () {
-        $("#displayArea").css({"opacity": "1"});
-        $("#toolbar").css({"visibility": "visible"});
+        $("#displayArea").css("opacity", "1");
+        $("#toolbar").css("visibility", "visible");
     },500);
 
     // Click event for game view back button
@@ -83,34 +83,35 @@ $(document).ready(function () {
 
     $("#startBtn").click(function () {
         gameView.slideStartClose();
+
         // setTimeout(function() {
         //     gameControl.loadSelectedPuzzle();
         // }, 500);
-        //TODO: Implement Start Button Puzzle Gen and Load
 
         setTimeout(function() {
-             if (gameView.loaded() == false && gameModel.completed() == false) {
-                 if ($("#selText").text() == "Difficulty") {
-                    $("#selText").text("Medium");
+            var $selText = $("#selText");
+            if (gameView.loaded() == false && gameModel.completed() == false) {
+                 if ($selText.text() == "Difficulty") {
+                     $selText.text("Medium");
                  }
-                $("#puzzleDiffText").text($("#selText").text());
-                //gameView.showLoading();
-                setTimeout(function() {
-                    gameControl.loadSelectedPuzzle();
-                }, 300);
-             }
+            $("#puzzleDiffText").text($selText.text());
+            //gameView.showLoading();
+            setTimeout(function() {
+                gameControl.loadSelectedPuzzle();
+            }, 300);
+            }
          },350);
     });
 
     $menuText.click(function () {
-        $subMenu.slideDown(300).css({"opacity": "1"});
+        $subMenu.slideDown(300).css("opacity", "1");
     });
 
     $(".selOpt").click(function () {
-        $subMenu.slideUp(300).css({"opacity": "0"});
+        $subMenu.slideUp(300).css("opacity", "0");
         $menuText.text($(this).text());
         gameModel.setDifficulty($(this).text().toLowerCase());
-        $(".prevCell").text("").css({"opacity": "1"});
+        $(".prevCell").text("").css("opacity", "1");
         setTimeout(function() {
             if ($menuText.text() == "Easy")
                 gameView.loadPreview(easyPreview);
@@ -324,7 +325,7 @@ function SudokuControl(){
            }*/
         $(".puzzleNum").remove();
         $(".inputNum").remove();
-        $(".gameCell").css({"color": "#000000"});
+        $(".gameCell").css("color", "#000000");
         if(gameView.getInputVisibility()== true) {
             $("#inputBorder").remove();
             gameView.setInputVisibility(false);
@@ -381,7 +382,7 @@ function SudokuControl(){
         if(!(gameView.getIsMobile() && document.body.offsetWidth < 420)) {
             $inputBorder.append(closeBtn());
             var $close = $(".closeBtn");
-            $close.css({"z-index":  "100"});
+            $close.css("z-index",  "100");
             $close.click( function () {
                 gameView.closeInputGrid();
             });
@@ -531,7 +532,7 @@ function SudokuView() {
     this.setupStartScreen = function () {
         startOpen = true;
         $startScreen = $("#startPage");
-        $startScreen.css({"width": $(window).width() + "px"});
+        $startScreen.css("width", $(window).width() + "px");
 
         var $subMenu = $("#selDropCont");
         $subMenu.hide();
@@ -550,19 +551,19 @@ function SudokuView() {
                     var $currentCell = $(".prevCell:last");
 
                     if (i == 0) {
-                        $currentCell.css({"border-top": "solid black"});
+                        $currentCell.css("border-top", "solid black");
                     }
                     else if ((i + 1) % Math.sqrt(_rows) == 0) {
-                        $currentCell.css({"border-bottom": "solid black"});
+                        $currentCell.css("border-bottom", "solid black");
                     }
                     else {
-                        $currentCell.css({"border-color": "black"});
+                        $currentCell.css("border-color", "black");
                     }
 
                     if (j == 0)
-                        $currentCell.css({"border-left": "solid black"});
+                        $currentCell.css("border-left", "solid black");
                     else if ((j + 1) % Math.sqrt(_columns) == 0)
-                        $currentCell.css({"border-right": "solid black"});
+                        $currentCell.css("border-right", "solid black");
                 }
             }
             var prevCellSize;
@@ -586,7 +587,7 @@ function SudokuView() {
             }
 
             if (gameView.getViewWidth() < 420)
-                $(".prevCell").css({"font-weight": "bold"});
+                $(".prevCell").css("font-weight", "bold");
 
             $(".prevCell").css({
                 "height": prevCellSize + "px",
@@ -609,7 +610,7 @@ function SudokuView() {
             }
         }
         setTimeout(function() {
-            $(".previewGivenNums").css({"opacity": "1"});
+            $(".previewGivenNums").css("opacity", "1");
         }, 50);
     };
 
@@ -620,7 +621,7 @@ function SudokuView() {
         $startScreen.animate({left: '-='+ currentStartWidth + "px"}, 500);
 
         setTimeout(function() {
-            $startScreen.css({"visibility": "hidden"});
+            $startScreen.css("visibility", "hidden");
         },510);
     };
 
@@ -641,19 +642,19 @@ function SudokuView() {
                 var $currentCell = $(".gameCell:last");
 
                 if (i == 0) {
-                    $currentCell.css({"border-top": "solid black"});
+                    $currentCell.css("border-top", "solid black");
                 }
                 else if ((i + 1) % Math.sqrt(_rows) == 0) {
-                    $currentCell.css({"border-bottom": "solid black"});
+                    $currentCell.css("border-bottom", "solid black");
                 }
                 else {
-                    $currentCell.css({"border-color": "black"});
+                    $currentCell.css("border-color", "black");
                 }
 
                 if (j == 0)
-                    $currentCell.css({"border-left": "solid black"});
+                    $currentCell.css("border-left", "solid black");
                 else if ((j + 1) % Math.sqrt(_columns) == 0)
-                    $currentCell.css({"border-right": "solid black"});
+                    $currentCell.css("border-right", "solid black");
             }
         }
         this.resizeView();
@@ -753,7 +754,7 @@ function SudokuView() {
                 else if (_passedPuzzle[x][y] == 0) {
                     // Create a new div element newInputText for the user to enter in numbers later
                     $currentCell.append('<div class=\"inputNum\"></div>');
-                    $currentCell.css({"color": "#1976D2"});
+                    $currentCell.css("color", "#1976D2");
                     inputCellCount++;
                 }
             }
@@ -784,7 +785,7 @@ function SudokuView() {
         gameModel.setFilledInputs(0);
 
         setTimeout(function() {
-            $(".gameCell").css({"opacity": "1"});
+            $(".gameCell").css("opacity", "1");
         }, 100);
     };
 
@@ -905,7 +906,7 @@ function SudokuView() {
         $inCont.css("display", "inline-block");
         setTimeout(function() {
             $inCont.css({"visibility": "visible", "height": expandHeight + "px"});
-            gameModel.inputGrid().css({"height": expandHeight + "px"});
+            gameModel.inputGrid().css("height", expandHeight + "px");
         }, 100);
 
         inputGridVisible = true;
@@ -921,10 +922,6 @@ function SudokuView() {
         inputGridVisible = false;
     };
 
-    //****************
-    // Needs Rewriting
-    //****************
-    
     this.isFirefox = function() {
         if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
             console.log("This is Firefox");
@@ -933,4 +930,8 @@ function SudokuView() {
         else
             return false;
     };
+
+    //****************
+    // Needs Rewriting
+    //****************
 }
