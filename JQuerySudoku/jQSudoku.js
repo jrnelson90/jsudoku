@@ -853,9 +853,49 @@ function SudokuView() {
         return selectToggle;
     };
 
+    this.openInputGrid = function (thisCell) {
+        gameControl.initInputGrid();
+
+        if (gameControl.noteMode() == true) {
+            //var numbers = document.getElementsByClassName("numSelect");
+
+            if ($(thisCell).children()) {
+                if ($(thisCell).children().index(0).class() == "noteCont") {
+                    //var list = thisCell.querySelectorAll(".noteNum");
+                    for (var i = 0; i < 9; i++) {
+                        if ($(".noteNum").index(i).css("opacity") == "1")
+                            $(".numSelect").index(i).css("color", "rgba(255, 250, 240, 0.5)");
+                        //numbers[i].style.color = "rgba(255, 250, 240, 0.5)";
+                    }
+                }
+            }
+        }
+
+        var expandHeight = 110;
+        var $inCont = $("#inputBorder");
+        $("#numberCont").css("height", expandHeight + "px");
+        var cellViewCoords = thisCell.getBoundingClientRect();
+
+        $inCont.css("top", cellViewCoords.top - ((expandHeight - $(thisCell).width())/2) + "px");
+
+        if (isMobile && $(window).width() < 420 && thisCell.cellIndex == 0)
+            $inCont.css("left", cellViewCoords.left + "px");
+        else if (isMobile && $(window).width() < 420 && thisCell.cellIndex == 8)
+            $inCont.css("left", cellViewCoords.left - (gameModel.inputGrid().width() - $(thisCell).width()) + "px");
+        else
+            $inCont.css("left", cellViewCoords.left - ((gameModel.inputGrid().width() - $(thisCell).width()) / 2) + "px");
+        $inCont.css("display", "inline-block");
+        setTimeout(function() {
+            $inCont.css({"visibility": "visible", "height": expandHeight + "px"});
+            gameModel.inputGrid().css({"height": expandHeight + "px"});
+        }, 100);
+
+        inputGridVisible = true;
+    };
+
     this.closeInputGrid = function () {
-        gameModel.inputGrid().css({"height": "0px"});
-        $("#inputBorder").css({"height": "0px"});
+        gameModel.inputGrid().css("height", "0px");
+        $("#inputBorder").css("height", "0px");
         setTimeout(function() {
             gameModel.inputGrid().css({"visibility": "hidden", "display": "none"});
             $("#inputBorder").remove();
@@ -904,57 +944,6 @@ function SudokuView() {
         selectToggle = false;
     };
 
-    //TODO: Rewrite openInputGrid in jQuery
-    this.openInputGrid = function (thisCell) {
-        gameControl.initInputGrid();
-        /*if (gameControl.noteMode() == true) {
-            var numbers = document.getElementsByClassName("numSelect");
-            if (thisCell.childNodes[0]) {
-                if (thisCell.childNodes[0].className == "noteCont") {
-                    var list = thisCell.querySelectorAll(".noteNum");
-                    for (var i = 0; i < 9; i++) {
-                        if (list[i].style.opacity == "1")
-                            numbers[i].style.color = "rgba(255, 250, 240, 0.5)";
-                    }
-                }
-            }
-        }*/
-        var expandHeight = 110;
-
-        var inCont = document.getElementById("inputBorder");
-        // If the cell is part of the bottom two rows of the grid
-        var gameGrid = document.getElementById("gameGrid");
-
-        $("#numberCont").css("height", expandHeight + "px");
-
-        var rect = thisCell.getBoundingClientRect();
-        console.log(rect.top, rect.right, rect.bottom, rect.left);
-        console.log($(thisCell).css("top"), $(thisCell).css("left"));
-
-        var topCoord = rect.top;
-        var leftCoord = rect.left;
-        inCont.style.top = topCoord - ((expandHeight- $(thisCell).width())/2) + "px";
-
-        console.log(leftCoord);
-        console.log(gameModel.inputGrid().width());
-        console.log(((gameModel.inputGrid().width()- $(thisCell).width())/2));
-
-        if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 0)
-            inCont.style.left = leftCoord + "px";
-        else if (isMobile && document.body.offsetWidth < 420 && thisCell.cellIndex == 8)
-            inCont.style.left = leftCoord - (gameModel.inputGrid().width() - $(thisCell).width()) + "px";
-        else
-            inCont.style.left = leftCoord - ((gameModel.inputGrid().width() - $(thisCell).width()) / 2) + "px";
-
-        inCont.style.display = "inline-block";
-        setTimeout(function() {
-            inCont.style.visibility = "visible";
-            inCont.style.height = expandHeight + "px";
-            gameModel.inputGrid().css({"height": expandHeight + "px"});
-        }, 100);
-
-        inputGridVisible = true;
-    };
 
     this.isFirefox = function() {
         if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
@@ -964,5 +953,4 @@ function SudokuView() {
         else
             return false;
     };
-
 }
