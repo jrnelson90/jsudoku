@@ -60,6 +60,8 @@ $(document).ready(function () {
     // Make Startup Screen fade in
     $("#startPage").css("opacity", "1");
 
+    $("#checkIcon").addClass("material-icons inactive");
+    $("#notesIcon").addClass("material-icons inactive");
     // Create 9x9 Game Grid
     gameView.drawGameGrid(defaultGridLength, defaultGridLength);
 
@@ -75,13 +77,6 @@ $(document).ready(function () {
     },500);
 
     // Click event for game view back button
-    /*$("#back").click(function () {
-        gameView.slideStartOpen();
-        setTimeout(function () {
-            gameControl.resetGameTable();
-        },350);
-    });*/
-
     $("#back").click(function () {
         if (gameModel.completed() == false && gameView.loaded() == true) {
             if(gameControl.isPaused() == false) {
@@ -91,8 +86,7 @@ $(document).ready(function () {
                 gameView.blurGrid();
             }
             gameControl.initEndGamePop();
-            var endPop = document.getElementById("endGamePop");
-            gameView.togglePopupView(endPop);
+            gameView.togglePopupView($("#endGamePop"));
         }
         else if (gameModel.completed() == true && gameView.loaded() == true) {
             gameView.slideStartOpen();
@@ -150,6 +144,10 @@ $(document).ready(function () {
     $("#help").click(function () {
         gameControl.clickHelp();
     });
+
+    // $("#check").click(function () {
+    //     gameControl.checkClick();
+    // });
 
     // Window Resize event
     $(window).resize(function () {
@@ -309,6 +307,8 @@ function SudokuControl(){
     var pausedTimeStop;
     var pausedTimeElapsed;
 
+    //TODO: Reimpliment game logic to make game playable
+
     this.loadSelectedPuzzle = function () {
         if (gameModel.difficulty() == "easy")
             gameModel.setPuzzle(genPuzzle("Easy"));
@@ -446,6 +446,7 @@ function SudokuControl(){
                 gameModel.setFilledInputs(gameModel.filled() - 1);
                 if(gameModel.filled() == 0) {
                     $("#checkIcon").addClass("material-icons inactive");
+                    $("#checkIcon").css("color", "rgba(255, 255, 255, 0.3)");
                     $("#check").unbind();
                 }
             }
@@ -458,71 +459,29 @@ function SudokuControl(){
 
         //TODO: Rewrite number input events
         $(".numSelect").click(function () {
-            if($lastClickedText.text() == "")
-                gameModel.setFilledInputs(gameModel.filled() + 1);
+            if ($lastClickedText.css("color") == "rgb(255, 0, 0)") {
+                $lastClickedText.css("color", "#1c86ee");
+            }
+            var filled = gameModel.filled();
+            if (filled == 0) {
+                document.getElementById("checkIcon").setAttribute("class", "material-icons");
+                $("#checkIcon").addClass("material-icons");
+                $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
+                $("#check").click(function(){
+                    gameControl.checkClick();
+                });
+            }
+            if($lastClickedText.text() == ""){
+                filled++;
+                gameModel.setFilledInputs((filled));
+            }
             $lastClickedText.text($(this).text());
             gameView.closeInputGrid();
+
+            if (gameModel.filled() == gameModel.inputNum()) {
+                gameControl.checkGrid("endGame");
+            }
         });
-
-        //Set event listeners for when numbers are clicked
-        /*for (i = 0; i < 9; i++) {
-         var numbers = document.getElementsByClassName("numSelect");
-         numbers[i].onclick = function () {
-         if (gameControl.noteMode() == false) {
-
-         if (gameControl.lastClick().style.color == "red") {
-         gameControl.lastClick().style.color = "#1c86ee";
-         }
-         if (isNaN(parseInt(gameControl.lastClick().innerHTML)) == true) {
-         var filled = gameModel.filled();
-         if (filled == 0) {
-         document.getElementById("checkIcon").setAttribute("class", "material-icons");
-         var checkButton = document.getElementById("check");
-         checkButton.addEventListener("click", gameControl.checkClick);
-         }
-         filled++;
-         gameModel.setFilledInputs((filled));
-         }
-
-         if (gameControl.lastClick().style.fontSize == gameView.textBold()) {
-         gameControl.lastClick().style.fontSize = gameView.textNorm();
-         gameControl.lastClick().style.fontWeight = "normal";
-         }
-         gameControl.lastClick().innerHTML = this.innerHTML;
-         gameView.closeInputGrid();
-
-         if (gameControl.lastClick().innerHTML == gameView.lastHighlight() && gameView.highToggle() == true) {
-         gameControl.lastClick().style.fontSize = gameView.textBold();
-         gameControl.lastClick().style.fontWeight = "bold";
-
-         }
-         if (gameModel.filled() == gameModel.inputNum()) {
-         gameControl.checkGrid("endGame");
-         }
-         }
-         else {
-         if (gameControl.lastClick().childNodes[0]) {
-         if (gameControl.lastClick().childNodes[0].className != "noteCont")
-         lastClicked.innerHTML = "";
-         }
-         if(!gameControl.lastClick().childNodes[0])
-         gameView.drawMiniGrid(gameControl.lastClick());
-         console.log(gameControl.lastClick().childNodes[0].className);
-         var num = parseInt(this.innerHTML);
-         var list = gameControl.lastClick().querySelectorAll(".noteNum");
-         console.log(list);
-
-         if(list[(num-1)].style.opacity == "0") {
-         list[(num-1)].style.opacity = "1";
-         this.style.color = "rgba(255, 250, 240, 0.5)";
-         }
-         else {
-         list[(num-1)].style.opacity = "0";
-         this.style.color = "rgba(255, 255, 255, 1.0)";
-         }
-         }
-         };
-         }*/
     };
 
     function closeBtn() {
@@ -652,10 +611,10 @@ function SudokuControl(){
 
         $newPopCont.append("<div id=\'haze\'></div>");
 
-        var $newHelpPop = $("<div id=\'HelpPop\' class=\'popUp\'></div>");
+        var $newHelpPop = $("<div id=\'helpPop\' class=\'popUp\'></div>");
         $newHelpPop.css({
             "height": "260px",
-            "top": ($("#displayArea").outerHeight() - $newHelpPop.height())/2 + "px"
+            "top": ($("#displayArea").height() - $newHelpPop.height())/2 + "px"
         });
         $newPopCont.append($newHelpPop);
 
@@ -752,6 +711,77 @@ function SudokuControl(){
         },400);
     };
 
+    this.gameEnd = function () {
+        var finishWindow = new FinishPop();
+        gameView.togglePopupView(finishWindow.view);
+        gameModel.setCompleted(true);
+    };
+
+    this.checkClick = function () {
+        if (checkToggle == false) {
+            checkToggle = true;
+            $("#checkIcon").css("color", "rgba(255, 255, 255, 0.85)");
+            gameControl.checkGrid("click");
+        }
+        else {
+            gameView.uncheckNum();
+            $("#checkIcon").addClass("material-icons");
+            $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
+            checkToggle = false;
+        }
+    };
+
+    this.checkGrid = function (_checkType) {
+        var correct = 0;
+        var noError = true;
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
+                var $checkCell = $("#cell" + i + "x" + j);
+                var cellValue = parseInt($checkCell.children().text());
+                if ($checkCell.children().attr("class") == "inputNum" && cellValue > 0) {
+                    if (gameModel.puzzle().solut[i][j] != cellValue && _checkType == "click") {
+                        $checkCell.css("color", "rgba(255, 0, 0, 1.0)");
+                        noError = false;
+                    }
+                    else if (gameModel.puzzle().solut[i][j] == cellValue) {
+                        correct++;
+                    }
+                }
+            }
+        }
+
+        if (correct == gameModel.inputNum() && _checkType == "endGame") {
+            this.gameEnd();
+        }
+    };
+
+    function FinishPop(){
+        var $newPopCont = $("<div id=\'popContainer\'></div>");
+        $('body').append($newPopCont);
+
+        $newPopCont.append("<div id=\'haze\'></div>");
+
+        var $newFinish = $("<div id=\'puzzleFinish\' class=\'popUp\'></div>");
+        $newFinish.css({
+            "height": "150px",
+            "top": ($("#displayArea").outerHeight() - $newFinish.height())/2 + "px"
+        });
+
+        var $closeFinBtn = closeBtn();
+        $closeFinBtn.attr("id", "closeFinish");
+        $closeFinBtn.click(function () {
+            gameView.togglePopupView($("#puzzleFinish"));
+        });
+        $newFinish.append($closeFinBtn);
+
+        var score = gameControl.stopTimer();
+
+        $newFinish.append("<p>Well done! Your score for this puzzle is " + score + "</p>");
+
+        $newPopCont.append($newFinish);
+        this.view = $newFinish;
+    }
+
     //**********************
     // Needs to be rewritten
     //**********************
@@ -766,7 +796,6 @@ function SudokuView() {
     var cellSize = 0;
     var startOpen;
     var $startScreen;
-    var $gameCells;
 
     var fontNormal;
     var fontBold;
@@ -783,8 +812,6 @@ function SudokuView() {
     var gridBlurred = false;
 
     //TODO: Reimpliment Note Mode
-    //TODO: Rewrite popup for Help
-    //TODO: Rewrite popup for Reset
     //TODO: Rewrite cell selection crosshair
     //TODO: Scale input dropdown on window resize
 
@@ -895,7 +922,7 @@ function SudokuView() {
             $gameGrid.append('<div id=\"row' + i + '\" class=\"gridRow\">');
             var $currentRow = $(".gridRow:last");
             for (var j = 0; j < _columns; j++) {
-                $currentRow.append('<div id=\"' + i + 'x' + j + '\" class=\"gridCell gameCell\">');
+                $currentRow.append('<div id=\"cell' + i + 'x' + j + '\" class=\"gridCell gameCell\">');
 
                 var $currentCell = $(".gameCell:last");
 
@@ -1005,7 +1032,7 @@ function SudokuView() {
         var inputCellCount = 0;
         for (var x = 0; x < 9; x++) {
             for (var y = 0; y < 9; y++) {
-                var $currentCell = $("#" + x + "x" + y);
+                var $currentCell = $("#cell" + x + "x" + y);
                 if (_passedPuzzle[x][y] != 0) {
                     $currentCell.append('<div class=\"puzzleNum\">' + _passedPuzzle[x][y] + '</div>');
                 }
@@ -1301,9 +1328,15 @@ function SudokuView() {
         }
     };
 
+    this.uncheckNum = function() {
+        $(".inputNum").each(function () {
+            if($(this).css("color") == "rgb(255, 0, 0)")
+                $(this).parent().css("color", "#1976D2");
+        });
+    };
+
     //****************
     // Needs Rewriting
     //****************
-
 
 }
