@@ -129,6 +129,10 @@ $(document).ready(function () {
         }, 300);
     });
 
+    $("#help").click(function () {
+        gameControl.clickHelp();
+    });
+
     // Window Resize event
     $(window).resize(function () {
         gameView.resizeView();
@@ -574,7 +578,6 @@ function SudokuControl(){
         return i;
     };
 
-    //TODO: Bugtest pause functionality
     this.pauseClick = function() {
         if (paused == false) {
             gameControl.pauseTimer();
@@ -591,6 +594,10 @@ function SudokuControl(){
             $("#pauseLayer").remove();
         }
     };
+
+    this.isPaused = function() {
+        return paused;
+    }
 
     this.initLoading = function () {
         var $newPopCont = $("<div id=\'popContainer\'></div>");
@@ -612,9 +619,83 @@ function SudokuControl(){
         }
     };
 
+    this.clickHelp = function () {
+        if(gameControl.isPaused() == false) {
+            gameControl.pauseTimer();
+            gameView.blurGrid();
+        }
+        var newHelpWin = new HelpPop();
+        gameView.togglePopupView(newHelpWin.view);
+    };
+
     //**********************
     // Needs to be rewritten
     //**********************
+
+    function HelpPop() {
+        // var newPopCont = document.createElement("DIV");
+        // newPopCont.setAttribute("id", "popContainer");
+        // document.body.appendChild(newPopCont);
+
+        var $newPopCont = $("<div id=\'popContainer\'></div>");
+        $('body').append($newPopCont);
+
+        // var newHaze = document.createElement("DIV");
+        // newHaze.setAttribute("id", "haze");
+        $newPopCont.append("<div id=\'haze\'></div>");
+
+
+        // Created a new Help Popup Form
+        // var newHelpPop = document.createElement("DIV");
+        // newHelpPop.setAttribute("class", "popUp");
+        // newHelpPop.setAttribute("id", "HelpPop");
+        // newHelpPop.style.height = "260px";
+        // newHelpPop.style.top = (document.getElementById("displayArea").offsetHeight -  parseInt(newHelpPop.style.height))/2 + "px";
+
+        var $newHelpPop = $("<div id=\'HelpPop\' class=\'popUp\'></div>");
+        $newHelpPop.css({
+            "height": "260px",
+            "top": ($("#displayArea").outerHeight() - $newHelpPop.height())/2 + "px"
+        });
+        $newPopCont.append($newHelpPop);
+
+        var $closeHelpBtn = closeBtn();
+
+        $closeHelpBtn.attr("id", "closeHelp");
+        $closeHelpBtn.click(function () {
+            //var HelpPop = document.getElementById("HelpPop");
+            gameView.togglePopupView($("#HelpPop"));
+            if(gameView.isPauseLayerVisible() == false) {
+                gameControl.resumeTimer();
+                gameView.blurGrid();
+            }
+        });
+        $newHelpPop.append($closeHelpBtn);
+
+        // Add Help Title
+        $newHelpPop.append("<h2>Game Instructions</h2>");
+
+        var $helpList = $("<div id=\'explainCont\'></div>");
+
+        //
+        var $editExplanation = $("<div class=\'helpExplan\'>");
+        $editExplanation.html("<i class='material-icons'>edit</i> toggle note mode<br>");
+        $helpList.append($editExplanation);
+
+        //
+        var $checkExplanation = $("<div class=\'helpExplan\'>");
+        $checkExplanation.html("<i class='material-icons'>done</i> show puzzle errors<br>");
+        $helpList.append($checkExplanation);
+
+        //
+        var $highlightExplanation = $("<div class=\'helpExplan\'>");
+        $highlightExplanation.html("Double click/tap any black puzzle number to highlight all numbers of that value");
+        $helpList.append($highlightExplanation);
+
+        $newHelpPop.append($helpList);
+
+        this.view = $newHelpPop;
+    }
 
 }
 
@@ -897,6 +978,7 @@ function SudokuView() {
                 gameView.closeInputGrid();
         });
 
+        // Number bolding on double click
         $puzzleNum.dblclick(function () {
             //  Bold Num
             var numToHighlight = $(this).children().text();
@@ -1116,7 +1198,7 @@ function SudokuView() {
     };
 
     this.isPauseLayerVisible = function() {
-        if($("#pauseLayer"))
+        if($("#pauseLayer").is("div"))
             return true;
         else
             return false;
