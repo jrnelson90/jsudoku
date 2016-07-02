@@ -89,7 +89,12 @@ $(document).ready(function () {
             gameView.togglePopupView($("#endGamePop"));
         }
         else if (gameModel.completed() == true && gameView.loaded() == true) {
+            gameControl.stopTimer();
             gameView.slideStartOpen();
+            setTimeout(function() {
+                gameControl.resetGameTable();
+                gameView.resetTimerDisplay();
+            },400);
             gameModel.setCompleted(false);
         }
     });
@@ -763,7 +768,7 @@ function SudokuControl(){
 
         var $newFinish = $("<div id=\'puzzleFinish\' class=\'popUp\'></div>");
         $newFinish.css({
-            "height": "150px",
+            "height": "96px",
             "top": ($("#displayArea").outerHeight() - $newFinish.height())/2 + "px"
         });
 
