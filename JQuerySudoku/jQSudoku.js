@@ -114,9 +114,6 @@ $(document).ready(function () {
                  }
                 $("#puzzleDiffText").text($selText.text());
                 gameView.showLoading();
-                /*setTimeout(function() {
-                    gameControl.loadSelectedPuzzle();
-                }, 300);*/
             }
          },350);
     });
@@ -149,10 +146,6 @@ $(document).ready(function () {
     $("#help").click(function () {
         gameControl.clickHelp();
     });
-
-    // $("#check").click(function () {
-    //     gameControl.checkClick();
-    // });
 
     // Window Resize event
     $(window).resize(function () {
@@ -312,8 +305,6 @@ function SudokuControl(){
     var pausedTimeStop;
     var pausedTimeElapsed;
 
-    //TODO: Reimpliment game logic to make game playable
-
     this.loadSelectedPuzzle = function () {
         if (gameModel.difficulty() == "easy")
             gameModel.setPuzzle(genPuzzle("Easy"));
@@ -462,7 +453,6 @@ function SudokuControl(){
         //
         gameView.setInputVisibility(true);
 
-        //TODO: Rewrite number input events
         $(".numSelect").click(function () {
             if ($lastClickedText.css("color") == "rgb(255, 0, 0)") {
                 $lastClickedText.css("color", "#1c86ee");
@@ -500,7 +490,7 @@ function SudokuControl(){
     function closeBtn() {
         var $closeButton = $("<div class=\'closeBtn\'></div>");
         var $closeX = $("<div class=\'closeX\'></div>");
-        if(gameView.isFirefox() == true && gameView.isMobile() == true)
+        if(gameView.isFirefox() == true && gameView.getIsMobile() == true)
             $closeX.css({"margin-top": "-14px", "margin-left": "-8px"});
         $closeX.html("&times");
         $closeButton.append($closeX);
@@ -914,9 +904,8 @@ function SudokuView() {
 
     this.slideStartClose = function() {
         startOpen = false;
-        var currentStartWidth = parseInt($startScreen.css("width"));
-        console.log(currentStartWidth);
-        $startScreen.animate({left: '-='+ currentStartWidth + "px"}, 500);
+        console.log($startScreen.width());
+        $startScreen.animate({left: '-='+ $startScreen.width() + "px"}, 500);
 
         setTimeout(function() {
             $startScreen.css("visibility", "hidden");
@@ -925,7 +914,7 @@ function SudokuView() {
 
     this.slideStartOpen = function() {
         startOpen = true;
-        $startScreen.css({"visibility": "visible", "width": $(window).width()+"px"});
+        $startScreen.css({"visibility": "visible", "width": $(window).outerWidth()+"px"});
         $startScreen.animate({left: "0px"}, 500);
     };
 
@@ -990,8 +979,6 @@ function SudokuView() {
 
         fontNormal = cellSize - 14 + "px";
         fontBold = cellSize - 10 + "px";
-        //cell.style.fontSize = fontNormal;
-        //cell.setAttribute("unselectable", "on");
 
         $(".gameCell").css({
             "height": gameView.getCellSize() + "px",
@@ -1003,35 +990,6 @@ function SudokuView() {
         
         console.log(gridSize);
         console.log(cellSize);
-
-        /*for (var i = 0; i < numOfRows; i++) {
-            if (i == 0) {
-                row.setAttribute("style", "border-top: solid; border-color: black;");
-            }
-            else if ((i + 1) % Math.sqrt(numOfRows) == 0) {
-                row.setAttribute("style", "border-bottom: solid; border-color: black;");
-            }
-            else {
-                row.setAttribute("style", "border-color: black;");
-            }
-
-            for (var j = 0; j < numOfColumns; j++) {
-                var cell = document.createElement("TD");
-                cell.setAttribute("class", "gridCell gameCell");
-                cell.style.height = cellSize + "px";
-                cell.style.width = cellSize + "px";
-                fontNormal = cellSize - 14 + "px";
-                fontBold = cellSize - 10 + "px";
-                cell.style.fontSize = fontNormal;
-                cell.setAttribute("unselectable", "on");
-
-                if (j == 0)
-                    cell.style.borderLeft = "solid black";
-                else if ((j + 1) % Math.sqrt(numOfColumns) == 0)
-                    cell.style.borderRight = "solid black";
-                row.appendChild(cell);
-            }
-        }*/
 
         //TODO: Script resizing preview grid
         //TODO: Script resizing font sizes
@@ -1132,7 +1090,6 @@ function SudokuView() {
             lastHighlighted = numToHighlight;
         });
 
-        // gameControl.startTimer();
         // Set puzzleLoaded to true so that the Start Game button can't load the puzzle again.
         puzzleLoaded = true;
         gameModel.setFilledInputs(0);
@@ -1228,7 +1185,7 @@ function SudokuView() {
     this.openInputGrid = function (thisCell) {
         gameControl.initInputGrid();
 
-        if (gameControl.noteMode() == true) {
+        /*if (gameControl.noteMode() == true) {
             //var numbers = document.getElementsByClassName("numSelect");
 
             if ($(thisCell).children()) {
@@ -1241,7 +1198,7 @@ function SudokuView() {
                     }
                 }
             }
-        }
+        }*/
 
         var expandHeight = 110;
         var $inCont = $("#inputBorder");
