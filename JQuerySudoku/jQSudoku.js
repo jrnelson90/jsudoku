@@ -75,11 +75,29 @@ $(document).ready(function () {
     },500);
 
     // Click event for game view back button
-    $("#back").click(function () {
+    /*$("#back").click(function () {
         gameView.slideStartOpen();
         setTimeout(function () {
             gameControl.resetGameTable();
         },350);
+    });*/
+
+    $("#back").click(function () {
+        if (gameModel.completed() == false && gameView.loaded() == true) {
+            if(gameControl.isPaused() == false) {
+                gameControl.pauseTimer();
+            }
+            if(gameView.isBlurred() == false) {
+                gameView.blurGrid();
+            }
+            gameControl.initEndGamePop();
+            var endPop = document.getElementById("endGamePop");
+            gameView.togglePopupView(endPop);
+        }
+        else if (gameModel.completed() == true && gameView.loaded() == true) {
+            gameView.slideStartOpen();
+            gameModel.setCompleted(false);
+        }
     });
 
     $("#startBtn").click(function () {
@@ -628,29 +646,11 @@ function SudokuControl(){
         gameView.togglePopupView(newHelpWin.view);
     };
 
-    //**********************
-    // Needs to be rewritten
-    //**********************
-
     function HelpPop() {
-        // var newPopCont = document.createElement("DIV");
-        // newPopCont.setAttribute("id", "popContainer");
-        // document.body.appendChild(newPopCont);
-
         var $newPopCont = $("<div id=\'popContainer\'></div>");
         $('body').append($newPopCont);
 
-        // var newHaze = document.createElement("DIV");
-        // newHaze.setAttribute("id", "haze");
         $newPopCont.append("<div id=\'haze\'></div>");
-
-
-        // Created a new Help Popup Form
-        // var newHelpPop = document.createElement("DIV");
-        // newHelpPop.setAttribute("class", "popUp");
-        // newHelpPop.setAttribute("id", "HelpPop");
-        // newHelpPop.style.height = "260px";
-        // newHelpPop.style.top = (document.getElementById("displayArea").offsetHeight -  parseInt(newHelpPop.style.height))/2 + "px";
 
         var $newHelpPop = $("<div id=\'HelpPop\' class=\'popUp\'></div>");
         $newHelpPop.css({
@@ -663,7 +663,6 @@ function SudokuControl(){
 
         $closeHelpBtn.attr("id", "closeHelp");
         $closeHelpBtn.click(function () {
-            //var HelpPop = document.getElementById("HelpPop");
             gameView.togglePopupView($("#HelpPop"));
             if(gameView.isPauseLayerVisible() == false) {
                 gameControl.resumeTimer();
@@ -696,6 +695,66 @@ function SudokuControl(){
 
         this.view = $newHelpPop;
     }
+
+    this.initEndGamePop = function () {
+        var $newPopCont = $("<div id=\'popContainer\'></div>");
+        $('body').append($newPopCont);
+        $newPopCont.append("<div id=\'haze\'></div>");
+
+
+        // Create the End Pop Up Form
+        var $newEndPop = $("<div id=\'endGamePop\' class=\'popUp\'></div>");
+        $newEndPop.css({
+            "height": "100px",
+            "top": ($("#displayArea").outerHeight() - $newEndPop.height())/2 + "px"
+        });
+
+        // Add End Pop Up Text
+        $newEndPop.append("<p>End current game and <br> play a new puzzle?<br></p>");
+
+        // Add Restart Button Div
+        var $restart = $("<div id=\'restart\' class=\'endBtn\'>Restart</div>");
+        $restart.click(function () {
+            gameControl.clickRestart();
+        });
+        $newEndPop.append($restart);
+
+        // Add Cancel Button Div
+        var $cancel = $("<div id=\'cancel\' class=\'endBtn\'>Cancel</div>");
+
+        $cancel.click( function () {
+            if(gameControl.isPaused() == true && gameView.isPauseLayerVisible() == false) {
+                gameControl.resumeTimer();
+            }
+            if(gameView.isBlurred() == true && gameControl.isPaused() == false) {
+                gameView.blurGrid();
+            }
+            gameView.togglePopupView($("#endGamePop"));
+        });
+        $newEndPop.append($cancel);
+
+        // Add the End Pop Up form to the Display Area
+        $newPopCont.append($newEndPop);
+    };
+
+    this.clickRestart = function () {
+        if(gameView.isPauseLayerVisible() == true){
+            $("#pauseLayer").remove();
+        }
+        paused = false;
+        gameView.togglePopupView($("#endGamePop"));
+        gameView.slideStartOpen();
+        gameControl.stopTimer();
+        gameView.resetTimerDisplay();
+        setTimeout(function() {
+            gameControl.resetGameTable();
+            gameView.blurGrid();
+        },400);
+    };
+
+    //**********************
+    // Needs to be rewritten
+    //**********************
 
 }
 
