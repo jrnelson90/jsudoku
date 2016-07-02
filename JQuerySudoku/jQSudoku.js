@@ -480,6 +480,14 @@ function SudokuControl(){
                 filled++;
                 gameModel.setFilledInputs((filled));
             }
+
+            if($lastClickedText.css("font-weight") == "bold"){
+                $lastClickedText.css("font-weight", "normal");
+            }
+            if ($(this).text() == gameView.lastHighlight() && gameView.highToggle() == true) {
+                $lastClickedText.css("font-weight", "bold");
+            }
+
             $lastClickedText.text($(this).text());
             gameView.closeInputGrid();
 
@@ -768,7 +776,7 @@ function SudokuControl(){
 
         var $newFinish = $("<div id=\'puzzleFinish\' class=\'popUp\'></div>");
         $newFinish.css({
-            "height": "96px",
+            "height": "72px",
             "top": ($("#displayArea").outerHeight() - $newFinish.height())/2 + "px"
         });
 
@@ -1338,6 +1346,14 @@ function SudokuView() {
             if($(this).css("color") == "rgb(255, 0, 0)")
                 $(this).parent().css("color", "#1976D2");
         });
+    };
+
+    this.lastHighlight = function () {
+        return lastHighlighted;
+    };
+
+    this.highToggle = function () {
+        return highToggle;
     };
 
     //****************
