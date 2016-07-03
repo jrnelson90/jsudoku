@@ -438,12 +438,13 @@ function SudokuControl(){
         $inNumCont.append($("<div id=\'clearButton\'><i class=\'material-icons\'>block</i></div>"));
         $("#clearButton").css({"color": "rgba(255, 255, 255, 1.0)", "cursor": "pointer"});
 
+        var $checkIcon = $("#checkIcon");
         $("#clearButton").click(function () {
             if($lastClickedText.text() != "") {
                 gameModel.setFilledInputs(gameModel.filled() - 1);
                 if(gameModel.filled() == 0) {
-                    $("#checkIcon").addClass("material-icons inactive");
-                    $("#checkIcon").css("color", "rgba(255, 255, 255, 0.3)");
+                    $checkIcon.addClass("material-icons inactive");
+                    $checkIcon.css("color", "rgba(255, 255, 255, 0.3)");
                     $("#check").unbind();
                 }
             }
@@ -455,35 +456,72 @@ function SudokuControl(){
         gameView.setInputVisibility(true);
 
         $(".numSelect").click(function () {
-            if ($lastClickedText.css("color") == "rgb(255, 0, 0)") {
-                $lastClickedText.css("color", "#1c86ee");
+            if (gameControl.noteMode() == false) {
+                if ($lastClickedText.css("color") == "rgb(255, 0, 0)") {
+                    $lastClickedText.css("color", "#1c86ee");
+                }
+                var filled = gameModel.filled();
+                if (filled == 0) {
+                    $checkIcon.addClass("material-icons");
+                    $checkIcon.css("color", "rgba(255, 255, 255, 1.0)");
+                    $("#check").click(function () {
+                        gameControl.checkClick();
+                    });
+                }
+                if ($lastClickedText.text() == "") {
+                    filled++;
+                    gameModel.setFilledInputs((filled));
+                }
+
+                if ($lastClickedText.css("font-weight") == "bold") {
+                    $lastClickedText.css("font-weight", "normal");
+                }
+                if ($(this).text() == gameView.lastHighlight() && gameView.highToggle() == true) {
+                    $lastClickedText.css("font-weight", "bold");
+                }
+
+                $lastClickedText.text($(this).text());
+                gameView.closeInputGrid();
+
+                if (gameModel.filled() == gameModel.inputNum()) {
+                    gameControl.checkGrid("endGame");
+                }
             }
-            var filled = gameModel.filled();
-            if (filled == 0) {
-                $("#checkIcon").addClass("material-icons");
-                $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
-                $("#check").click(function(){
-                    gameControl.checkClick();
-                });
-            }
-            if($lastClickedText.text() == ""){
-                filled++;
-                gameModel.setFilledInputs((filled));
+            //TODO: Rewrite input grid behavior in Note Mode
+            else {
+                if (gameControl.lastClick().childNodes[0]) {
+                    if (gameControl.lastClick().childNodes[0].className != "noteCont")
+                        $lastClickedText.text("");
+                }
+                if(!gameControl.lastClick().childNodes[0])
+                    gameView.drawMiniGrid(gameControl.lastClick());
+                console.log(gameControl.lastClick().childNodes[0].className);
+                var num = parseInt(this.innerHTML);
+
+                var list = gameControl.lastClick().querySelectorAll(".noteNum");
+                var $list = $(".noteNum");
+                console.log(list);
+
+                if(list[(num-1)].style.opacity == "0") {
+                    list[(num-1)].style.opacity = "1";
+                    this.style.color = "rgba(255, 250, 240, 0.5)";
+                }
+                else {
+                    list[(num-1)].style.opacity = "0";
+                    this.style.color = "rgba(255, 255, 255, 1.0)";
+                }
+
+                if($list() == "0") {
+                    list[(num-1)].style.opacity = "1";
+                    this.style.color = "rgba(255, 250, 240, 0.5)";
+                }
+                else {
+                    list[(num-1)].style.opacity = "0";
+                    this.style.color = "rgba(255, 255, 255, 1.0)";
+                }
             }
 
-            if($lastClickedText.css("font-weight") == "bold"){
-                $lastClickedText.css("font-weight", "normal");
-            }
-            if ($(this).text() == gameView.lastHighlight() && gameView.highToggle() == true) {
-                $lastClickedText.css("font-weight", "bold");
-            }
 
-            $lastClickedText.text($(this).text());
-            gameView.closeInputGrid();
-
-            if (gameModel.filled() == gameModel.inputNum()) {
-                gameControl.checkGrid("endGame");
-            }
         });
     };
 
@@ -723,14 +761,16 @@ function SudokuControl(){
     };
 
     this.checkClick = function () {
+        if(gameView.getInputVisibility() == true)
+            gameView.closeInputGrid();
         if (checkToggle == false) {
             checkToggle = true;
-            $("#checkIcon").css("color", "rgba(255, 255, 255, 0.85)");
+            $("#checkIcon").css("color", "rgb(144, 202, 249, 0.85)");
             gameControl.checkGrid("click");
         }
         else {
             gameView.uncheckNum();
-            $("#checkIcon").addClass("material-icons");
+            //$("#checkIcon").addClass("material-icons");
             $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
             checkToggle = false;
         }
@@ -1358,4 +1398,34 @@ function SudokuView() {
     //****************
     // Needs Rewriting
     //****************
+    this.drawMiniGrid = function(_cell) {
+        var $noteCont = $("<div class=\'noteCont\'></div>");
+        _cell.append($noteCont);
+
+        var $noteList = $("<div class=\'noteList\'></div>");
+        var contDimen = getComputedStyle($noteCont);
+        $noteList.css("height", contDimen.height);
+        $noteCont.append($noteList);
+        var valIncr = 1;
+
+        for (var i = 0; i < 3; i++) {
+            var $noteRow = $("<div class=\'noteRow\'></div>");
+
+            fontNote = cellSize/3-3;
+
+            for(var j = 0; j < 3; j++) {
+                var $noteNumber = $("<div class=\'noteNum\'></div>");
+                $noteNumber.value = valIncr;
+                $noteNumber.css({
+                    "height": fontNote + "px",  "width": fontNote + "px",  "font-size": fontNote + "px",
+                    "opacity": "0"
+                });
+
+                $noteNumber.text(valIncr);
+                $noteRow.append($noteNumber);
+                valIncr++;
+            }
+            $noteList.append($noteRow);
+        }
+    };
 }
