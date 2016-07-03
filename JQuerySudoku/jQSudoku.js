@@ -1,6 +1,7 @@
 /**
  * Created by jrnel on 6/20/2016.
  */
+//TODO: Comment all existing code
 // Create instances of Model, Control, and View objects
 var gameView = new SudokuView();
 var gameControl = new SudokuControl();
@@ -364,8 +365,6 @@ function SudokuControl(){
         }
 
         gameView.setLoaded(false);
-        // document.getElementById("checkIcon").setAttribute("class", "material-icons inactive");
-        // document.getElementById("check").removeEventListener("click", gameControl.checkClick);
     };
 
     this.clickCell = function (_clickedCell) {
@@ -455,7 +454,6 @@ function SudokuControl(){
             }
             var filled = gameModel.filled();
             if (filled == 0) {
-                document.getElementById("checkIcon").setAttribute("class", "material-icons");
                 $("#checkIcon").addClass("material-icons");
                 $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
                 $("#check").click(function(){
@@ -820,7 +818,6 @@ function SudokuView() {
 
         var $subMenu = $("#selDropCont");
         $subMenu.hide();
-        var $menuText = $("#selText");
 
         // Add Difficulty Preview Grid
         drawPreviewGrid(9,9);
@@ -1028,32 +1025,35 @@ function SudokuView() {
         $puzzleNum.click(function () {
             if(gameView.getInputVisibility() == true)
                 gameView.closeInputGrid();
+            gameView.unhighlight(gameControl.lastClick());
         });
 
         // Number bolding on double click
         $puzzleNum.dblclick(function () {
             //  Bold Num
             var numToHighlight = $(this).children().text();
+            var $inputNum = $(".inputNum");
+            var $puzzleNum = $(".puzzleNum");
             if ($(this).text() == lastHighlighted || typeof lastHighlighted == 'undefined') {
                 if (highToggle == true) {
-                    $(".inputNum").each(function () {
+                    $inputNum.each(function () {
                         if($(this).text() == lastHighlighted)
                             $(this).css("font-weight", "normal");
                     });
 
-                    $(".puzzleNum").each(function () {
+                    $puzzleNum.each(function () {
                         if($(this).text() == lastHighlighted)
                             $(this).css("font-weight", "normal");
                     });
                     highToggle = false;
                 }
                 else if (highToggle == false) {
-                    $(".inputNum").each(function () {
+                    $inputNum.each(function () {
                         if($(this).text() == numToHighlight)
                             $(this).css("font-weight", "bold");
                     });
 
-                    $(".puzzleNum").each(function () {
+                    $puzzleNum.each(function () {
                         if($(this).text() == numToHighlight)
                             $(this).css("font-weight", "bold");
                     });
@@ -1061,23 +1061,16 @@ function SudokuView() {
                 }
             }
             if ($(this).text() != lastHighlighted && typeof lastHighlighted != 'undefined') {
-                $(".inputNum").each(function () {
+                $inputNum.each(function () {
                     if($(this).text() == lastHighlighted)
                         $(this).css("font-weight", "normal");
-                });
-
-                $(".puzzleNum").each(function () {
-                    if($(this).text() == lastHighlighted)
-                        $(this).css("font-weight", "normal");
-                });
-
-
-                $(".inputNum").each(function () {
                     if($(this).text() == numToHighlight)
                         $(this).css("font-weight", "bold");
                 });
 
-                $(".puzzleNum").each(function () {
+                $puzzleNum.each(function () {
+                    if($(this).text() == lastHighlighted)
+                        $(this).css("font-weight", "normal");
                     if($(this).text() == numToHighlight)
                         $(this).css("font-weight", "bold");
                 });
