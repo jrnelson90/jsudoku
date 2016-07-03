@@ -373,16 +373,12 @@ function SudokuControl(){
             gameView.collapseSelect();
         if (typeof gameControl.lastClick() != 'undefined' && gameControl.lastClick() != _clickedCell) {
 
-            //TODO: Add unhighlighting function back
-            //gameView.unhighlight(lastClicked);
-
+            gameView.unhighlight($lastClicked);
             if (gameView.getInputVisibility() == true) {
                 gameView.closeInputGrid();
             }
         }
-
-        //TODO: Add highlighting function back
-        //gameView.highlight(clickedCell);
+        gameView.highlight(_clickedCell);
 
         if (gameView.getInputVisibility() == false) {
             gameView.openInputGrid(_clickedCell);
@@ -815,7 +811,6 @@ function SudokuView() {
     var gridBlurred = false;
 
     //TODO: Reimpliment Note Mode
-    //TODO: Rewrite cell selection crosshair
     //TODO: Scale input dropdown on window resize
 
     this.setupStartScreen = function () {
@@ -1313,8 +1308,41 @@ function SudokuView() {
         return highToggle;
     };
 
+    function changeColor(object, color) {
+        $(object).css("background-color", color);
+    }
+
+    this.highlight = function (_cell) {
+        var cellIDString = $(_cell).attr("id");
+        var cellX = cellIDString.slice(4, 5);
+        var cellY = cellIDString.slice(6, 7);
+        for (var j = 0; j < 9; j++) {
+            changeColor($("#cell" + cellX + "x" + j), "#E3F2FD");
+        }
+        for (j = 0; j < 9; j++) {
+            changeColor($("#cell" + j + "x" + cellY), "#E3F2FD");
+        }
+        changeColor(_cell, "#BBDEFB");
+    };
+
+    this.unhighlight = function (_cell) {
+        var cellIDString = $(_cell).attr("id");
+        var cellX = cellIDString.slice(4, 5);
+        var cellY = cellIDString.slice(6, 7);
+        for (var i = 0; i < 9; i++) {
+            changeColor($("#cell" + cellX + "x" + i), "rgba(255, 255, 255, 1.0)");
+        }
+        for (i = 0; i < 9; i++) {
+            changeColor($("#cell" + i + "x" + cellY), "rgba(255, 255, 255, 1.0)");
+        }
+        changeColor(_cell, "rgba(255, 255, 255, 1.0)");
+    };
+
+    this.lastHighlight = function () {
+        return lastHighlighted;
+    };
+
     //****************
     // Needs Rewriting
     //****************
-
 }
