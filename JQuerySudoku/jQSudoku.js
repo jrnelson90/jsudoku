@@ -487,7 +487,8 @@ function SudokuControl(){
                     gameControl.checkGrid("endGame");
                 }
             }
-            //TODO: Rewrite input grid behavior in Note Mode
+            //TODO: Fix mini grid opacity assignments (only shows one at a time) in Note Mode
+            //TODO: Fix mini grid placement
             else {
                 if (gameControl.lastClick().childNodes[0]) {
                     if (gameControl.lastClick().childNodes[0].className != "noteCont")
