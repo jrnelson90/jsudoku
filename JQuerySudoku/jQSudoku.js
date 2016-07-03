@@ -62,7 +62,7 @@ $(document).ready(function () {
     $("#startPage").css("opacity", "1");
 
     $("#checkIcon").addClass("material-icons inactive");
-    $("#notesIcon").addClass("material-icons inactive");
+    //$("#notesIcon").addClass("material-icons inactive");
     // Create 9x9 Game Grid
     gameView.drawGameGrid(defaultGridLength, defaultGridLength);
 
@@ -86,6 +86,8 @@ $(document).ready(function () {
             if(gameView.isBlurred() == false) {
                 gameView.blurGrid();
             }
+            if(gameView.getInputVisibility() == true)
+                gameView.closeInputGrid();
             gameControl.initEndGamePop();
             gameView.togglePopupView($("#endGamePop"));
         }
@@ -146,6 +148,10 @@ $(document).ready(function () {
 
     $("#help").click(function () {
         gameControl.clickHelp();
+    });
+
+    $("#notesIcon").click(function(){
+        gameControl.editClick()
     });
 
     // Window Resize event
@@ -344,14 +350,14 @@ function SudokuControl(){
     }
 
     this.resetGameTable = function () {
-        /* if(gameControl.noteMode() == true) {
-              gameControl.editClick();
-           }*/
+        if(gameControl.noteMode() == true) {
+            gameControl.editClick();
+        }
         gameControl.stopTimer();
         gameView.resetTimerDisplay();
         $(".puzzleNum").remove();
         $(".inputNum").remove();
-        $(".gameCell").css("color", "#000000");
+        $(".gameCell").css({"color": "#000000", "background-color": "white"});
         if(gameView.getInputVisibility()== true) {
             $("#inputBorder").remove();
             gameView.setInputVisibility(false);
@@ -594,6 +600,8 @@ function SudokuControl(){
     };
 
     this.clickHelp = function () {
+        if(gameView.getInputVisibility() == true)
+            gameView.closeInputGrid();
         if(gameControl.isPaused() == false) {
             gameControl.pauseTimer();
             gameView.blurGrid();
@@ -778,6 +786,18 @@ function SudokuControl(){
         $newPopCont.append($newFinish);
         this.view = $newFinish;
     }
+
+    this.editClick = function() {
+        var $notesIcon = $("#notesIcon");
+        if(noteMode == false) {
+            $notesIcon.css("color", "#AED581");
+            noteMode = true;
+        }
+        else if(noteMode == true){
+            $notesIcon.css("color", "rgba(255, 255, 255, 1.0)");
+            noteMode = false;
+        }
+    };
 
     //**********************
     // Needs to be rewritten
