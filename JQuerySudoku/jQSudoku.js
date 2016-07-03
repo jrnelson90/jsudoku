@@ -493,31 +493,19 @@ function SudokuControl(){
                     if (gameControl.lastClick().childNodes[0].className != "noteCont")
                         $lastClickedText.text("");
                 }
-                if(!gameControl.lastClick().childNodes[0])
-                    gameView.drawMiniGrid(gameControl.lastClick());
-                console.log(gameControl.lastClick().childNodes[0].className);
-                var num = parseInt(this.innerHTML);
-
-                var list = gameControl.lastClick().querySelectorAll(".noteNum");
-                var $list = $(".noteNum");
+                if($lastClickedText.text() == "")
+                    gameView.drawMiniGrid($lastClickedText);
+                var num = parseInt($(this).text());
+                var list = $lastClickedText.find(".noteNum").toArray();
                 console.log(list);
 
-                if(list[(num-1)].style.opacity == "0") {
-                    list[(num-1)].style.opacity = "1";
-                    this.style.color = "rgba(255, 250, 240, 0.5)";
+                if($(list[num-1]).css("opacity") == "0") {
+                    $(list[num-1]).css("opacity", "1");
+                    $(this).css("color", "rgba(255, 250, 240, 0.5)");
                 }
                 else {
-                    list[(num-1)].style.opacity = "0";
-                    this.style.color = "rgba(255, 255, 255, 1.0)";
-                }
-
-                if($list() == "0") {
-                    list[(num-1)].style.opacity = "1";
-                    this.style.color = "rgba(255, 250, 240, 0.5)";
-                }
-                else {
-                    list[(num-1)].style.opacity = "0";
-                    this.style.color = "rgba(255, 255, 255, 1.0)";
+                    $(list[num-1]).css("opacity", "0");
+                    $(this).css("color", "rgba(255, 255, 255, 1.0)");
                 }
             }
 
@@ -1045,6 +1033,7 @@ function SudokuView() {
 
         //TODO: Script resizing preview grid
         //TODO: Script resizing font sizes
+        //TODO: Adjust input grid position on resize
     };
 
     this.loadPuzzle = function (_passedPuzzle) {
@@ -1395,16 +1384,12 @@ function SudokuView() {
         return lastHighlighted;
     };
 
-    //****************
-    // Needs Rewriting
-    //****************
     this.drawMiniGrid = function(_cell) {
         var $noteCont = $("<div class=\'noteCont\'></div>");
         _cell.append($noteCont);
 
         var $noteList = $("<div class=\'noteList\'></div>");
-        var contDimen = getComputedStyle($noteCont);
-        $noteList.css("height", contDimen.height);
+        $noteList.css("height", $noteCont.height() + "px");
         $noteCont.append($noteList);
         var valIncr = 1;
 
@@ -1428,4 +1413,9 @@ function SudokuView() {
             $noteList.append($noteRow);
         }
     };
+
+    //****************
+    // Needs Rewriting
+    //****************
+
 }
