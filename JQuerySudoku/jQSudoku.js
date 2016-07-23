@@ -384,12 +384,11 @@ function SudokuControl(){
             }
         }
         gameView.highlight(_clickedCell);
-
+        $lastClicked = _clickedCell;
+        $lastClickedText = $(gameControl.lastClick()).children();
         if (gameView.getInputVisibility() == false) {
             gameView.openInputGrid(_clickedCell);
         }
-        $lastClicked = _clickedCell;
-        $lastClickedText = $(gameControl.lastClick()).children();
     };
 
     this.noteMode = function() {
@@ -430,7 +429,7 @@ function SudokuControl(){
         var $inNumCont = $("#numberCont");
 
         for (var i = 0; i < 9; i++) {
-            $inNumCont.append($("<div class=\'numSelect\'>"+(i+1)+"</div>"));
+            $inNumCont.append($("<div class=\'numSelect\' id=\'numSelect"+(i+1)+"\'>"+(i+1)+"</div>"));
             if ((i + 1) % 3 == 0)
                 $inNumCont.append("<br>");
         }
@@ -487,7 +486,7 @@ function SudokuControl(){
                     gameControl.checkGrid("endGame");
                 }
             }
-            //TODO: Fix mini grid opacity assignments (only shows one at a time) in Note Mode
+            // Creating notes when toggle is enabled
             else {
 
                 if ($lastClickedText.text() != "" && $lastClickedText.text() != "123456789")
@@ -1222,20 +1221,16 @@ function SudokuView() {
     this.openInputGrid = function (thisCell) {
         gameControl.initInputGrid();
 
-        /*if (gameControl.noteMode() == true) {
-            //var numbers = document.getElementsByClassName("numSelect");
-
-            if ($(thisCell).children()) {
-                if ($(thisCell).children().index(0).class() == "noteCont") {
-                    //var list = thisCell.querySelectorAll(".noteNum");
-                    for (var i = 0; i < 9; i++) {
-                        if ($(".noteNum").index(i).css("opacity") == "1")
-                            $(".numSelect").index(i).css("color", "rgba(255, 250, 240, 0.5)");
-                        //numbers[i].style.color = "rgba(255, 250, 240, 0.5)";
+        if (gameControl.noteMode() == true) {
+            var $cellContents = $(thisCell).children();
+            if ($cellContents.children().length > 0) {
+                $cellContents.find(".noteNum").each(function () {
+                    if($(this).css("opacity") == "1"){
+                        $("#numSelect" + $(this).text()).css("color", "rgba(255, 250, 240, 0.5)");
                     }
-                }
+                });
             }
-        }*/
+        }
 
         var expandHeight = 110;
         var $inCont = $("#inputBorder");
