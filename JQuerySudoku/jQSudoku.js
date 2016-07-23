@@ -1016,7 +1016,7 @@ function SudokuView() {
             cellSize = ((gridSize/9));
             gameView.setCellSize(cellSize);
         }
-
+        fontNote = cellSize/3-3;
         fontNormal = cellSize - 14 + "px";
         fontBold = cellSize - 10 + "px";
 
@@ -1026,6 +1026,12 @@ function SudokuView() {
             "font-size": fontNormal,
             "unselectable": "on",
             "opacity": "1"
+        });
+
+        $(".noteNum").css({
+            "height": fontNote + "px",
+            "width": fontNote + "px",
+            "font-size": fontNote + "px"
         });
         
         console.log(gridSize);

@@ -680,6 +680,7 @@ body {
     margin: auto auto;
     padding: 0 !important;
     display: block;
+    vertical-align: middle;
     /*height: 100%;*/
 }
 
