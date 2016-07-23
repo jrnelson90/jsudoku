@@ -312,6 +312,8 @@ function SudokuControl(){
     var pausedTimeStop;
     var pausedTimeElapsed;
 
+    //TODO: Implement mobile tap detection and actions
+
     this.loadSelectedPuzzle = function () {
         if (gameModel.difficulty() == "easy")
             gameModel.setPuzzle(genPuzzle("Easy"));
@@ -855,7 +857,6 @@ function SudokuView() {
 
     var gridBlurred = false;
 
-    //TODO: Reimpliment Note Mode
     //TODO: Scale input dropdown on window resize
 
     this.setupStartScreen = function () {
