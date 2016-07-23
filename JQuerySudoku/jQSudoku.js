@@ -488,14 +488,13 @@ function SudokuControl(){
                 }
             }
             //TODO: Fix mini grid opacity assignments (only shows one at a time) in Note Mode
-            //TODO: Fix mini grid placement
             else {
-                if (gameControl.lastClick().childNodes[0]) {
-                    if (gameControl.lastClick().childNodes[0].className != "noteCont")
-                        $lastClickedText.text("");
-                }
+
+                if ($lastClickedText.text() != "" && $lastClickedText.text() != "123456789")
+                    $lastClickedText.text("");
                 if($lastClickedText.text() == "")
                     gameView.drawMiniGrid($lastClickedText);
+
                 var num = parseInt($(this).text());
                 var list = $lastClickedText.find(".noteNum").toArray();
                 console.log(list);
