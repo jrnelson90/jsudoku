@@ -680,27 +680,25 @@ body {
     margin: auto auto;
     padding: 0 !important;
     display: block;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 .noteList {
     display: inline-block;
     padding: 0 !important;
     border: none !important;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .noteRow {
-    display: table-row;
-    margin: 0 0 !important;
-    padding: 0 !important;
+    display: block;
+    position: relative;
 }
 
 .noteNum {
     display: table-cell;
     font-weight: bold;
     padding: 0 !important;
-    position: relative;
     opacity: 0;
     font-family: 'Roboto', sans-serif;
     transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
