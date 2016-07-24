@@ -604,7 +604,7 @@ function SudokuControl(){
 
     this.isPaused = function() {
         return paused;
-    }
+    };
 
     this.initLoading = function () {
         var $newPopCont = $("<div id=\'popContainer\'></div>");
@@ -772,6 +772,8 @@ function SudokuControl(){
             for (var j = 0; j < 9; j++) {
                 var $checkCell = $("#cell" + i + "x" + j);
                 var cellValue = parseInt($checkCell.children().text());
+
+                //TODO: Skip input cells that contain a NoteCont on number check
                 if ($checkCell.children().attr("class") == "inputNum" && cellValue > 0) {
                     if (gameModel.puzzle().solut[i][j] != cellValue && _checkType == "click") {
                         $checkCell.css("color", "rgba(255, 0, 0, 1.0)");
