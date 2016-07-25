@@ -759,6 +759,7 @@ function SudokuControl(){
         }
         else {
             gameView.uncheckNum();
+            //$("#checkIcon").addClass("material-icons");
             $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
             checkToggle = false;
         }
@@ -773,7 +774,7 @@ function SudokuControl(){
                 var cellValue = parseInt($checkCell.children().text());
 
                 //TODO: Skip input cells that contain a NoteCont on number check
-                if ($checkCell.children().attr("class") == "inputNum" && cellValue > 0 && cellValue != "123456789") {
+                if ($checkCell.children().attr("class") == "inputNum" && cellValue > 0) {
                     if (gameModel.puzzle().solut[i][j] != cellValue && _checkType == "click") {
                         $checkCell.css("color", "rgba(255, 0, 0, 1.0)");
                         noError = false;

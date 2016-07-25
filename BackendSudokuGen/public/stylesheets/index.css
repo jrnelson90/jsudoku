@@ -1,0 +1,730 @@
+/* JavaScript Sudoku Stylesheet
+   Author:		 Justin Nelson
+   File:		 index.css
+   Date Written: 06/20/2016
+   Description:  Generates a sudoku grid using js to define HTML and CSS
+                 and populates the grid from a passed puzzle setup array.
+*/
+
+html {
+    margin: 0;
+    align-content: center;
+}
+
+body {
+    text-align: center;
+    background-color: rgb(66, 165, 245);
+    align-content: center;
+    margin: auto;
+    padding: 0;
+    width: 100vw;
+    min-width: 360px;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+}
+
+#toolbar{
+    background-color: #1565C0;
+    width: 100%;
+    z-index: 1000;
+    padding-top: 5px;
+    height: 36px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    visibility: hidden;
+    box-shadow:0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#displayArea {
+    height: auto;
+    width: auto;
+    display: inline-block;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.6s ease-in, transform 0.55s ease-in-out;
+    -moz-transition: opacity 0.6s ease-in, transform 0.55s ease-in-out;
+    -o-transition: opacity 0.6s ease-in, transform 0.55s ease-in-out;
+    -webkit-transition: opacity 0.6s ease-in, transform 0.55s ease-in-out;
+}
+
+#startPage {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    opacity: 0;
+    background-color: rgb(66, 165, 245);
+    z-index: 2000;
+    transition: opacity 0.5s ease-in;
+    -moz-transition: opacity 0.5s ease-in;
+    -o-transition: opacity 0.5s ease-in;
+    -webkit-transition: opacity 0.5s ease-in;
+}
+
+#startLogo {
+    margin: 10px auto;
+    display: block;
+}
+
+#startMenuCont {
+    margin: 8px auto;
+    display: block;
+    padding: 8px;
+}
+
+#startBtn {
+    display: inline-block;
+    margin-right: 16px;
+    margin-left: auto;
+    padding: 8px 16px;
+    font-size: 14pt;
+    color: rgba(255, 255, 255, 1.0);
+    cursor: pointer;
+    font-family: 'Roboto', 'Noto', Arial, sans-serif;
+    font-weight: 500;
+    background-color: #1565C0;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    transition: box-shadow 0.2s ease-in-out;
+    -moz-transition: box-shadow 0.2s ease-in-out;
+    -o-transition: box-shadow 0.2s ease-in-out;
+    -webkit-transition: box-shadow 0.2s ease-in-out;
+}
+
+#startBtn:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.controlBtn {
+    display: inline-block;
+    position: relative;
+    width: 28px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: rgba(255, 255, 255, 1.0);
+    padding-bottom: 4px;
+    padding-top: 4px;
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+    margin-right: 2px;
+    margin-left: 2px;
+    vertical-align: middle;
+    z-index: 1000;
+}
+
+.controlBtn:hover {
+    cursor: pointer;
+    background: #1976D2;
+    outline: thin solid rgba(0, 0, 0, .14);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.controlBtn:focus {
+    background: #1976D2;
+    outline: thin solid rgba(0, 0, 0, .14);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+#signInBtn {
+    display: inline-block;
+    margin-right: 16px;
+    margin-left: auto;
+    margin-bottom: 12px;
+    padding: 2px 20px;
+    color: rgba(255, 255, 255, 1.0);
+    cursor: pointer;
+    font-family: 'Roboto', 'Noto', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 10pt;
+    background-color: #1565C0;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    transition: box-shadow 0.2s ease-in-out;
+    -moz-transition: box-shadow 0.2s ease-in-out;
+    -o-transition: box-shadow 0.2s ease-in-out;
+    -webkit-transition: box-shadow 0.2s ease-in-out;
+}
+
+#signInBtn:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.disabledControlBtn {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: rgba(255, 255, 255, 1.0);
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+    margin-right: 1px;
+    vertical-align: middle;
+}
+
+.disabledControlBtn:hover {
+    cursor: not-allowed;
+}
+
+.icon {
+    vertical-align: middle;
+    opacity: 1;
+}
+
+.icon:hover {
+    cursor: pointer;
+}
+
+.material-icons {
+    z-index: 1000;
+}
+
+.material-icons.inactive {
+    color: rgba(255, 255, 255, 0.3);
+    /*cursor: not-allowed;*/
+}
+
+#leftCont {
+    float: left;
+    display: table-cell;
+    position: absolute;
+    z-index: 1000;
+}
+
+#back {
+    /*float: left;*/
+}
+
+#puzzleDiffText {
+    /*float: left;*/
+    display: inline;
+    position: relative;
+    width: 60px;
+    color: rgba(255, 255, 255, 1.0);
+    padding-bottom: 4px;
+    padding-top: 4px;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin-right: 2px;
+    margin-left: 2px;
+    vertical-align: middle;
+    z-index: 1000;
+}
+
+#checkIcon {
+    transition: color 0.2s ease-in-out;
+    -moz-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    -webkit-transition: color 0.2s ease-in-out;
+}
+
+#help {
+    float: right;
+}
+
+#gameTimerDisplay {
+    /*float: left;*/
+    display: inline-block;
+    position: relative;
+    margin-left: 4px;
+    margin-right: 2px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    width: 72px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    vertical-align: middle;
+    z-index: 1000;
+}
+
+#gameTimerDisplay:hover {
+    cursor: default;
+}
+
+#middleButtons {
+    display: inline-block;
+    align-self: center;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1000;
+}
+
+#gameGrid {
+    margin-top: 40px;
+}
+
+.sudokuGrid  {
+    display: inline-block;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255, 255, 255, 1.0);
+    border: 2px solid black;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.gridCell {
+    border: thin solid black;
+    text-align: center;
+    display: table-cell;
+    padding: 0;
+    background-color: white;
+    font-family : 'Roboto', sans-serif;
+    cursor : default;
+    -moz-user-select : none;
+    user-select : none;
+    -webkit-user-select: none;
+    -ms-user-select : none;
+    -o-user-select : none;
+    transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+    -moz-transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+    -o-transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+    -webkit-transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+}
+
+.gridRow {
+    display: table-row;
+}
+
+#inputBorder {
+    height: 0;
+    position: absolute;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: block;
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;
+    z-index: 2;
+    background-color: rgba(100, 181, 246, 0.95);
+    border: 1px solid rgba(0,0,0,.7);
+    transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+    -moz-transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+    -o-transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+    -webkit-transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+#inputGrid {
+    height: 0;
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    border: hidden;
+    border-radius: 2px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    background-color: transparent;
+    transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+    -moz-transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+    -o-transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+    -webkit-transition: visibility 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+#numberCont {
+    position: absolute;
+    display: block;
+    left: 0;
+    bottom: 0;
+    width: 80px;
+    height: 110px;
+    margin-top: 2px;
+    border: hidden;
+    border-radius: 4px 4px 0 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+.numSelect {
+    display: inline-block;
+    margin-right: 6px;
+    margin-left: 6px;
+    position: relative;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+    color: rgba(255, 255, 255, 1.0);
+}
+
+.numSelect:hover {
+    cursor: pointer;
+}
+
+.closeButton {
+    top: -10px;
+    right: -10px;
+    display: inline-block;
+    position: absolute;
+}
+
+.closeButton:hover {
+    cursor: pointer;
+}
+
+.inputIcon {
+    display: inline-block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 4px;
+    transform: scale(0.60);
+}
+
+.inputIcon:hover {
+    cursor: pointer;
+}
+
+#selMenuCont {
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    width: 140px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+#selText {
+    position: absolute;
+    list-style: none;
+    float: left;
+    width: 140px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-indent:  8px;
+    color: #fff;
+    font-size: 18px;
+    text-align: left;
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+    display: block;
+    background: url("drop_down.png") no-repeat right;
+    border-bottom: 1px solid rgba(255, 250, 240,0.3);
+}
+
+#selDropCont {
+    position: absolute;
+    z-index: 2002;
+    width: 140px;
+    height: auto;
+    background-color: #2196F3;
+    opacity: 0;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#selDropMenu {
+    position: relative;
+}
+
+.selOpt {
+    clear: both;
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    text-align: left;
+    display: block;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-indent: 8px;
+    font-family: 'Roboto', 'Noto Sans', sans-serif;
+}
+
+#selText:hover {
+    cursor: pointer;
+    outline: thin;
+}
+
+.selOpt:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.previewGivenNums {
+    /*opacity: 0;*/
+}
+
+.popUp {
+    position: relative;
+    background-color: #2196F3;
+    border-radius: 2px;
+    color: rgba(255, 255, 255, 1.0);
+    z-index: 1001;
+    font-size: 14pt;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 280px;
+    font-family: 'Roboto', sans-serif;;
+    transform: scale(0.01);
+    transition: transform 0.2s ease-in-out;
+    -moz-transition: transform 0.2s ease-in-out;
+    -o-transition: transform 0.2s ease-in-out;
+    -webkit-transition: transform 0.2s ease-in-out;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#puzzleFinish {
+}
+
+#puzzleFinish p {
+    position: relative;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#highScoreMsg {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: smaller;
+}
+
+#helpPop {
+}
+
+#helpPop .icon {
+    vertical-align: middle;
+    margin-left: 1px;
+    margin-right: 1px;
+    display: inline;
+}
+
+#helpPop h2 {
+    text-align: center;
+    font: 700 18pt 'Roboto', sans-serif;
+    vertical-align: middle;
+}
+
+#explainCont {
+    display: block;
+    margin: 6px auto 6px;
+}
+
+.helpExplan {
+    text-align: left;
+    margin-top: 2px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+}
+
+#endGamePop {
+    padding-top: auto;
+    padding-bottom: auto;
+}
+
+#endGamePop p {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.endBtn {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 1.0);
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: #2196F3;
+    border: thin;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-top: 2px;
+    font-size: 10pt;
+    width: 60px;
+    height: 24px;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.endBtn:hover {
+    cursor: pointer;
+}
+
+#haze {
+    background-color: #111;
+    opacity: 0.65;
+    -moz-opacity: 0.65;
+    filter:alpha(opacity=65);
+    *background: none;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#popContainer {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.noteTable {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#loadContainer {
+    transform: scale(1);
+    border: thin solid black;
+}
+
+#loadContainer p {
+    color: rgba(255, 255, 255, 1.0);
+    font-size: 18pt;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    margin-top: 8px;
+}
+
+#ballContainer {
+    display: inline-block;
+    height: 20px;
+    width: 100px;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+#ballContainer span {
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.75);
+    display: inline-block;
+    margin-right: 2px;
+    margin-left: 2px;
+    animation: fadeBall 1s infinite;
+    -webkit-animation: fadeBall 1s infinite;
+    -moz-animation: fadeBall 1s infinite;
+    -o-animation: fadeBall 1s infinite;
+}
+
+#ballContainer span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+#ballContainer span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+#ballContainer span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+#ballContainer span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeBall {
+    0%{opacity: 1;}
+    25% {opacity: 0.75;}
+    50% {opacity: 0.5;}
+    75% {opacity: 0.25;}
+    100% {opacity: 0;}
+}
+
+.closeBtn {
+    top: -10px;
+    right: -10px;
+    display: block;
+    position: absolute;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border: thin solid black;
+    height: 18px;
+    width: 18px;
+    background-color: rgba(255, 255, 255, 1.0);
+    cursor: pointer;
+}
+
+.closeBtn:hover {
+    opacity: 0.95;
+}
+
+.closeX {
+    left: 50%;
+    top: 50%;
+    margin-top: -10px;
+    margin-left: -8px;
+    vertical-align: middle;
+    position: absolute;
+    height: 14px;
+    width: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2196F3;
+    font-family: Garamond,'Apple Garamond','Lucida Sans Unicode', Arial, sans-serif;
+}
+
+.noteCont {
+    margin: auto auto;
+    padding: 0 !important;
+    display: block;
+    vertical-align: middle;
+    /*height: 100%;*/
+}
+
+.noteList {
+    display: inline-block;
+    padding: 0 !important;
+    border: none !important;
+    vertical-align: top;
+}
+
+.noteRow {
+    display: block;
+    position: relative;
+}
+
+.noteNum {
+    display: table-cell;
+    font-weight: bold;
+    padding: 0 !important;
+    opacity: 0;
+    font-family: 'Roboto', sans-serif;
+    transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+    -moz-transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+    -o-transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+    -webkit-transition: opacity 0.5s ease, font-size 0.2s linear, color 0.5s linear;
+}
+
+#pauseLayer {
+    background-color: #000000;
+    opacity: 0.50;
+    -moz-opacity: 0.50;
+    filter:alpha(opacity=50);
+    position: absolute;
+    z-index: 800;
+    top:46px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+#pauseLayer h1 {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    color: white;
+    top: 40%;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>JSudoku</title>
+    <link rel="shortcut icon" href="images/gnome_sudoku.ico">
+    <link rel="stylesheet" href="style/index.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400italic,400,700,900' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="scripts/jquery-3.0.0.js"></script>
+    <script src="scripts/genv5.js"></script>
+    <script src="scripts/jQSudoku.js"></script>
+    <script>if (window.module) module = window.module;</script>
+  </head>
+  <body>
+    <header>
+        <div id="draggableBar">
+            <div id="appTitle">JQSudoku</div>
+            <div id="closeAppX" onclick="window.close()">x</div>
+        </div>
+        <nav id="toolbar">
+            <div id="leftCont">
+                <div class="controlBtn" id="back">
+                    <i class="material-icons" id="backIcon">arrow_back</i>
+                </div>
+                <div id="puzzleDiffText"></div>
+                <div id="gameTimerDisplay"></div>
+            </div>
+
+            <div id="middleButtons">
+                <div class="controlBtn" id="pause">
+                    <i class="material-icons" id="pauseIcon">pause</i>
+                </div>
+
+                <div class="controlBtn" id="notes">
+                    <i class="material-icons" id="notesIcon">edit</i>
+                </div>
+
+                <div class="controlBtn" id="check">
+                    <i class="material-icons" id="checkIcon">done</i>
+                </div>
+            </div>
+
+            <div class="controlBtn" id="help">
+                <i class="material-icons" id="helpIcon">help_outline</i>
+            </div>
+        </nav>
+    </header>
+<div id="startPage">
+    <img src="images/logo.png" id="startLogo">
+    <div id="startMenuCont">
+        <div id="startBtn">START GAME</div>
+        <div id="selMenuCont">
+            <div id="selText">Difficulty</div>
+            <div id="selDropCont">
+                <div id="selDropMenu">
+                    <div id="easyOpt" class="selOpt">Easy</div>
+                    <div id="medOpt" class="selOpt">Medium</div>
+                    <div id="hardOpt" class="selOpt">Hard</div>
+                    <div id="crazyOpt" class="selOpt">Crazy</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="previewGrid" class="sudokuGrid">
+    </div>
+    <br>
+</div>
+<div id="displayArea">
+    <div id="gameGrid" class="sudokuGrid"></div>
+</div>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

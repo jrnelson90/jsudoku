@@ -1,0 +1,75 @@
+<!-- JavaScript Sudoku Game
+     Author:		Justin Nelson
+     File:		    index.html
+     Date Written:  06/20/2016
+     Description:   Generates a sudoku grid using js to define HTML and CSS
+                    and populates the grid from a passed puzzle setup array.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>JSudoku</title>
+    <link rel="shortcut icon" href="gnome_sudoku.ico">
+    <link rel="stylesheet" href="index.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400italic,400,700,900' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="jquery-3.0.0.js"></script>
+    <script src="genv5.js"></script>
+    <script src="jQSudoku.js"></script>
+</head>
+<body>
+    <header>
+        <nav id="toolbar">
+            <div id="leftCont">
+                <div class="controlBtn" id="back">
+                    <i class="material-icons" id="backIcon">arrow_back</i>
+                </div>
+                <div id="puzzleDiffText"></div>
+                <div id="gameTimerDisplay"></div>
+            </div>
+
+            <div id="middleButtons">
+                <div class="controlBtn" id="pause">
+                    <i class="material-icons" id="pauseIcon">pause</i>
+                </div>
+
+                <div class="controlBtn" id="notes">
+                    <i class="material-icons" id="notesIcon">edit</i>
+                </div>
+
+                <div class="controlBtn" id="check">
+                    <i class="material-icons" id="checkIcon">done</i>
+                </div>
+            </div>
+
+            <div class="controlBtn" id="help">
+                <i class="material-icons" id="helpIcon">help_outline</i>
+            </div>
+        </nav>
+    </header>
+    <div id="startPage">
+        <img src="logo.png" id="startLogo">
+        <div id="startMenuCont">
+            <div id="startBtn">START GAME</div>
+            <div id="selMenuCont">
+                <div id="selText">Difficulty</div>
+                <div id="selDropCont">
+                    <div id="selDropMenu">
+                        <div id="easyOpt" class="selOpt">Easy</div>
+                        <div id="medOpt" class="selOpt">Medium</div>
+                        <div id="hardOpt" class="selOpt">Hard</div>
+                        <div id="crazyOpt" class="selOpt">Crazy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="previewGrid" class="sudokuGrid">
+        </div>
+    </div>
+    <div id="displayArea">
+        <div id="gameGrid" class="sudokuGrid"></div>
+    </div>
+</body>
+</html>

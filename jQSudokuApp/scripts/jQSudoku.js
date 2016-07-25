@@ -154,6 +154,10 @@ $(document).ready(function () {
         gameControl.editClick()
     });
 
+    /*$("#exitBtn").click(function () {
+        
+    });*/
+    
     // Window Resize event
     $(window).resize(function () {
         gameView.resizeView();
@@ -759,6 +763,7 @@ function SudokuControl(){
         }
         else {
             gameView.uncheckNum();
+            //$("#checkIcon").addClass("material-icons");
             $("#checkIcon").css("color", "rgba(255, 255, 255, 1.0)");
             checkToggle = false;
         }
