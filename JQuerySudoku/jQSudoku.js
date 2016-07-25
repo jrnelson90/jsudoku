@@ -992,6 +992,8 @@ function SudokuView() {
     this.resizeView = function() {
         var cellSize;
         var gridSize;
+        var prevCellSize;
+        var prevGridSize;
         this.getBrowserInfo();
 
         if (startOpen == false)
@@ -1005,17 +1007,26 @@ function SudokuView() {
                 gridSize = this.getViewWidth() * 0.9;
                 cellSize = ((gridSize/9));
                 gameView.setCellSize(cellSize);
+
+                prevGridSize = gameView.getViewWidth() * 0.7;
+                prevCellSize = ((prevGridSize/9));
             }
             else {
                 gridSize = this.getViewWidth() * 0.8;
                 cellSize = ((gridSize/9));
                 gameView.setCellSize(cellSize);
+
+                prevGridSize = gameView.getViewWidth() * 0.5;
+                prevCellSize = ((prevGridSize/9));
             }
         }
         else if (this.getViewWidth() > this.getViewHeight()) {
             gridSize = this.getViewHeight() * 0.75;
             cellSize = ((gridSize/9));
             gameView.setCellSize(cellSize);
+
+            prevGridSize = gameView.getViewHeight() * 0.5;
+            prevCellSize = ((prevGridSize/9));
         }
         fontNote = cellSize/3-3;
         fontNormal = cellSize - 14 + "px";
@@ -1034,9 +1045,17 @@ function SudokuView() {
             "width": fontNote + "px",
             "font-size": fontNote + "px"
         });
-        
-        console.log(gridSize);
-        console.log(cellSize);
+
+        if (gameView.getViewWidth() < 420)
+            $(".prevCell").css("font-weight", "bold");
+
+        $(".prevCell").css({
+            "height": prevCellSize + "px",
+            "width": prevCellSize + "px",
+            "font-size": prevCellSize - 14 + "px",
+            "unselectable": "on",
+            "vertical-align": "middle"
+        });
 
         //TODO: Script resizing preview grid
         //TODO: Script resizing font sizes
