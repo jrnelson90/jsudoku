@@ -1000,8 +1000,8 @@ function SudokuView() {
         this.getBrowserInfo();
 
         if (startOpen == false)
-            $startScreen.css({"left": (0 - $(window).width()) + "px", "top": "0"});
-        $startScreen.css({"width": $(window).width() + "px", "height": $(window).height() + "px"});
+            $startScreen.css({"left": (0 - $(window).width()) + "px", "top": "32px"});
+        $startScreen.css({"width": $(window).width() + "px", "height": ($(window).height() - 32)  + "px"});
 
 
         // Define the CSS style of gameGrid to have a black border with curved corners and a white background
